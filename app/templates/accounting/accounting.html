@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+	
+
+</script>
+</head>
+<body>
+
+	<form name="Form1">
+	{%  for tag in tags %}
+	<div>{{ tag.name + ':' }}</div>
+	{% endfor %}
+	</form>
+</body>
+</html>
