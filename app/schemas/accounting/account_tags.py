@@ -1,5 +1,5 @@
-from app.models.account_tags import AccountTagModel
-from .base import BaseMeta, BaseSchema
+from app.models.accounting.account_tags import AccountTagModel
+from app.schemas.base import BaseMeta, BaseSchema
 from marshmallow import fields
 
 class AccountTagSchema(BaseSchema):

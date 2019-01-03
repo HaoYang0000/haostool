@@ -16,11 +16,11 @@ class AccountTagModel(BaseModelExtended):
             "AccountTagModel(\
             id='{id}', \
             name='{name}', \
-            created_by='{created_by}', \
-            updated_by='{updated_by}')"
+            created_at='{created_at}', \
+            updated_at='{updated_at}')"
         ).format(
             id=self.id,
             name=self.name,
-            created_by=self.created_by,
-            updated_by=self.updated_by
+            created_at=self.created_at,
+            updated_at=self.updated_at
         )

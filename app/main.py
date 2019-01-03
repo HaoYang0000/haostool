@@ -21,6 +21,7 @@ def create_app(env=None):
     db.init_app(app)
 
     from app.views import index
+    from app.views.accounting import main
     # from app.views import frequencies
     # from app.views import statuses
     # from app.views import types
@@ -29,6 +30,7 @@ def create_app(env=None):
     # from app.views.rpc import get_unsent_notifications
 
     app.register_blueprint(index.app)
+    app.register_blueprint(main.app)
     # app.register_blueprint(frequencies.app)
     # app.register_blueprint(statuses.app)
     # app.register_blueprint(types.app)

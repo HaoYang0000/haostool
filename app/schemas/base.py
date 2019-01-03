@@ -18,6 +18,5 @@ class BaseSchema(ModelSchema):
 
 class BaseMeta:
     include_fk = True
-    dateformat = DATE_FORMAT
     sqla_session = db.session
     strict = True

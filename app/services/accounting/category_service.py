@@ -1,11 +1,10 @@
-from app.models.accounting.account_items import AccountItemModel
-from app.models.accounting.account_tags import AccountTagModel
+from app.models.accounting.account_categories import AccountCategoryModel
 from app.services.base import BaseService
 from sqlalchemy import asc
 
 
-class ItemService(BaseService):
-    model = AccountItemModel
+class CategoryService(BaseService):
+    model = AccountCategoryModel
 
     def get_all(self, **kwargs):
         """

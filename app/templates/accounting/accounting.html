@@ -8,10 +8,54 @@
 </head>
 <body>
 
-	<form name="Form1">
-	{%  for tag in tags %}
-	<div>{{ tag.name + ':' }}</div>
-	{% endfor %}
+	<a href="/">Main Page</a>
+
+	<h1>Weekly cost: {{ weekly_cost }}</h1>
+
+	<form action="/accounting/add_item" method="POST">
+		<h1>Add an item:</h1>
+		<label>Item Name:</label>
+		<input type="input" name="item_name">
+		<label>Item Price:</label>
+		<input type="input" name="item_price">
+		<label>Purchase Date:</label>
+		<input type="input" name="item_date">
+		<label>Tag Id:</label>
+		<input type="input" name="tag_id">
+		<input type="submit" name="submit">
 	</form>
+
+	<h2>All Items:</h2>
+	{%  for item in items %}
+		<div>{{ item.id|string + ": " + item.name + ", price: " + item.price|string + ", date: "  + item.date|string }}</div>
+	{% endfor %}
+
+	<h2>All tags:</h2>
+	{%  for tag in tags %}
+		<div>{{ tag.id|string + ": " + tag.name}}</div>
+	{% endfor %}
+
+	<h2>All categoriess:</h2>
+	{%  for category in categories %}
+		<div>{{ category.id|string + ": " + category.name}}</div>
+	{% endfor %}
+
+	<form action="/accounting/add_tag" method="POST">
+		<h1>Add a tag:</h1>
+		<label>Tag Name:</label>
+		<input type="input" name="tag_name">
+		<input type="submit" name="submit">
+	</form>
+
+	<form action="/accounting/add_category" method="POST">
+		<h1>Add a category:</h1>
+		<label>Category Name:</label>
+		<input type="input" name="category_name">
+		<label>Tag id:</label>
+		<input type="in" name="tag_id">
+		<input type="submit" name="submit">
+	</form>
+
+	
 </body>
 </html>
