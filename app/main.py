@@ -13,9 +13,8 @@ def create_app(env=None):
         'static'
     )
 
-
     # TODO: Implement vault style retrieval of username/password with service discovery for host/port`
-    app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:root@127.0.0.1:3306/personal_tool?charset=utf8mb4"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://haostool_admin:admin@localhost:3306/haostool_database?charset=utf8mb4"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     
     db.init_app(app)
