@@ -1,7 +1,7 @@
 import logging
 
 from app.controllers.accounting.main_controller import MainController as Controller
-from flask import Blueprint, abort, make_response, request
+from flask import Blueprint, abort, make_response, request, redirect, url_for
 from flask_api import status
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
@@ -34,14 +34,14 @@ def add_item():
 	item_date = request.form.get('item_date')
 	tag_id = request.form.get('tag_id')
 	controller.add_item(name=item_name, price=item_price, date=item_date, tag_id=tag_id)
-	return get_main_page()
+	return redirect(url_for('accounting.get_main_page'))
 
 @app.route('/add_tag', methods=['POST'])
 def add_tag():
 	controller = Controller()
 	tag_name = request.form.get('tag_name')
 	controller.add_tag(name=tag_name)
-	return get_main_page()
+	return redirect(url_for('accounting.get_main_page'))
 
 @app.route('/add_category', methods=['POST'])
 def add_category():
@@ -49,7 +49,7 @@ def add_category():
 	category_name = request.form.get('category_name')
 	tag_id = request.form.get('tag_id')
 	controller.add_category(name=category_name, tag_id=tag_id)
-	return get_main_page()
+	return redirect(url_for('accounting.get_main_page'))
 
 
 

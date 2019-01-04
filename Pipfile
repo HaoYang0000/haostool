@@ -15,6 +15,7 @@ flask-apispec = "*"
 flask-sqlalchemy = "*"
 flask-api = "*"
 marshmallow-sqlalchemy = "*"
+timedelta = "*"
 
 [requires]
 python_version = "3.7"

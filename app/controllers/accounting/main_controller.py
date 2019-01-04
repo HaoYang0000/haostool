@@ -1,10 +1,12 @@
 import logging
+from datetime import date, timedelta
 
 from app.services.accounting.item_service import ItemService
 from app.services.accounting.tag_service import TagService
 from app.services.accounting.category_service import CategoryService
 from app.schemas.accounting.account_items import AccountItemSchema
 from app.schemas.accounting.account_tags import AccountTagSchema
+from app.models.accounting.account_items import AccountItemModel
 
 logger = logging.getLogger('flask.app')
 
@@ -17,8 +19,9 @@ class MainController:
 		pass
 	
 	def get_weekly_cost(self):
-		items = self.item_service.get_all()
-
+		my_date = date.today()
+		start_of_week = my_date - timedelta(days=my_date.weekday())
+		items = AccountItemModel.query.filter(AccountItemModel.date > start_of_week).all()
 		total_cost = 0
 
 		for item in items:
