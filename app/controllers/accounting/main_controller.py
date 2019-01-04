@@ -50,16 +50,24 @@ class MainController:
 		return True
 
 	def get_monthly_cost(self):
-		pass
+		my_date = date.today().replace(day=1)
+		items = AccountItemModel.query.filter(AccountItemModel.date > start_of_week).all()
+		total_cost = 0
 
-	def get_yesterday_cost(self):
-		pass
+		for item in items:
+			total_cost = total_cost + item.price
+		return total_cost
 
-	def get_cost_by_day(self):
-		pass
+	def get_cost_by_day(self, date):
+		items = AccountItemModel.query.filter(AccountItemModel.date==date).all()
+		total_cost = 0
+		for item in items:
+			total_cost = total_cost + item.price
+		return total_cost
 
-	def get_cost_by_tag(self):
-		pass
-
-	def get_cost_by_time_range(self):
-		pass
+	def get_cost_by_tag(self, tag_id):
+		items = AccountItemModel.query.filter(AccountItemModel.tag_id==tag_id).all()
+		total_cost = 0
+		for item in items:
+			total_cost = total_cost + item.price
+		return total_cost
