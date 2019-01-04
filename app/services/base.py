@@ -106,58 +106,6 @@ class BaseService:
             )
             return record.first()
 
-    def get_all_with_filter(
-        self,
-        filters: list = None,
-        kwarg_filters: dict=None
-    ) -> list:
-        """
-        Selects a set of filtered records from the table
-        set in self.model and returns a list of their models. Filter expressions
-        can be sql expressions passed as positional arguments (ex. self.model.column==True)
-        or as keyword arguments (ex. column_name=value).
-
-        Keyword Arguments:
-            filters {list} -- List of sql expressions to filter query (ex. [self.model.column==True])
-            kwarg_filters {dict} -- Dictionary of expressions to filter query (ex. {column_name: value})
-        Returns:
-            List[self.model] -- List of models or list of named tuples if a subset of columns are selected.
-                If no results, an empty list is returned
-        """
-        query = db.session.query(self.model)
-        # add query filters
-        query = self._apply_filters_to_query(query, filters, kwarg_filters)
-
-        return query.all()
-
-    def _apply_filters_to_query(self, query: Query, filters: list, kwarg_filters: dict) -> Query:
-        """
-        Applies filter criteria to a query. Filter expressions can be sql expressions
-        or keyword arguments.
-
-        Arguments:
-            query {Query} -- Existing sql query
-            filters {list} -- List of sql expressions to filter query (ex. [self.model.column==True])
-            kwarg_filters {dict} -- Dictionary of expressions to filter query (ex. {column_name: value})
-
-        Raises:
-            AttributeError -- If kwarg_filters contains keys that aren't column names of self.model
-
-        Returns:
-            Query -- Modified sql query
-        """
-        if kwarg_filters:
-            for k, v in kwarg_filters.items():
-                try:
-                    query = query.filter(getattr(self.model, k) == v)
-                except AttributeError:
-                    raise Exception("Cannot filter query with invalid field '{k}'")
-        if filters:
-            for condition in filters:
-                query = query.filter(condition)
-
-        return query
-
     def paginate(self, query, kwargs):
         limit = kwargs.get('limit', 10)
         limit = limit if limit > 0 else 10
