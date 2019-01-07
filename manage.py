@@ -1,11 +1,9 @@
-#! /usr/bin/env python
 from alembic.config import Config as alembic_config_class
 from alembic import command as alembic_command
 # alembic setup
 alembic_config = alembic_config_class('db/alembic.ini')
 import os
 import click
-import app.main as main
 from time import sleep
 
 
@@ -19,13 +17,13 @@ def cli():
     pass
 
 
-@click.command()
-@click.argument('port', default=5000)
-def run(port):
-    """ Run the development server.
-    """
-    app = main.create_app()
-    app.run(host="0.0.0.0", port=port, debug=True)
+# @click.command()
+# @click.argument('port', default=5000)
+# def run(port):
+#     """ Run the development server.
+#     """
+#     app = main.create_app()
+#     app.run(host="0.0.0.0", port=port, debug=True)
 
 # @click.command()
 # def daemon():
@@ -100,7 +98,6 @@ def current():
     alembic_command.current(alembic_config, verbose=True)
 
 cli.add_command(db)
-cli.add_command(run)
 
 
 if __name__ == '__main__':
