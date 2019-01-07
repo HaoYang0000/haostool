@@ -13,7 +13,7 @@ app._static_folder = os.path.join(
 )
 
 LOCAL_SQLALCHEMY_DATABASE_URI = (
-    'mysql+pymysql://{user}:{password}@127.0.0.1:3306/{database}').format(
+    'mysql+pymysql://{user}:{password}@35.226.253.240:3306/{database}').format(
         user="root", password="root",
         database="haostool")
 
