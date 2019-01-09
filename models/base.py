@@ -1,7 +1,5 @@
-from main import db
 from sqlalchemy import Column, text, DateTime, Integer
-
-
+from main import db
 class BaseModel(db.Model):
     __abstract__ = True
 
@@ -12,6 +10,7 @@ class BaseModel(db.Model):
             'mysql_collate': 'utf8mb4_unicode_ci'
         }
     )
+
 
 
 class BaseModelExtended(BaseModel):

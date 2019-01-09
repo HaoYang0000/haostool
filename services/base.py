@@ -1,10 +1,10 @@
-from main import db
 from flask import abort
 from flask_api import status
 from sqlalchemy import inspect, exists
 from sqlalchemy.orm import joinedload, lazyload, Query
 from sqlalchemy import inspect, exists, func
 import logging
+from main import db
 
 logger = logging.getLogger('flask.app')
 

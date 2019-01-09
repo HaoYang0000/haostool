@@ -14,7 +14,7 @@ def health():
 
 
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def default():
 	return render_template('index.html')
 
 @app.route('/<whatever>/<int:times>', methods=['GET', 'POST'])

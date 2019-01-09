@@ -1,4 +1,3 @@
-from main import db
 from models.base import BaseModelExtended
 from sqlalchemy import Column, ForeignKey, Boolean, String, Integer, DateTime, Text
 

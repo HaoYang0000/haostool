@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-virtualenv env
+virtualenv -p 'C:\Python37\python.exe' env
 
 if [ "$(uname)" == "Darwin" ]; then
     source env/bin/activate      
