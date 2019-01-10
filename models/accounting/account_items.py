@@ -26,6 +26,12 @@ class AccountItemModel(BaseModelExtended):
         nullable=False
     )
 
+    user_id = Column(
+        Integer,
+        ForeignKey('users.id', name='fk_accounting_item_user_id'),
+        nullable=False
+    )
+
     def __repr__(self):
         return (
             "AccountItemModel(\
@@ -33,6 +39,7 @@ class AccountItemModel(BaseModelExtended):
             name='{name}', \
             price='{price}', \
             date='{date}', \
+            user_id='{user_id}', \
             created_at='{created_at}', \
             updated_at='{updated_at}')"
         ).format(
@@ -40,6 +47,7 @@ class AccountItemModel(BaseModelExtended):
             name=self.name,
             price=self.price,
             date=self.date,
+            user_id=self.user_id,
             created_at=self.created_at,
             updated_at=self.updated_at
         )

@@ -7,7 +7,8 @@ from os import path, sys
 # noinspection PyUnresolvedReferences
 import models
 from alembic import context
-from main import app, db
+from engine import db
+from main import app
 from sqlalchemy import engine_from_config, pool
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))

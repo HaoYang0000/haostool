@@ -19,17 +19,19 @@ depends_on = None
 
 
 def upgrade():
-    tags = table('account_tags',
-                     column('id', Integer),
-                     column('name', String))
-    op.bulk_insert(tags,
-                   [
-                       {'id': 1, 'name': 'Olive Supermarket'}
-                   ])
+  pass
+    # tags = table('account_tags',
+    #                  column('id', Integer),
+    #                  column('name', String))
+    # op.bulk_insert(tags,
+    #                [
+    #                    {'id': 1, 'name': 'Olive Supermarket'}
+    #                ])
 
 
 def downgrade():
-    tags = table('account_tags',
-                     column('id', Integer),
-                     column('name', String))
-    statusus.delete(tags.c.id == 1)
+  pass
+    # tags = table('account_tags',
+    #                  column('id', Integer),
+    #                  column('name', String))
+    # statusus.delete(tags.c.id == 1)

@@ -1,5 +1,5 @@
 from sqlalchemy import Column, text, DateTime, Integer
-from main import db
+from engine import db
 class BaseModel(db.Model):
     __abstract__ = True
 

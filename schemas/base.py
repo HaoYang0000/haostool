@@ -1,7 +1,7 @@
 from marshmallow import post_dump
 from marshmallow_sqlalchemy import ModelSchema
 from flask_sqlalchemy import SQLAlchemy
-from main import db
+from engine import db
 
 class BaseSchema(ModelSchema):
     def __init__(self, wrap=True, *args, **kwargs):

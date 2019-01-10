@@ -4,7 +4,7 @@ from sqlalchemy import inspect, exists
 from sqlalchemy.orm import joinedload, lazyload, Query
 from sqlalchemy import inspect, exists, func
 import logging
-from main import db
+from engine import db
 
 logger = logging.getLogger('flask.app')
 

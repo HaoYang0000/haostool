@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-<script type="text/javascript">
-	
+{# templates/accounting/accounting.html_ #}
 
-</script>
-</head>
-<body>
+{% extends "layout.html" %}
 
-	<a href="/">Main Page</a>
-
-	<h1>Weekly cost: {{ weekly_cost }}</h1>
+{% block body %}
+    <h1>Weekly cost: {{ weekly_cost }}</h1>
 
 	<form action="/accounting/add_item" method="POST">
 		<h1>Add an item:</h1>
@@ -55,7 +48,4 @@
 		<input type="in" name="tag_id">
 		<input type="submit" name="submit">
 	</form>
-
-	
-</body>
-</html>
+{% endblock %}
