@@ -1,0 +1,12 @@
+{# app/templates/index.html_ #}
+
+{% extends "layout.html" %}
+
+{% block body %}
+	<h1>Available services: </h1>
+	{%  for service in all_service %}
+		<a href={{ service.base_url }}>{{ service.name|string}}</a>
+		<br>
+	{% endfor %}
+{% endblock %}
+	

@@ -5,15 +5,14 @@ from os import path, sys
 
 # ensure we catch all models, not just ones in use right now
 # noinspection PyUnresolvedReferences
-import models
+import app.models
 from alembic import context
-from engine import db
-from main import app
+from app.engine import db, create_app
 from sqlalchemy import engine_from_config, pool
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
-
+app = create_app()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

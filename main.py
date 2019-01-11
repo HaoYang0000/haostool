@@ -5,7 +5,7 @@ from flask_login import LoginManager
 from flask_apispec import FlaskApiSpec
 from flask_sqlalchemy import SQLAlchemy
 import config
-from engine import create_app
+from app.engine import create_app
 
 app = create_app()
 
