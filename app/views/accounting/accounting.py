@@ -60,7 +60,7 @@ def add_item():
 def add_tag():
 	add_tag_form = AddTagForm()
 	if add_tag_form.validate_on_submit():
-		item_name = add_tag_form.tag_name.data
+		tag_name = add_tag_form.tag_name.data
 		user_id = current_user.id
 		controller.add_tag(name=tag_name, user_id=user_id)
 	return redirect(url_for('accounting.get_main_page'))
