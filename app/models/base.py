@@ -1,9 +1,8 @@
 from sqlalchemy import Column, text, DateTime, Integer
 import config
 from flask_sqlalchemy import SQLAlchemy
-# from app.engine import db
-
 db = SQLAlchemy()
+
 
 class BaseModel(db.Model):
     __abstract__ = True

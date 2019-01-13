@@ -5,13 +5,19 @@ from sqlalchemy import asc
 
 
 class ItemService(BaseService):
-    model = AccountItemModel
+	model = AccountItemModel
 
-    def get_all(self, **kwargs):
-        """
+	def get_all(self, **kwargs):
+		"""
         Return api list result
 
         Returns:
-            model | null
+        model | null
         """
-        return self.model.query.all()
+		return self.model.query.all()
+
+	def get_items_for_user(self, user_id):
+		return AccountItemModel.query.filter(AccountItemModel.user_id == user_id).all()
+
+	def get_items_for_user_before_time(self, user_id, time):
+		return AccountItemModel.query.filter(AccountItemModel.date > time).filter(AccountItemModel.user_id == user_id).all()

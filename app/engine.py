@@ -12,7 +12,7 @@ import config
 db = SQLAlchemy()
 login_manager = LoginManager()
 
-UPLOAD_FOLDER = '/uploads/'
+UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__)) + '/static/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 CLOUDSQL_USER = "root"
 CLOUDSQL_PASSWORD = "root"

@@ -14,3 +14,6 @@ class TagService(BaseService):
             model | null
         """
         return self.model.query.all()
+
+    def get_tags__for_user(self, user_id):
+    	return AccountTagModel.query.filter(AccountTagModel.user_id == user_id).all()

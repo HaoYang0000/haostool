@@ -4,13 +4,16 @@ from sqlalchemy import asc
 
 
 class CategoryService(BaseService):
-    model = AccountCategoryModel
+	model = AccountCategoryModel
 
-    def get_all(self, **kwargs):
-        """
+	def get_all(self, **kwargs):
+		"""
         Return api list result
 
         Returns:
             model | null
         """
-        return self.model.query.all()
+		return self.model.query.all()
+
+	def get_categories__for_user(self, user_id):
+		return AccountCategoryModel.query.filter(AccountCategoryModel.user_id == user_id).all()

@@ -1,11 +1,13 @@
 import json
 import logging
 
-from flask import Blueprint, jsonify, render_template, session, url_for, redirect
+from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash
 from flask_api import status
 from flask_login import current_user, login_user, logout_user
 from app.controllers.main_controller import MainController as Controller
+from flask import send_from_directory
 
+UPLOAD_FOLDER = '/app/uploads/'
 app = Blueprint('index', __name__)
 logger = logging.getLogger(__name__)
 

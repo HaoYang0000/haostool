@@ -4,14 +4,17 @@
 
 {% block body %}
     <h1>Profile Setting</h1>
-    <form action="" method="post" enctype=multipart/form-data>
-        {{ form.hidden_tag() }}
+    <form action="/user/uploads" method="post" enctype=multipart/form-data>
+        <img src={{ url_for('static', filename=avatar) }}/>
         <p>
             Avatar:<br>
               <input type=file name=file>
               <input type=submit value=Upload>
             <br>
         </p>
+    </form>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}<br>
             {{ form.username(size=32, value=current_user.username) }}<br>

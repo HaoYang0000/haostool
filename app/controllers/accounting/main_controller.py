@@ -27,7 +27,7 @@ class MainController:
 	def get_weekly_cost(self):
 		my_date = date.today()
 		start_of_week = my_date - timedelta(days=my_date.weekday())
-		items = AccountItemModel.query.filter(AccountItemModel.date > start_of_week).filter(AccountItemModel.user_id == self.current_user.id).all()
+		items = self.item_service.get_items_for_user_before_time(user_id=self.current_user.id, time=start_of_week)
 		total_cost = 0
 
 		for item in items:
@@ -35,13 +35,13 @@ class MainController:
 		return total_cost
 
 	def get_all_items(self):
-		return AccountItemModel.query.filter(AccountItemModel.user_id == self.current_user.id).all()
+		return self.item_service.get_items_for_user(user_id=self.current_user.id)
 
 	def get_all_tags(self):
-		return AccountTagModel.query.filter(AccountTagModel.user_id == self.current_user.id).all()
+		return self.tag_service.get_tags__for_user(user_id=self.current_user.id)
 
 	def get_all_categories(self):
-		return AccountCategoryModel.query.filter(AccountCategoryModel.user_id == self.current_user.id).all()
+		return self.category_service.get_categories__for_user(user_id=self.current_user.id)
 
 	def add_item(self, **kwargs):
 		self.item_service.create(**kwargs)
@@ -56,24 +56,10 @@ class MainController:
 		return True
 
 	def get_monthly_cost(self):
-		my_date = date.today().replace(day=1)
-		items = AccountItemModel.query.filter(AccountItemModel.date > start_of_week).filter(AccountItemModel.user_id == self.current_user.id).all()
-		total_cost = 0
-
-		for item in items:
-			total_cost = total_cost + item.price
-		return total_cost
+		pass
 
 	def get_cost_by_day(self, date):
-		items = AccountItemModel.query.filter(AccountItemModel.date==date).filter(AccountItemModel.user_id == self.current_user.id).all()
-		total_cost = 0
-		for item in items:
-			total_cost = total_cost + item.price
-		return total_cost
+		pass
 
 	def get_cost_by_tag(self, tag_id):
-		items = AccountItemModel.query.filter(AccountItemModel.tag_id==tag_id).filter(AccountItemModel.user_id == self.current_user.id).all()
-		total_cost = 0
-		for item in items:
-			total_cost = total_cost + item.price
-		return total_cost
+		pass

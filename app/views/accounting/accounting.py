@@ -1,7 +1,7 @@
 import logging
 
 from app.controllers.accounting.main_controller import MainController as Controller
-from flask import Blueprint, abort, make_response, request, redirect, url_for
+from flask import Blueprint, abort, make_response, request, redirect, url_for, flash
 from flask_api import status
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
