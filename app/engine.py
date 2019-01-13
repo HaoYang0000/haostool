@@ -5,12 +5,14 @@ from flask_login import LoginManager
 from flask_apispec import FlaskApiSpec
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO, emit
 from app.views.index import login_required
 from werkzeug.utils import secure_filename
 import config
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+socketIO = SocketIO()
 
 UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__)) + '/static/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -50,16 +52,19 @@ def create_app():
         
     db.init_app(app)
     login_manager.init_app(app)
+    socketIO.init_app(app)
 
     from app.views import index
     from app.views.accounting import accounting
     from app.views.auth import auth
     from app.views.user import profile
+    from app.views.socket_service import socket_service
 
     app.register_blueprint(index.app)
     app.register_blueprint(accounting.app)
     app.register_blueprint(auth.app)
     app.register_blueprint(profile.app)
+    app.register_blueprint(socket_service.app)
 
     app.register_error_handler(401, login_required)
 
