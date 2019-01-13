@@ -25,14 +25,20 @@ class MainController:
 		self.category_service = CategoryService()
 	
 	def get_weekly_cost(self):
-		my_date = date.today()
-		start_of_week = my_date - timedelta(days=my_date.weekday())
+		start_of_week = date.today() - timedelta(days=date.today().weekday())
+		start_of_week = start_of_week.strftime('%Y%m%d') + "000000"
 		items = self.item_service.get_items_for_user_before_time(user_id=self.current_user.id, time=start_of_week)
-		total_cost = 0
+		return self.__get_total_cost(items)
 
-		for item in items:
-			total_cost = total_cost + item.price
-		return total_cost
+	def get_monthly_cost(self):
+		start_of_month = date.today().replace(day=1).strftime('%Y%m%d') + "000000"
+		items = self.item_service.get_items_for_user_before_time(user_id=self.current_user.id, time=start_of_month)
+		return self.__get_total_cost(items)
+
+	def get_daily_cost(self):
+		start_of_day = date.today().strftime('%Y%m%d') + "000000"
+		items = self.item_service.get_items_for_user_before_time(user_id=self.current_user.id, time=start_of_day)
+		return self.__get_total_cost(items)
 
 	def get_all_items(self):
 		return self.item_service.get_items_for_user(user_id=self.current_user.id)
@@ -55,11 +61,10 @@ class MainController:
 		self.category_service.create(**kwargs)
 		return True
 
-	def get_monthly_cost(self):
-		pass
-
-	def get_cost_by_day(self, date):
-		pass
-
 	def get_cost_by_tag(self, tag_id):
 		pass
+	def __get_total_cost(self, items):
+		total_cost = 0.0
+		for item in items:
+			total_cost = total_cost + item.price
+		return total_cost

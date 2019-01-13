@@ -6,6 +6,8 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/body.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accounting/main.css') }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     </head>
@@ -19,6 +21,9 @@
 	        {% else %}
 	        <a class="right-align" class="right" href="{{ url_for('auth.logout') }}">Logout</a>
             <a class="right-align" class="right" href="{{ url_for('user.profile') }}">Settings</a>
+            <div class="right-align">
+                <img src={{ url_for('static', filename=current_user.avatar) }}>
+            </div>
             <div class="right-align">Hi, {{ current_user.first_name }}  </div>
 	        {% endif %}
 		</div>
@@ -32,8 +37,10 @@
             </ul>
         {% endif %}
     {% endwith %}
+    <div class="body_content">
     {% block body %}
         <h1>This heading is defined in the parent.</h1>
     {% endblock %}
+    </div>
     </body>
 </html>

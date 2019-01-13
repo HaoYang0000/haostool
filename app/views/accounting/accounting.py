@@ -26,12 +26,16 @@ def get_main_page():
 	add_item_form = AddItemForm()
 	add_tag_form = AddTagForm()
 	add_category_form = AddCategoryForm()
+	daily_cost = controller.get_daily_cost()
 	weekly_cost = controller.get_weekly_cost()
+	monthly_cost = controller.get_monthly_cost()
 	tags = controller.get_all_tags()
 	categories = controller.get_all_categories()
 	items = controller.get_all_items()
 	return render_template('accounting/accounting.html', 
+		daily_cost=daily_cost, 
 		weekly_cost=weekly_cost, 
+		monthly_cost=monthly_cost, 
 		tags=tags, 
 		categories=categories, 
 		items=items,

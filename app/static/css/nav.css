@@ -2,8 +2,11 @@
 .topnav {
   background-color: #333;
   overflow: hidden;
-
-  /* Style the links inside the navigation bar */
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 50px;
+  width: 100vw;
 }
 
 .left-align {
@@ -11,7 +14,7 @@
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 15px 16px;
     text-decoration: none;
     font-size: 17px;
 }
@@ -21,9 +24,10 @@
   display: block;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 15px 16px;
   text-decoration: none;
   font-size: 17px;
+  margin-right: 10px;
 }
 
 .topnav a:hover {
@@ -35,3 +39,10 @@
   background-color: #4CAF50;
   color: white;
 }
+
+.right-align img {
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+}
+

@@ -17,13 +17,14 @@ app = Blueprint(
     url_prefix='/user'
 )
 logger = logging.getLogger(__name__)
+
+UPLOAD_URL = 'uploads/'
  
 @app.route('/profile_setting', methods=['GET'])
 @login_required
 def profile():
-    form = ProfileForm()
-    avatar = 'uploads/' + current_user.avatar 
-    return render_template('user/profile.html', form=form, current_user=current_user, avatar=avatar)
+    form = ProfileForm() 
+    return render_template('user/profile.html', form=form)
 
 
 def allowed_file(filename):
@@ -49,7 +50,7 @@ def uploaded_file():
 	filename = secure_filename(file.filename)
 	file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), UPLOAD_FOLDER, filename))
 	user = db.session.query(User).filter(User.id==current_user.id).first()
-	user.avatar = filename
+	user.avatar = UPLOAD_URL + filename
 	db.session.commit()
 	flash('File upload successful')
 	return redirect(url_for('user.profile'))
