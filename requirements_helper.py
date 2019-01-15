@@ -1,3 +1,5 @@
+# This file was created to deal with utf-decoding issue during deployment
+
 with open('requirements.txt', 'rb') as source_file:
     contents = source_file.read()
 

@@ -9,6 +9,7 @@ from flask import Blueprint, jsonify, render_template
 from flask_login import login_required
 from flask_login import current_user, login_user, logout_user
 from app.forms.accounting.accounting_form import AddItemForm, AddTagForm, AddItemForm, AddCategoryForm
+from app.services.accounting.tag_service import TagService
 
 logger = logging.getLogger('flask.app')
 
@@ -23,15 +24,21 @@ controller = Controller(current_user=current_user)
 @app.route('/', methods=['GET'])
 @login_required
 def get_main_page():
+	all_tags = TagService().get_all()
+
 	add_item_form = AddItemForm()
 	add_tag_form = AddTagForm()
 	add_category_form = AddCategoryForm()
+	add_item_form.tag_id.choices = [(tag.id, tag.name) for tag in all_tags]
+
 	daily_cost = controller.get_daily_cost()
 	weekly_cost = controller.get_weekly_cost()
 	monthly_cost = controller.get_monthly_cost()
+
 	tags = controller.get_all_tags()
 	categories = controller.get_all_categories()
 	items = controller.get_all_items()
+
 	return render_template('accounting/accounting.html', 
 		daily_cost=daily_cost, 
 		weekly_cost=weekly_cost, 
@@ -49,6 +56,8 @@ def get_main_page():
 @login_required
 def add_item():
 	add_item_form = AddItemForm()
+	all_tags = TagService().get_all()
+	add_item_form.tag_id.choices = [(tag.id, tag.name) for tag in all_tags]
 	if add_item_form.validate_on_submit():
 		item_name = add_item_form.item_name.data
 		item_price = add_item_form.item_price.data
