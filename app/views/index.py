@@ -27,7 +27,7 @@ def main():
 		return render_template('index.html', current_user=current_user, all_service=all_service)
 	# return render_template('index.html', title='Home Page', posts=posts)
 
-@app.route('/<whatever>/<int:times>', methods=['GET', 'POST'])
+@app.route('/kglb/<whatever>/<int:times>', methods=['GET', 'POST'])
 def lol(whatever, times):
 	return_list = []
 	for x in range(times):

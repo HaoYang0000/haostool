@@ -3,7 +3,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="middle-panel">
+    <div class="user-profile-middle-panel">
         <form action="/user/uploads" method="post" enctype=multipart/form-data>
             <img src={{ url_for('static', filename=current_user.avatar) }}/>
             <p>

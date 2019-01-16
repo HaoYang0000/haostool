@@ -15,5 +15,5 @@ class CategoryService(BaseService):
         """
 		return self.model.query.all()
 
-	def get_categories__for_user(self, user_id):
+	def get_categories_for_user(self, user_id):
 		return AccountCategoryModel.query.filter(AccountCategoryModel.user_id == user_id).all()

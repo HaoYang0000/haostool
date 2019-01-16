@@ -44,10 +44,10 @@ class MainController:
 		return self.item_service.get_items_for_user(user_id=self.current_user.id)
 
 	def get_all_tags(self):
-		return self.tag_service.get_tags__for_user(user_id=self.current_user.id)
+		return self.tag_service.get_tags_for_user(user_id=self.current_user.id)
 
 	def get_all_categories(self):
-		return self.category_service.get_categories__for_user(user_id=self.current_user.id)
+		return self.category_service.get_categories_for_user(user_id=self.current_user.id)
 
 	def add_item(self, **kwargs):
 		self.item_service.create(**kwargs)
@@ -62,7 +62,9 @@ class MainController:
 		return True
 
 	def get_cost_by_tag(self, tag_id):
-		pass
+		items = self.item_service.get_items_by_tag_id(tag_id=tag_id)
+		return self.__get_total_cost(items)
+
 	def __get_total_cost(self, items):
 		total_cost = 0.0
 		for item in items:

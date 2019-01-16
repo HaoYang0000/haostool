@@ -1,25 +1,26 @@
-.left-panel {
+.accounting-left-panel {
 	float:left;
 	width:30vw;
 }
 
-.left-panel-inner-container {
+.accounting-left-panel-inner-container {
 	margin-left: 5vw;
+	margin-right: 10vw;
 }
 
-.middle-panel {
+.accounting-middle-panel {
 	display: inline-block;
     margin:0 auto;
     width:30vw;
 }
 
 
-.right-panel {
+.accounting-right-panel {
 	float:right;
     width:27vw;
 }
 
-.right-panel-inner-container {
+.accounting-right-panel-inner-container {
 	margin-right: 5vw;
 }
 

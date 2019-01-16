@@ -3,15 +3,21 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="left-panel">
-        <div class="left-panel-inner-container">
+    <div class="accounting-left-panel">
+        <div class="accounting-left-panel-inner-container">
             <label>All tags:</label>
             <a class="popup_trigger">
                 <img class="icons" src="{{ url_for('static', filename='icon/accounting_add_tag.png') }}">
             </a>
             {%  for tag in tags %}
-                <div>{{ tag.id|string + ": " + tag.name}}</div>
+                <div class="clickable" onclick="calculate_cost_by_tag(this)">
+                    {{ tag.id|string + ": " + tag.name}}
+                    <input type="hidden" value={{ tag.id }}>
+                    <input type="hidden" value={{ tag.name }}>
+                </div>
             {% endfor %}
+            <div id="cost_by_tag">
+            </div>
         </div>
         
         <div class="popup_content">
@@ -30,7 +36,7 @@
             </div>
         </div>
     </div>
-    <div class="middle-panel">
+    <div class="accounting-middle-panel">
         <form action="/accounting/add_item" method="POST">
             <h1>Add an Item:</h1>
             {{ add_item_form.hidden_tag() }}
@@ -57,8 +63,8 @@
             <div>{{ item.id|string + ": " + item.name + ", price: " + item.price|string + ", date: "  + item.date|string }}</div>
         {% endfor %}
     </div> 
-    <div class="right-panel">
-        <div class="right-panel-inner-container">
+    <div class="accounting-right-panel">
+        <div class="accounting-right-panel-inner-container">
             <h1>Daily cost: {{ '%0.2f' % daily_cost|float }}</h1>
             <h1>Weekly cost: {{ '%0.2f' % weekly_cost|float  }}</h1>
             <h1>Monthly cost: {{ '%0.2f' % monthly_cost|float  }}</h1>

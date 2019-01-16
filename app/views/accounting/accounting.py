@@ -51,6 +51,12 @@ def get_main_page():
 		add_category_form=add_category_form
 	)
 
+@app.route('/cost_by_tag/<int:tag_id>', methods=['GET'])
+@login_required
+def cost_by_tag(tag_id):
+	cost = controller.get_cost_by_tag(tag_id)
+	return jsonify(cost)
+
 
 @app.route('/add_item', methods=['POST'])
 @login_required
