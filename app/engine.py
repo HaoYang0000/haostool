@@ -59,13 +59,13 @@ def create_app():
     from app.views.auth import auth
     from app.views.user import profile
     from app.views.socket_service import socket_service
-    from app.views.games import felix
+    from app.views.games import games
 
     app.register_blueprint(index.app)
     app.register_blueprint(accounting.app)
     app.register_blueprint(auth.app)
     app.register_blueprint(profile.app)
-    app.register_blueprint(felix.app)
+    app.register_blueprint(games.app)
     app.register_blueprint(socket_service.app)
 
     app.register_error_handler(401, login_required)

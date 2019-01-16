@@ -3,21 +3,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="right-panel">
-        <h1>Daily cost: {{ '%0.2f' % daily_cost|float }}</h1>
-        <h1>Weekly cost: {{ '%0.2f' % weekly_cost|float  }}</h1>
-        <h1>Monthly cost: {{ '%0.2f' % monthly_cost|float  }}</h1>
-    </div> 
     <div class="left-panel">
-        <h2>All tags:</h2>
-        {%  for tag in tags %}
-            <div>{{ tag.id|string + ": " + tag.name}}</div>
-        {% endfor %}
-
-        <label>Add a tag:</label>
-        <a class="popup_trigger">
-            <img class="icons" src="{{ url_for('static', filename='icon/accounting_add_tag.png') }}">
-        </a>
+        <div class="left-panel-inner-container">
+            <label>All tags:</label>
+            <a class="popup_trigger">
+                <img class="icons" src="{{ url_for('static', filename='icon/accounting_add_tag.png') }}">
+            </a>
+            {%  for tag in tags %}
+                <div>{{ tag.id|string + ": " + tag.name}}</div>
+            {% endfor %}
+        </div>
         
         <div class="popup_content">
             <span class="helper"></span>
@@ -30,13 +25,12 @@
                         {{ add_tag_form.tag_name.label }}<br>
                         {{ add_tag_form.tag_name(size=32) }}<br>
                     </p>
-                    <p>{{ add_tag_form.submit() }}</p>
+                    {{ add_tag_form.submit() }}
                 </form>
             </div>
         </div>
-
-        
-
+    </div>
+    <div class="middle-panel">
         <form action="/accounting/add_item" method="POST">
             <h1>Add an Item:</h1>
             {{ add_item_form.hidden_tag() }}
@@ -58,34 +52,16 @@
             </p>
             <p>{{ add_item_form.submit() }}</p>
         </form>
-    	<h2>All Items:</h2>
-    	{%  for item in items %}
-    		<div>{{ item.id|string + ": " + item.name + ", price: " + item.price|string + ", date: "  + item.date|string }}</div>
-    	{% endfor %}
-
-    	
-
-    	<h2>All categoriess:</h2>
-    	{%  for category in categories %}
-    		<div>{{ category.id|string + ": " + category.name}}</div>
-    	{% endfor %}
-
-    	
-
-    	
-
-    	<form action="/accounting/add_category" method="POST">
-    		<h1>Add a category:</h1>
-    		{{ add_category_form.hidden_tag() }}
-            <p>
-                {{ add_category_form.category_name.label }}<br>
-                {{ add_category_form.category_name(size=32) }}<br>
-            </p>
-            <p>
-                {{ add_category_form.tag_id.label }}<br>
-                {{ add_category_form.tag_id(size=32) }}<br>
-            </p>
-            <p>{{ add_category_form.submit() }}</p>
-    	</form>
-    </div>
+        <h2>All Items:</h2>
+        {%  for item in items %}
+            <div>{{ item.id|string + ": " + item.name + ", price: " + item.price|string + ", date: "  + item.date|string }}</div>
+        {% endfor %}
+    </div> 
+    <div class="right-panel">
+        <div class="right-panel-inner-container">
+            <h1>Daily cost: {{ '%0.2f' % daily_cost|float }}</h1>
+            <h1>Weekly cost: {{ '%0.2f' % weekly_cost|float  }}</h1>
+            <h1>Monthly cost: {{ '%0.2f' % monthly_cost|float  }}</h1>
+        </div>  
+    </div> 
 {% endblock %}

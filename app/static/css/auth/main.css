@@ -1,0 +1,15 @@
+
+
+.middle-panel {
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+  	width: 30%;
+}
+
+.middle-panel img {
+	border-radius: 50%;
+  	height: 25vh;
+  	width: 20vw;
+}
+

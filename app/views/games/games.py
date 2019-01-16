@@ -13,3 +13,7 @@ logger = logging.getLogger(__name__)
 @app.route('/felix')
 def felix():
     return render_template('games/felix.html')
+
+@app.route('/super_mario')
+def super_mario():
+    return render_template('games/super_mario.html')

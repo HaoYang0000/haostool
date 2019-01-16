@@ -1,15 +1,26 @@
-/* Add a black background color to the top navigation */
-.right-panel {
-	position: absolute;
-	top: 10vh;
-	right: 10vw;
-	float: right;
- 	margin-top: 50px;
+.left-panel {
+	float:left;
+	width:30vw;
 }
 
-.left-panel {
-	position: absolute;
-	top: 100px;
-	left: 40px;
-	float: right;
+.left-panel-inner-container {
+	margin-left: 5vw;
 }
+
+.middle-panel {
+	display: inline-block;
+    margin:0 auto;
+    width:30vw;
+}
+
+
+.right-panel {
+	float:right;
+    width:27vw;
+}
+
+.right-panel-inner-container {
+	margin-right: 5vw;
+}
+
+
