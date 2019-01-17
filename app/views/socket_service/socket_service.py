@@ -7,12 +7,17 @@ from flask_login import current_user, login_user, logout_user
 from flask_socketio import SocketIO, emit
 from app.engine import db, socketIO 
 
-app = Blueprint('socket_service', __name__)
+app = Blueprint(
+    'socket_service',
+    __name__,
+    url_prefix='/socket_service'
+)
 logger = logging.getLogger(__name__)
 
-@app.route('/socket_service')
+@app.route('/')
 def sessions():
     return render_template('socket_service/socket_service.html')
+
 
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
