@@ -1,4 +1,5 @@
 import logging
+import json
 
 from app.controllers.accounting.main_controller import MainController as Controller
 from flask import Blueprint, abort, make_response, request, redirect, url_for, flash
@@ -10,6 +11,7 @@ from flask_login import login_required
 from flask_login import current_user, login_user, logout_user
 from app.forms.accounting.accounting_form import AddItemForm, AddTagForm, AddItemForm, AddCategoryForm
 from app.services.accounting.tag_service import TagService
+from app.schemas.accounting.account_tags import AccountTagSchema
 
 logger = logging.getLogger('flask.app')
 
@@ -36,6 +38,9 @@ def get_main_page():
 	monthly_cost = controller.get_monthly_cost()
 
 	tags = controller.get_all_tags()
+	for tag in tags:
+		tag.cost = controller.get_cost_by_tag(tag.id) 
+	
 	categories = controller.get_all_categories()
 	items = controller.get_all_items()
 
@@ -44,6 +49,7 @@ def get_main_page():
 		weekly_cost=weekly_cost, 
 		monthly_cost=monthly_cost, 
 		tags=tags, 
+		tag_cost=AccountTagSchema(many=True).dumps(tags).data,
 		categories=categories, 
 		items=items,
 		add_item_form=add_item_form,

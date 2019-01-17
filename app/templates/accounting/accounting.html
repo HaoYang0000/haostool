@@ -11,15 +11,22 @@
             </a>
             {%  for tag in tags %}
                 <div class="clickable" onclick="calculate_cost_by_tag(this)">
-                    {{ tag.id|string + ": " + tag.name}}
+                    {{ tag.id|string + ": " + tag.name }}
                     <input type="hidden" value={{ tag.id }}>
                     <input type="hidden" value={{ tag.name }}>
                 </div>
             {% endfor %}
+            <script type="text/javascript">
+                var tags = {{ tag_cost|safe }};
+            </script>
             <div id="cost_by_tag">
             </div>
         </div>
         
+        <div id="canvas-holder">
+            <canvas id="chart-area"></canvas>
+        </div>
+
         <div class="popup_content">
             <span class="helper"></span>
             <div>
@@ -35,6 +42,7 @@
                 </form>
             </div>
         </div>
+
     </div>
     <div class="accounting-middle-panel">
         <form action="/accounting/add_item" method="POST">
