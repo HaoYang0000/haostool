@@ -10,6 +10,8 @@ Flask-Navigation==0.2.0
 Flask-SocketIO==3.1.2
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
+gevent==1.4.0
+greenlet==0.4.15
 itsdangerous==1.1.0
 Jinja2==2.10
 Mako==1.0.7

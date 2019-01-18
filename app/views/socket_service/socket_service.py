@@ -53,5 +53,5 @@ def handle_my_custom_event(message: dict, methods=['GET', 'POST']):
 	mydict = {k: v.encode('raw_unicode_escape').decode('utf8') for k,v in message.items()}
 	print('received my event: '+ str(mydict) )
 	socketIO.emit('responses', mydict, callback=messageReceived)
-	socketIO.emit('responses', {'user_name': '柯哥流弊', 'message': '威哥逗比'})
+	# socketIO.emit('responses', {'user_name': '柯哥流弊', 'message': '威哥逗比'})
 
