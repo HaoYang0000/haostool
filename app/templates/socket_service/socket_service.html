@@ -3,36 +3,28 @@
 {% extends "layout.html" %}
 
 {% block body %}
-	<h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
-    <div class="message_holder"></div>
-    <form action="" method="POST">
-    	<input type="text" class="username" placeholder="User Name"/>
-     	<input type="text" class="message" placeholder="Messages"/>
-      	<input id="socket_send_button" class="socket_send_button" type="button" value="send"/>
-	  </form>
-	<script type="text/javascript">
-      var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-      socket.on( 'connect', function() {
-        socket.emit( 'my event', {
-          data: 'User Connected'
-        } )
-        var form = $( 'input.socket_send_button' ).on( 'click', function( e ) {
-          e.preventDefault()
-          let user_name = $( 'input.username' ).val()
-          let user_input = $( 'input.message' ).val()
-          socket.emit( 'my event', {
-            user_name : user_name,
-            message : user_input
-          } )
-          $( 'input.message' ).val( '' ).focus()
-        } )
-      } )
-      socket.on( 'my response', function( msg ) {
-        console.log( msg )
-        if( typeof msg.user_name !== 'undefined' ) {
-          $( 'h3' ).remove()
-          $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>' )
-        }
-      })
-    </script>
+    <h1>Rooms:</h1>
+    {%  for room in rooms %}
+      <div class="clickable">
+        <a href={{ "/socket_service/enter_room/" + room.uuid  }}>
+          {{ room.id|string + ": " + room.name|string +"   , expire_at: " +room.expire_at|string }}
+        </a>
+      </div>
+    {% endfor %}
+
+    <form action="/socket_service/create_room" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}<br>
+            {% for error in form.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.expire_at.label }}<br>
+            {{ form.expire_at(size=32) }}<br>
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
 {% endblock %}
