@@ -3,16 +3,21 @@
 {% extends "layout.html" %}
 
 {% block body %}
-	<h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
-    <div class="message_holder"></div>
-    <form action="" method="POST">
-    	<input type="text" class="game_room_username" placeholder="User Name"/>
-     	<input type="text" class="game_room_message" placeholder="Messages"/>
-      	<input id="game_room_send_button" class="game_room_send_button" type="button" value="send"/>
-	  </form>
+<h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
+<div class="message_holder"></div>
+<form action="" method="POST">
+    <input type="text" class="game_room_username" placeholder="User Name"/>
+    <input type="text" class="game_room_message" placeholder="Messages"/>
+    <input id="game_room_send_button" class="game_room_send_button" type="button" value="send"/>
+</form>
 
-	<script type="text/javascript" charset="utf-8">
-      var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {rememberTransport: false});
+<script type="text/javascript" charset="utf-8">
+      if (location.protocol  == 'https:') {
+        protocol = 'wss:';
+      } else{
+        protocol = 'ws:';
+      }
+      var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {});
       socket.on( 'connect', function() {
         socket.emit( 'game_room', {
           data: 'User Connected'
@@ -31,12 +36,14 @@
         } )
       } )
       socket.on( 'responses', function( msg ) {
-        console.log( msg )
+        console.log("Response from server:" );
+        console.log( msg );
         if( typeof msg.user_name !== 'undefined' ) {
           $( 'h3' ).remove()
           $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>' )
         }
       })
-    </script>
-    <h1><a href="/socket_service">Go Back</a></h1>
+
+</script>
+<h1><a href="/socket_service">Go Back</a></h1>
 {% endblock %}
