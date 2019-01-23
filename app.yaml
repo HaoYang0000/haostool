@@ -1,5 +1,5 @@
 runtime: python37
-entrypoint: gunicorn --worker-class eventlet -b :$PORT -w 1 -t 99999 --keep-alive 99999 main:app
+entrypoint: gunicorn --worker-class eventlet -b :$PORT -w 1 --threads 4 -t 6000 --keep-alive 600 main:app
 
 handlers:
 - url: /.*

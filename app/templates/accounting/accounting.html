@@ -50,7 +50,7 @@
             {{ add_item_form.hidden_tag() }}
             <p>
                 {{ add_item_form.item_name.label }}<br>
-                {{ add_item_form.item_name(size=32) }}<br>
+                {{ add_item_form.item_name(size=32, **{"oninput":"sort_current_tag_list_by_similarity(this)"}) }}<br>
             </p>
             <p>
                 {{ add_item_form.item_price.label }}<br>
@@ -62,7 +62,7 @@
             </p>
             <p>
                 {{ add_item_form.tag_id.label }}<br>
-                {{ add_item_form.tag_id }}<br>
+                {{ add_item_form.tag_id(id="account_tag_drop_down") }}<br>
             </p>
             <p>{{ add_item_form.submit() }}</p>
         </form>
