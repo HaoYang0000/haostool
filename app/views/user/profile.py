@@ -34,8 +34,10 @@ def profile():
         ip_form = IpAddress()
         ip_form.ip_address = ip.ip_address
         ip_white_list_form.ip_address_list.append_entry(ip_form)
-
-    current_ip = request.remote_addr
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        current_ip = request.environ['REMOTE_ADDR']
+    else:
+        current_ip = request.environ['HTTP_X_FORWARDED_FOR']
     return render_template('user/profile.html', user_setting_form=user_setting_form,
                            ip_white_list_form=ip_white_list_form, current_ip=current_ip)
 
