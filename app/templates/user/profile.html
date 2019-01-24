@@ -13,29 +13,43 @@
                 <br>
             </p>
         </form>
-        <form action="" method="post">
-            {{ form.hidden_tag() }}
+        <form action="/user/profile_update" method="post">
+            {{ user_setting_form.hidden_tag() }}
             <p>
-                {{ form.username.label }}<br>
-                {{ form.username(size=64, value=current_user.username) }}<br>
+                {{ user_setting_form.username.label }}<br>
+                {{ user_setting_form.username(size=64, value=current_user.username) }}<br>
             </p>
             <p>
-                {{ form.first_name.label }}<br>
-                {{ form.first_name(size=64, value=current_user.first_name) }}<br>
+                {{ user_setting_form.first_name.label }}<br>
+                {{ user_setting_form.first_name(size=64, value=current_user.first_name) }}<br>
             </p>
             <p>
-                {{ form.last_name.label }}<br>
-                {{ form.last_name(size=64, value=current_user.last_name) }}<br>
+                {{ user_setting_form.last_name.label }}<br>
+                {{ user_setting_form.last_name(size=64, value=current_user.last_name) }}<br>
             </p>
             <p>
-                {{ form.email.label }}<br>
-                {{ form.email(size=64, value=current_user.email) }}<br>
+                {{ user_setting_form.email.label }}<br>
+                {{ user_setting_form.email(size=64, value=current_user.email) }}<br>
             </p>
             <p>
-                {{ form.password.label }}<br>
-                {{ form.password(size=64) }}<br>
+                {{ user_setting_form.password.label }}<br>
+                {{ user_setting_form.password(size=64) }}<br>
             </p>
-            <p>{{ form.submit() }}</p>
+            <p>{{ user_setting_form.submit() }}</p>
         </form>
+        <h1>Current ip is : {{ current_ip|string }}</h1>
+        <form action="/user/ip_white_list_update" method="post">
+            {{ ip_white_list_form.hidden_tag() }}
+            {% for address_entry_form in ip_white_list_form.ip_address_list %}
+                {{ address_entry_form.hidden_tag() }}
+                <p>
+                    {{ loop.index0 }}
+                    {{ address_entry_form.ip_address.label }}<br>
+                    {{ address_entry_form.ip_address(size=64) }}<br>
+                </p>
+            {% endfor %}
+            <p>{{ ip_white_list_form.submit() }}</p>
+        </form>
+
     </div>
 {% endblock %}

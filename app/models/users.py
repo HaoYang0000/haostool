@@ -2,7 +2,8 @@ from app.models.base import BaseModelExtended
 from sqlalchemy import Column, ForeignKey, Boolean, String, Integer, DateTime, Text
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app.engine import login_manager
+from app.engine import login_manager, db
+from app.models.user_ip_mapping import UserIpMappingServiceModel
 
 class UserModel(UserMixin, BaseModelExtended):
     __tablename__ = 'users'
@@ -42,6 +43,8 @@ class UserModel(UserMixin, BaseModelExtended):
         default=True
     )
 
+    ip_addresses = db.relationship('UserIpMappingServiceModel', backref='users', lazy=True)
+
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
@@ -63,6 +66,7 @@ class UserModel(UserMixin, BaseModelExtended):
             last_namelast_name='{last_name}', \
             avatar='{avatar}', \
             is_active='{is_active}', \
+            ip_addresses='{ip_addresses}', \
             created_at='{created_at}', \
             updated_at='{updated_at}')"
         ).format(
@@ -74,6 +78,7 @@ class UserModel(UserMixin, BaseModelExtended):
             last_name=self.last_name,
             avatar=self.avatar,
             is_active=self.is_active,
+            ip_addresses=self.ip_addresses,
             created_at=self.created_at,
             updated_at=self.updated_at
         )

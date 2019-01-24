@@ -9,6 +9,10 @@ from flask_socketio import SocketIO, emit
 from app.views.index import login_required
 from werkzeug.utils import secure_filename
 import config
+import logging
+
+handler = logging.StreamHandler()
+handler.setLevel(logging.DEBUG)
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -53,6 +57,7 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     socketIO.init_app(app)
+    app.logger.addHandler(handler)
 
     from app.views import index
     from app.views.accounting import accounting

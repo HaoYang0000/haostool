@@ -21,6 +21,7 @@ def health():
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
+
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     else:
