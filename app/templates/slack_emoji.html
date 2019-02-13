@@ -1,0 +1,45 @@
+{# app/templates/slack_emoji.html_ #}
+
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="/slack_emoji" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.emoji.label }}<br>
+        {{ form.emoji(size=64) }}<br>
+    </p>
+    <p>
+        {{ form.padding.label }}<br>
+        {{ form.padding(size=64) }}<br>
+    </p>
+    <p>
+        {{ form.input.label }}<br>
+        {{ form.input(size=64) }}<br>
+    </p>
+    <p>
+        {{ form.if_same_line.label }}<br>
+        {{ form.if_same_line }}<br>
+    </p>
+    <p>
+        {{ form.if_reverse.label }}<br>
+        {{ form.if_reverse }}<br>
+    </p>
+    <p>
+        {{ form.if_copy_to_clipboard.label }}<br>
+        {{ form.if_copy_to_clipboard }}<br>
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+<textarea id="generated_output">{{ output }}</textarea>
+<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+		    var if_copy_to_clipboard = {{ if_copy_to_clipboard | lower }};
+               if (if_copy_to_clipboard === true) {
+                    var text_area = document.getElementById("generated_output");
+                    text_area.select();
+                    document.execCommand('copy');
+                }
+        }, false);
+</script>
+{% endblock %}

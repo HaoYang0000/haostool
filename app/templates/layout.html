@@ -20,6 +20,7 @@
     {% block navigation_bar %}
     	<div class="topnav">
 			<a class="left-align active" href="{{ url_for('index.main') }}">Home</a>
+            <a class="left-align" href="{{ url_for('index.slack_emoji') }}">Slack Emoji</a>
 			{% if current_user.is_anonymous %}
 	        <a class="right-align" href="{{ url_for('auth.login') }}">Login</a>
 	        <a class="right-align" href="{{ url_for('auth.register') }}">Register</a>

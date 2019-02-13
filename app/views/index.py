@@ -5,6 +5,8 @@ from flask import Blueprint, jsonify, render_template, session, url_for, redirec
 from flask_api import status
 from flask_login import current_user, login_user, logout_user
 from app.controllers.main_controller import MainController as Controller
+from app.forms.slack_emoji.slack_emoji_form import SlackEmojiForm
+from app.services.slack_emoji.run import generate
 from flask import send_from_directory
 
 UPLOAD_FOLDER = '/app/uploads/'
@@ -21,7 +23,6 @@ def health():
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
-
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     else:
@@ -30,6 +31,20 @@ def main():
 
 
 # return render_template('index.html', title='Home Page', posts=posts)
+
+@app.route('/slack_emoji', methods=['GET', 'POST'])
+def slack_emoji():
+    form = SlackEmojiForm()
+    output = ''
+    if_copy_to_clipboard = False
+    if form.validate_on_submit():
+        output = generate(emoji=form.emoji.data, padding=form.padding.data, input=form.input.data,
+                          if_reverse=form.if_reverse.data, if_same_line=form.if_same_line.data,
+                          if_copy_to_clipboard=False)
+        logger.error(output)
+        if_copy_to_clipboard = form.if_copy_to_clipboard.data
+    return render_template('slack_emoji.html', form=form, output=output, if_copy_to_clipboard=if_copy_to_clipboard)
+
 
 @app.route('/kglb/<whatever>/<int:times>', methods=['GET', 'POST'])
 def lol(whatever, times):
