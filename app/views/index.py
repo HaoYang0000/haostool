@@ -36,14 +36,12 @@ def main():
 def slack_emoji():
     form = SlackEmojiForm()
     output = ''
-    if_copy_to_clipboard = False
     if form.validate_on_submit():
         output = generate(emoji=form.emoji.data, padding=form.padding.data, input=form.input.data,
                           if_reverse=form.if_reverse.data, if_same_line=form.if_same_line.data,
                           if_copy_to_clipboard=False)
         logger.error(output)
-        if_copy_to_clipboard = form.if_copy_to_clipboard.data
-    return render_template('slack_emoji.html', form=form, output=output, if_copy_to_clipboard=if_copy_to_clipboard)
+    return render_template('slack_emoji.html', form=form, output=output)
 
 
 @app.route('/kglb/<whatever>/<int:times>', methods=['GET', 'POST'])

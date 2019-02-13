@@ -25,21 +25,16 @@
         {{ form.if_reverse.label }}<br>
         {{ form.if_reverse }}<br>
     </p>
-    <p>
-        {{ form.if_copy_to_clipboard.label }}<br>
-        {{ form.if_copy_to_clipboard }}<br>
-    </p>
     <p>{{ form.submit() }}</p>
 </form>
 <textarea id="generated_output">{{ output }}</textarea>
+<button onclick="copy_to_clipboard()">Copy to Clipboard</button>
 <script type="text/javascript">
-		document.addEventListener('DOMContentLoaded', function() {
-		    var if_copy_to_clipboard = {{ if_copy_to_clipboard | lower }};
-               if (if_copy_to_clipboard === true) {
-                    var text_area = document.getElementById("generated_output");
-                    text_area.select();
-                    document.execCommand('copy');
-                }
-        }, false);
+function copy_to_clipboard(){
+    var text_area = document.getElementById("generated_output");
+    text_area.select();
+    document.execCommand('copy');
+    alert("Copied value:"+ text_area.value);
+}
 </script>
 {% endblock %}
