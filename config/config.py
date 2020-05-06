@@ -7,7 +7,7 @@ import os
 import platform
 from enum import Enum
 from app.exceptions.config import ConfigNotFoundException
-
+dir_path = os.path.dirname(os.path.realpath(__file__))
 __logger = logging.getLogger(__file__)
 
 # The secret key is used by Flask to encrypt session cookies.
@@ -21,13 +21,16 @@ LOCAL_MYSQL_CONFIG = {
     "password": "root",
     "database": "personal_tool"
 }
-
-def get_database_uri():
+def get_config_file():
     if platform.system() == "Windows":
-        db_dict = LOCAL_MYSQL_CONFIG
+        with open(f"{dir_path}/local.json", 'r') as config_file:
+            return json.load(config_file)
     else:
         print("Unknown system")
         return None
+    
+def get_database_uri():
+    db_dict = get_config_file().get("database_info")
     address = db_dict.get("address")
     port = db_dict.get("port")
     user = db_dict.get("user")

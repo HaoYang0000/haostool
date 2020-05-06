@@ -1,8 +1,8 @@
 {# app/templates/accounting/accounting.html_ #}
 
 {% extends "layout.html" %}
-
 {% block body %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/accounting/main.js') }}"></script>
     <div class="accounting-left-panel">
         <div class="accounting-left-panel-inner-container">
             <label>All tags:</label>

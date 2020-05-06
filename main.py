@@ -4,7 +4,6 @@ from flask import Flask, render_template, request
 from flask_login import LoginManager
 from flask_apispec import FlaskApiSpec
 from flask_sqlalchemy import SQLAlchemy
-import config
 from app.engine import create_app, socketIO
 from flask_socketio import SocketIO
 
