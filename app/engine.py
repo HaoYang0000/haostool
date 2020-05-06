@@ -1,5 +1,6 @@
 import os
 import sys
+import platform
 from flask import Flask, render_template, request
 from flask_login import LoginManager
 from flask_apispec import FlaskApiSpec
@@ -8,8 +9,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, emit
 from app.views.index import login_required
 from werkzeug.utils import secure_filename
-import config
+from config.config import get_database_uri
 import logging
+
 
 handler = logging.StreamHandler()
 handler.setLevel(logging.DEBUG)
@@ -20,10 +22,6 @@ socketIO = SocketIO()
 
 UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__)) + '/static/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-CLOUDSQL_USER = "root"
-CLOUDSQL_PASSWORD = "root"
-CLOUDSQL_DATABASE = "haostool"
-CLOUDSQL_CONNECTION_NAME = "haostool:us-central1:haostool"
 
 def create_app():
     app = Flask(__name__, static_url_path='/static', )
@@ -32,22 +30,8 @@ def create_app():
     	'static'
     )
 
-    if os.environ.get('GAE_ENV') == 'standard':
-        LIVE_SQLALCHEMY_DATABASE_URI = (
-        'mysql+pymysql://{user}:{password}@localhost/{database}'
-        '?unix_socket=/cloudsql/{connection_name}').format(
-            user=CLOUDSQL_USER, password=CLOUDSQL_PASSWORD,
-            database=CLOUDSQL_DATABASE, connection_name=CLOUDSQL_CONNECTION_NAME)
-        SQLALCHEMY_DATABASE_URI = LIVE_SQLALCHEMY_DATABASE_URI
-    else:
-        LOCAL_SQLALCHEMY_DATABASE_URI = (
-        'mysql+pymysql://{user}:{password}@35.226.253.240:3306/{database}').format(
-            user=CLOUDSQL_USER, password=CLOUDSQL_PASSWORD,
-            database=CLOUDSQL_DATABASE)
-        SQLALCHEMY_DATABASE_URI = LOCAL_SQLALCHEMY_DATABASE_URI
-
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+    app.config['SQLALCHEMY_DATABASE_URI'] = get_database_uri()
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.config.update(dict(
         SECRET_KEY="powerful secretkey",
