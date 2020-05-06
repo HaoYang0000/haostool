@@ -11,7 +11,7 @@ SECRET_KEY = 'secret'
 LOCAL_MYSQL_CONFIG = {
     "address": "localhost",
     "port": 3306,
-    "user":"root",
+    "user":"hao",
     "password": "root",
     "database": "personal_tool"
 }
