@@ -14,7 +14,7 @@ import logging
 
 
 handler = logging.StreamHandler()
-handler.setLevel(logging.DEBUG)
+handler.setLevel(logging.INFO)
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -49,6 +49,9 @@ def create_app():
     from app.views.user import profile
     from app.views.socket_service import socket_service
     from app.views.games import games
+    from app.views.aws import aws
+    from app.views.videos import videos
+    from app.views.streaming import streaming
 
     app.register_blueprint(index.app)
     app.register_blueprint(accounting.app)
@@ -56,6 +59,10 @@ def create_app():
     app.register_blueprint(profile.app)
     app.register_blueprint(games.app)
     app.register_blueprint(socket_service.app)
+    app.register_blueprint(aws.app)
+    app.register_blueprint(videos.app)
+    app.register_blueprint(streaming.app)
+
 
     app.register_error_handler(401, login_required)
 

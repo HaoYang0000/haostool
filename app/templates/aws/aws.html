@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{{ "Vpn name: " + vpn_instance.name|string + ", type: " + vpn_instance.type|string + " , state: " +vpn_instance.state|string }}
+{{ "IP Address: " + vpn_instance.ip_address|string}}
+<button onclick="start_instance()" class="clickable" >Start Instance</button>
+<button onclick="stop_instance()" class="clickable" >Stop Instance</button>
+<button onclick="change_ip()" class="clickable" >Replace IP</button>
+<script type="text/javascript">
+function start_instance(){
+    $.post("/aws/start_instance", function(data){
+        alert("success ");
+        console.log(data)
+    });
+}
+function stop_instance(){
+    $.post("/aws/stop_instance", function(data){
+        alert("success ");
+        console.log(data)
+    });
+}
+function change_ip(){
+    var ip_address = {{ vpn_instance.ip_address|tojson }};
+    console.log("Old address is : " + ip_address);
+    $(document).ready(function() {
+    $.ajax({
+                type: "POST",
+                data:{},
+                url: '/aws/change_ip',
+                dataType: "json",
+                success: function(data) { 
+                    console.log(data);                    
+                },
+                error: function(jqXHR) {
+                    alert("error: " + jqXHR.status);
+                    console.log(jqXHR);
+                }
+            })
+    });
+}
+</script>
+{% endblock %}
