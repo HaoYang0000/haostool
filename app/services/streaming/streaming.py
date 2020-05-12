@@ -3,7 +3,8 @@ import time
 import threading
 from io import BytesIO
 import cv2
-from PIL import ImageGrab, Image
+from PIL import ImageGrab, Image, ImageDraw
+import pyautogui
 
 try:
     from greenlet import getcurrent as get_ident
@@ -98,6 +99,14 @@ class Camera(BaseCamera):
 
         while True:
             image = ImageGrab.grab()  # 获取屏幕数据
+            x, y = pyautogui.position()
+            draw = ImageDraw.Draw(image)
+            draw.ellipse(
+                xy=[(x-10,y-10), (x+10,y+10)],
+                fill="red",
+                outline="red"
+            )
+            
             # w, h = image.size
             image = image.resize((1366, 750), Image.ANTIALIAS)  # 图片缩放
             output_buffer = BytesIO()  # 创建二进制对象

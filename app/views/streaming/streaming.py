@@ -20,7 +20,11 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-@app.route('/streaming', methods=['GET', 'POST'])
-def streaming():
+@app.route('/video_feed', methods=['GET', 'POST'])
+def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/streaming', methods=['GET', 'POST'])
+def streaming():
+    return render_template('streaming/streaming.html')

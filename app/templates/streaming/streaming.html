@@ -2,7 +2,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<h4>屏幕共享</h4>
-<img src="{{ url_for('streaming') }}">
+    <h4>屏幕共享</h4>
+    <img src="{{ url_for('streaming.video_feed') }}">
 {% endblock %}
 
