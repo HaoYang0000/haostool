@@ -1,6 +1,7 @@
 from sqlalchemy import Column, text, DateTime, Integer
 import config
 from flask_sqlalchemy import SQLAlchemy
+from marshmallow_sqlalchemy import ModelSchema
 db = SQLAlchemy()
 
 
@@ -39,3 +40,14 @@ class BaseModelExtended(BaseModel):
         nullable=False,
         server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     )
+
+class BaseSchema(ModelSchema):
+    def __init__(self, wrap=True, *args, **kwargs):
+        self.wrap = wrap
+        super().__init__(*args, **kwargs)
+
+class BaseMeta:
+    include_fk = True
+    datetimeformat = '%Y-%m-%d %H:%M:%S'
+    sqla_session = db.session
+    strict = True

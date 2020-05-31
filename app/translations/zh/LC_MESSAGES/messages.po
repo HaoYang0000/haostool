@@ -1,0 +1,266 @@
+# Chinese translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# Hao Yang <yanghao0613@gmail.com>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: yanghao0613@gmail.com\n"
+"POT-Creation-Date: 2020-05-31 16:35+0800\n"
+"PO-Revision-Date: 2020-05-27 20:15+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh\n"
+"Language-Team: zh <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: app/forms/accounting/accounting_form.py:8
+msgid "Item Name:"
+msgstr "物品名:"
+
+#: app/forms/accounting/accounting_form.py:9
+msgid "Item Price:"
+msgstr "物品价格:"
+
+#: app/forms/accounting/accounting_form.py:10
+msgid "Purchase Date:"
+msgstr "购买日期:"
+
+#: app/forms/accounting/accounting_form.py:11
+#: app/forms/accounting/accounting_form.py:20
+msgid "Tag:"
+msgstr "标签:"
+
+#: app/forms/accounting/accounting_form.py:12
+#: app/forms/accounting/accounting_form.py:16
+#: app/forms/accounting/accounting_form.py:21
+msgid "Add"
+msgstr "增加"
+
+#: app/forms/accounting/accounting_form.py:15
+msgid "Tag Name:"
+msgstr "标签名:"
+
+#: app/forms/accounting/accounting_form.py:19
+msgid "Category Name:"
+msgstr "类别名称:"
+
+#: app/forms/auth/auth_forms.py:8 app/forms/auth/auth_forms.py:30
+#: app/forms/user/profile.py:7
+msgid "Username"
+msgstr "用户名"
+
+#: app/forms/auth/auth_forms.py:9 app/forms/user/profile.py:8
+msgid "First Name"
+msgstr "姓"
+
+#: app/forms/auth/auth_forms.py:10 app/forms/user/profile.py:9
+msgid "Last Name"
+msgstr "名"
+
+#: app/forms/auth/auth_forms.py:11 app/forms/user/profile.py:10
+msgid "Email"
+msgstr "邮箱"
+
+#: app/forms/auth/auth_forms.py:12
+msgid "Phone number"
+msgstr "电话"
+
+#: app/forms/auth/auth_forms.py:13 app/forms/auth/auth_forms.py:31
+#: app/forms/user/profile.py:12
+msgid "Password"
+msgstr "密码"
+
+#: app/forms/auth/auth_forms.py:15
+msgid "Repeat Password"
+msgstr "重复密码"
+
+#: app/forms/auth/auth_forms.py:16 app/forms/auth/auth_forms.py:33
+msgid "RememberMe"
+msgstr "在这台设备上记住我"
+
+#: app/forms/auth/auth_forms.py:17 app/templates/auth/register.html:9
+#: app/templates/layout.html:56
+msgid "Register"
+msgstr "注册"
+
+#: app/forms/auth/auth_forms.py:22
+msgid "Please use a different username."
+msgstr "请使用一个不同的用户名"
+
+#: app/forms/auth/auth_forms.py:27
+msgid "Please use a different email address."
+msgstr "请使用另一个邮箱地址"
+
+#: app/forms/auth/auth_forms.py:34 app/templates/auth/login.html:19
+#: app/templates/layout.html:55
+msgid "Login"
+msgstr "登录"
+
+#: app/forms/blog/create_post_form.py:9 app/templates/videos/upload.html:10
+msgid "title"
+msgstr "标题"
+
+#: app/forms/blog/create_post_form.py:11
+msgid "content"
+msgstr "内容"
+
+#: app/forms/user/profile.py:11
+msgid "Phone"
+msgstr "电话"
+
+#: app/forms/user/profile.py:13
+msgid "Update"
+msgstr "更新"
+
+#: app/templates/index.html:7
+msgid "KGLB"
+msgstr "柯哥流弊"
+
+#: app/templates/layout.html:23
+msgid "Home"
+msgstr "主页"
+
+#: app/templates/layout.html:26
+msgid "Blogs"
+msgstr "博客"
+
+#: app/templates/layout.html:29 app/templates/layout.html:36
+msgid "Videos"
+msgstr "视频"
+
+#: app/templates/layout.html:31
+msgid "Check All Videos"
+msgstr "查看所有视频"
+
+#: app/templates/layout.html:32
+msgid "Upload Video"
+msgstr "上传视频"
+
+#: app/templates/layout.html:40 app/templates/layout.html:43
+msgid "Streaming"
+msgstr "直播"
+
+#: app/templates/layout.html:42
+msgid "Video feed"
+msgstr "直播源"
+
+#: app/templates/layout.html:52
+msgid "AWS"
+msgstr "AWS"
+
+#: app/templates/layout.html:58
+msgid "Logout"
+msgstr "登出"
+
+#: app/templates/layout.html:59
+msgid "Settings"
+msgstr "设置"
+
+#: app/templates/layout.html:64
+#, python-format
+msgid "hi, %(user)s"
+msgstr "你好, %(user)s"
+
+#: app/templates/special.html:6
+msgid "No Porn here :p"
+msgstr "此处木有黄片儿 :P"
+
+#: app/templates/auth/login.html:12
+msgid "Username Login"
+msgstr "用户名登录"
+
+#: app/templates/auth/login.html:15 app/templates/auth/login.html:47
+msgid "Gesture Login"
+msgstr "手势登录"
+
+#: app/templates/auth/login.html:25 app/templates/auth/register.html:17
+#: app/templates/user/profile.html:40
+msgid "Please enter your user name here"
+msgstr "请输入您的用户名"
+
+#: app/templates/auth/login.html:33 app/templates/auth/register.html:33
+#: app/templates/user/profile.html:45
+msgid "Please enter your password here"
+msgstr "请输入您的密码"
+
+#: app/templates/auth/login.html:44
+msgid "register"
+msgstr "注册"
+
+#: app/templates/auth/register.html:11
+msgid "Required infomation."
+msgstr "必填信息."
+
+#: app/templates/auth/register.html:25 app/templates/user/profile.html:35
+msgid "Please enter your email address here"
+msgstr "请输入您的邮箱地址"
+
+#: app/templates/auth/register.html:41
+msgid "Please re-enter your password here"
+msgstr "请重新输入密码"
+
+#: app/templates/auth/register.html:47 app/templates/user/profile.html:48
+msgid "Information Below is not required."
+msgstr "以下信息为选填."
+
+#: app/templates/auth/register.html:51 app/templates/user/profile.html:52
+msgid "Please enter your first name here"
+msgstr "请输入您的姓氏"
+
+#: app/templates/auth/register.html:56 app/templates/user/profile.html:57
+msgid "Please enter your last name here"
+msgstr "请输入您的名字"
+
+#: app/templates/auth/register.html:61 app/templates/user/profile.html:62
+msgid "Please enter your phone number here"
+msgstr "请输入您的电话"
+
+#: app/templates/user/profile.html:12
+msgid "Basics"
+msgstr "基本设置"
+
+#: app/templates/user/profile.html:15
+msgid "Manage IP address"
+msgstr "管理IP地址"
+
+#: app/templates/user/profile.html:18
+msgid "Login method"
+msgstr "登录方式"
+
+#: app/templates/user/profile.html:26 app/templates/videos/upload.html:15
+msgid "Upload"
+msgstr "上传"
+
+#: app/templates/user/profile.html:76
+msgid "Your trusted IP address."
+msgstr "您信任的IP地址"
+
+#: app/templates/user/profile.html:83
+msgid "Setup Gesture Login"
+msgstr "设置手势登录"
+
+#: app/templates/videos/all_videos.html:14
+msgid "Title: "
+msgstr "标题:"
+
+#: app/templates/videos/upload.html:12
+msgid "Please enter title name"
+msgstr "请输入标题名称"
+
+#: app/templates/videos/view_video.html:12
+msgid "Viewed Num: "
+msgstr "已被播放:"
+
+#: app/templates/videos/view_video.html:14
+msgid "Likded Num: "
+msgstr "点赞数:"
+
+#: app/templates/videos/view_video.html:20
+msgid "Comments:"
+msgstr "评论:"
+

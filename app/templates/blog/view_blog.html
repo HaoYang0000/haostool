@@ -1,0 +1,32 @@
+{# app/templates/blog/create_post.html_ #}
+
+{% extends "layout.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blog/main.css') }}">
+<script charset="utf-8" src="{{ url_for('static', filename='js/kindeditor/kindeditor-all.js') }}"></script>
+<script charset="utf-8" src="{{ url_for('static', filename='js/kindeditor/lang/zh-CN.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='js/kindeditor/themes/default/default.css') }}" />
+{% autoescape false %}
+<script>
+    var editor;
+    KindEditor.ready(function(K) {
+        editor = K.create('#text_editor', {
+
+        });
+        editor.html('{{ content }}');
+        editor.sync();
+        //html=document.getElementById('text_editor').value;//原生API
+        document.getElementById("schtmlnr").innerHTML = editor.fullHtml();
+        editor.remove('#text_editor');
+    });
+</script>
+{{ post.title }}
+<textarea id="text_editor" hidden="true">
+</textarea>
+<div id="schtmlnr"></div>
+{% endautoescape %}
+{% endblock %}
+
+
+

@@ -52,6 +52,7 @@ def profile_update():
         user.first_name = user_setting_form.first_name.data
         user.last_name = user_setting_form.last_name.data
         user.email = user_setting_form.email.data
+        user.phone_num = user_setting_form.phone.data
         if user_setting_form.password.data:
             user.password = User.set_password(user_setting_form.password.data)
         db.session.commit()

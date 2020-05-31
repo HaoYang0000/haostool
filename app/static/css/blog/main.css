@@ -1,0 +1,27 @@
+.accounting-left-panel {
+	float:left;
+	width:30vw;
+}
+
+.accounting-left-panel-inner-container {
+	margin-left: 5vw;
+	margin-right: 10vw;
+}
+
+.accounting-middle-panel {
+	display: inline-block;
+    margin:0 auto;
+    width:30vw;
+}
+
+
+.accounting-right-panel {
+	float:right;
+    width:27vw;
+}
+
+.accounting-right-panel-inner-container {
+	margin-right: 5vw;
+}
+
+

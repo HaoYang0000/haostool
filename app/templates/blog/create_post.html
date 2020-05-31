@@ -1,0 +1,35 @@
+{# app/templates/blog/create_post.html_ #}
+
+{% extends "layout.html" %}
+
+{% block body %}
+<script charset="utf-8" src="{{ url_for('static', filename='js/kindeditor/kindeditor-all.js') }}"></script>
+<script charset="utf-8" src="{{ url_for('static', filename='js/kindeditor/lang/zh-CN.js') }}"></script>
+<script>
+    KindEditor.ready(function(K) {
+        window.editor = K.create('#text_editor', {
+            width : '700px',
+            height: '800px',
+            uploadJson : '/static/js/kindeditor/jsp/upload_json.jsp',
+            fileManagerJson : '/static/js/kindeditor/jsp/file_manager_json.jsp',
+            allowFileManager : true
+        });
+    });
+</script>
+<form action="/blog/create_post" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(size=32) }}<br>
+        {% for error in form.title.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    {{ form.content.label }}
+    {{ form.content() }}<br>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
+
+
+

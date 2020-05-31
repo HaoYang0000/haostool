@@ -3,10 +3,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
-	<h1>Available services: </h1>
-	{%  for service in all_service %}
-		<a href={{ service.base_url }}>{{ service.name|string}}</a>
-		<br>
-	{% endfor %}
+<div class="row">
+{{_('KGLB')}}
+</div>
+
 {% endblock %}
 

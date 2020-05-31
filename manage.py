@@ -6,7 +6,6 @@ import os
 import click
 from time import sleep
 
-
 # pep8 setup
 cwd = os.path.dirname(os.path.realpath(__file__))
 _pep8_excluded_patterns = []

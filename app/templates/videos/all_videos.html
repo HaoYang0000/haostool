@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/video/main.css') }}">
+{%  for video in videos %}
+<a href={{ "/videos/" + video.uuid  }}>
+<div class="row all-video-single-row">
+    <div class="all-video-left-panel">
+        <img src="{{ url_for('static', filename=video.thumb_nail) }}">
+    </div>
+    
+    <div class="all-video-right-panel">
+        <div class="title-block">
+            <label>{{_('Title: ')}}{{ video.title|string}}</label>
+        </div>
+    </div>
+</div>
+</a>
+{% endfor %}
+
+{% endblock %}

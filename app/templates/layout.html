@@ -1,36 +1,73 @@
 {# app/templates/layout.html_ #}
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <title>{% block title %}{% endblock %}</title>
-        <meta charset="UTF-8">
-        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+        <meta charset="UTF-8"> 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/body.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/accounting/main.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/main.css') }}">
         <script src="https://libs.cdnjs.net/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/popup.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
     </head>
     <body>
     {% block navigation_bar %}
     	<div class="topnav">
-			<a class="left-align active" href="{{ url_for('index.main') }}">Home</a>
-            <a class="left-align" href="{{ url_for('index.slack_emoji') }}">Slack Emoji</a>
+            <a class="left-align" id="home_button" href="{{ url_for('index.main') }}">
+                <img src={{ url_for('static', filename='ydaxian_logo.png') }}>
+            </a>
+			<a class="nav-button left-align  active" id="home_button" href="{{ url_for('index.main') }}">
+                {{_('Home')}}
+            </a>
+            <!-- <a class="nav-button left-align" href="{{ url_for('index.slack_emoji') }}">Slack Emoji</a> -->
+            <a class="nav-button middle-align"  href="{{ url_for('blog.blogs') }}">{{_('Blogs')}}</a>
+            {% if current_user.level == 0 %}
+            <div class="dropdown nav-button middle-align">
+                {{_('Videos')}}
+                <div class="dropdown-content">
+                    <a class="nav-button middle-align"  href="{{ url_for('videos.videos') }}">{{_('Check All Videos')}}</a>
+                    <a class="nav-button middle-align"  href="{{ url_for('videos.upload_video_page') }}">{{_('Upload Video')}}</a>
+                </div>
+            </div>
+            {% else %}
+            <a class="nav-button middle-align"  href="{{ url_for('videos.videos') }}">{{_('Videos')}}</a>
+            {% endif %}
+            {% if current_user.level == 0 %}
+            <div class="dropdown nav-button middle-align">
+                {{_('Streaming')}}
+                <div class="dropdown-content">
+                    <a href="{{ url_for('streaming.video_feed') }}">{{_('Video feed')}}</a>
+                    <a href="{{ url_for('streaming.streaming') }}">{{_('Streaming')}}</a>
+                </div>
+            </div>
+            <div class="dropdown nav-button middle-align">
+                test
+                <div class="dropdown-content">
+                    <a href="#">Placeholder 3</a>
+                </div>
+            </div>
+            <a class="nav-button middle-align"  href="{{ url_for('aws.aws') }}">{{_('AWS')}}</a>
+            {% endif %}
 			{% if current_user.is_anonymous %}
-	        <a class="right-align" href="{{ url_for('auth.login') }}">Login</a>
-	        <a class="right-align" href="{{ url_for('auth.register') }}">Register</a>
-	        {% else %}
-	        <a class="right-align" class="right" href="{{ url_for('auth.logout') }}">Logout</a>
-            <a class="right-align" class="right" href="{{ url_for('user.profile') }}">Settings</a>
-            <div class="right-align">
+	        <a class="nav-button right-align" href="{{ url_for('auth.login') }}">{{_('Login')}}</a>
+	        <a class="nav-button right-align" href="{{ url_for('auth.register') }}">{{_('Register')}}</a>
+            {% else %}
+	        <a class="nav-button right-align" id="logout_button"  href="{{ url_for('auth.logout') }}">{{_('Logout')}}</a>
+            <a class="nav-button right-align" id="nav_setting_button"  href="{{ url_for('user.profile') }}">{{_('Settings')}}</a>
+            <div class="nav-button right-align">
                 <img src={{ url_for('static', filename=current_user.avatar) }}>
             </div>
-            <div class="right-align">Hi, {{ current_user.first_name }}  </div>
+                {% if current_user.first_name %}
+                    <div class="nav-button right-align">{{ _('hi, %(user)s', user=current_user.first_name)  }}  </div>
+                {% endif %}
 	        {% endif %}
+		</div>
+    {% endblock %}
+    {% block secret_bar %}
+    	<div class="secretnav" id="secretnav">
 		</div>
     {% endblock %}
     {% with messages = get_flashed_messages() %}
@@ -42,10 +79,43 @@
             </ul>
         {% endif %}
     {% endwith %}
-    <div class="body_content">
+    <div class="nav-holder">
+    </div>
+    <div class="page-helper" id="goTopButton">
+            <span class="arrow_to_top_up" ></span>
+            <span class="arrow_to_top_down" ></span>
+    </div>
+
+    <div class="ball">
+        <a href="{{ url_for('auth.login') }}">
+            <img class="first" src="{{ url_for('static', filename='icon/login.png') }}">
+        </a>
+        <a href="{{ url_for('index.donate_page') }}">
+            <img class="second" src="{{ url_for('static', filename='icon/donate.png') }}">
+        </a>
+        <a href="{{ url_for('index.comment_page') }}">
+            <img class="third" src="{{ url_for('static', filename='icon/comment.png') }}">
+        </a>
+        <a href="{{ url_for('index.contact_us') }}">
+            <img class="fourth" src="{{ url_for('static', filename='icon/wechat.png') }}">
+        </a>
+        <a href="{{ url_for('videos.videos') }}">
+            <img class="five" src="{{ url_for('static', filename='icon/movie.png') }}">
+        </a>
+
+        <?xml version="1.0" encoding="utf-8"?>
+        <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="30px" height="30px" viewBox="0 0 30 30" enable-background="new 0 0 30 30" xml:space="preserve">
+        <polygon fill="#FFFFFF" points="30,14.5 15.5,14.5 15.5,0 14.5,0 14.5,14.5 0,14.5 0,15.5 14.5,15.5 14.5,30 15.5,30 15.5,15.5 
+            30,15.5 "/>
+        </svg>
+    </div>	
+
     {% block body %}
         <h1>This heading is defined in the parent.</h1>
     {% endblock %}
+    <div class="footer">
+
     </div>
     </body>
 </html>

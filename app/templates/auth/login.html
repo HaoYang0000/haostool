@@ -3,29 +3,50 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h1>Login</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.rememberme.label }}<br>
-            {{ form.rememberme }}<br>
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
-
-    <a href="register">register</a>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth/login.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='js/auth/main.js') }}"></script>
+<div class="container">
+    <div class="user-login-middle-panel">
+        <div class="user-login-right-panel">
+            <div id="basic_tab">
+                {{_('Username Login')}}
+            </div>
+            <div id="gesture_tab">
+                {{_('Gesture Login')}}
+            </div>
+        </div>
+        <div id="basic_content">
+            <h1>{{_('Login')}}</h1>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="input-family">
+                    {{ form.username.label }}
+                    {{ form.username(size=32) }}
+                    <span>{{_('Please enter your user name here')}}</span>
+                </div>
+                {% for error in form.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                <div class="input-family">
+                    {{ form.password.label }}
+                    {{ form.password(size=32) }}
+                    <span>{{_('Please enter your password here')}}</span>
+                </div>
+                {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                <p>
+                    
+                    {{ form.rememberme }} {{ form.rememberme.label }}<br>
+                </p>
+                {{ form.submit(class="button") }}
+            </form>
+            <a class="button"href="register" >{{_('register')}}</a>
+        </div>
+        <div id="gesture_login">
+            <h1>{{_('Gesture Login')}}</h1>
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+</div>
 {% endblock %}

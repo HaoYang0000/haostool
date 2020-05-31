@@ -1,13 +1,14 @@
 import json
 import logging
 
-from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash
+from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash, request, send_from_directory
 from flask_api import status
 from flask_login import current_user, login_user, logout_user
 from app.controllers.main_controller import MainController as Controller
 from app.forms.slack_emoji.slack_emoji_form import SlackEmojiForm
 from app.services.slack_emoji.run import generate
 from flask import send_from_directory
+
 
 UPLOAD_FOLDER = '/app/uploads/'
 app = Blueprint('index', __name__)
@@ -23,14 +24,34 @@ def health():
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
+    logger.error(request.headers.get('Accept-Language', ''))
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     else:
         all_service = controller.get_all_service()
         return render_template('index.html', current_user=current_user, all_service=all_service)
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-# return render_template('index.html', title='Home Page', posts=posts)
+@app.route('/donate', methods=['GET', 'POST'])
+def donate_page():
+    return render_template('donate.html')
+
+
+@app.route('/comment', methods=['GET', 'POST'])
+def comment_page():
+    return render_template('comment.html')
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact_us():
+    return render_template('contact.html')
+
+@app.route('/special', methods=['GET', 'POST'])
+def special():
+    return render_template('special.html')
 
 @app.route('/slack_emoji', methods=['GET', 'POST'])
 def slack_emoji():

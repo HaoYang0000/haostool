@@ -1,0 +1,16 @@
+{# app/templates/blog/blogs.html_ #}
+
+{% extends "layout.html" %}
+
+{% block body %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/blog/main.css') }}">
+  <h1>Blog Posts:</h1>
+  {%  for post in posts %}
+    <div class="clickable">
+      <a href={{ "/blog/edit/" + post.uuid  }}>
+        {{ post.id|string + ".title: " + post.title|string +", created at: " +post.created_at|string + ", published: " + post.is_published|string  }}
+      </a>
+    </div>
+  {% endfor %}
+    
+{% endblock %}

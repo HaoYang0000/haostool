@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <form id="upload-file" method="post" enctype="multipart/form-data">
+        <div class="input-family">
+            <label>{{_('title')}}</label>
+            <input name="title" type="text">
+            <span>{{_('Please enter title name')}}</span>
+        </div>
+        <input class="button" name="file" type="file">
+        <button id="video-upload-file-btn" type="button">{{_('Upload')}}</button>
+    </form>
+    <hr>
+    {%  for video in videos %}
+        <a href={{ "/videos/" + video.uuid  }}>{{ video.title|string}}</a>
+        <br>
+    {% endfor %}
+</div>
+
+<script type="text/javascript" >
+$(function() {
+    $('#video-upload-file-btn').click(function() {
+        var form_data = new FormData($('#upload-file')[0]);
+        $.ajax({
+            type: 'POST',
+            url: '/videos/upload',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) { 
+                console.log(data);  
+                window.location.href = "/videos/upload";                  
+            },
+            error: function(jqXHR) {
+                alert("error: " + jqXHR.status);
+                console.log(jqXHR);
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}

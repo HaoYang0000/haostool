@@ -1,12 +1,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
-{{ "Vpn name: " + vpn_instance.name|string + ", type: " + vpn_instance.type|string + " , state: " +vpn_instance.state|string }}
-{{ "IP Address: " + vpn_instance.ip_address|string}}
-<button onclick="start_instance()" class="clickable" >Start Instance</button>
-<button onclick="stop_instance()" class="clickable" >Stop Instance</button>
-<button onclick="change_ip()" class="clickable" >Replace IP</button>
+<script type="text/javascript" src="{{ url_for('static', filename='js/aws/aws.js') }}"></script>
+<div class="container">
+    <h1>Instance:</h1>
+    {{ "Vpn name: " + vpn_instance.name|string + ", type: " + vpn_instance.type|string + " , state: " +vpn_instance.state|string }}
+    {{ "IP Address: " + vpn_instance.ip_address|string}}
+    <button onclick="start_instance()" class="clickable" >Start Instance</button>
+    <button onclick="stop_instance()" class="clickable" >Stop Instance</button>
+    <button onclick="change_ip()" class="clickable" >Replace IP</button>
+</div>
 <script type="text/javascript">
 function start_instance(){
     $.post("/aws/start_instance", function(data){

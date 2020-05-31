@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/video/main.css') }}">
+<div class="panel-center">
+    <div class="video-panel">
+            <video controls>
+                <source src={{ src }} type="video/mp4">
+            </video>
+    </div>
+    <div class="row">
+        {{_('Viewed Num: ') }}{{viewed_num}}
+        <br>
+        {{_('Likded Num: ') }}<label id="liked_num">{{liked_num}} </label>
+        <div class="video-like-btn" id="video-like-btn">
+            <img src="{{ url_for('static', filename='icon/thumb_up.png') }}">
+        </div>
+    </div>
+    <!-- <div class="row">
+        {{_('Comments:')}}
+    </div> -->
+</div>
+
+<script type="text/javascript" >
+
+    $(function() {
+        $('#video-like-btn').click(function() {
+            var form_data = new FormData($('#upload-file')[0]);
+            $.ajax({
+                type: 'POST',
+                url: '/videos/like/' + '{{uuid}}',
+                success: function(data) { 
+                    $('#liked_num').html(data);
+                    console.log(data);                   
+                },
+                error: function(jqXHR) {
+                    alert("error: " + jqXHR.status);
+                    console.log(jqXHR);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

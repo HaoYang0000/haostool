@@ -6,9 +6,13 @@ from os import path, sys
 # ensure we catch all models, not just ones in use right now
 # noinspection PyUnresolvedReferences
 import app.models
+
+from app.models.blog.post import BlogPostModel as NewModel
+
 from alembic import context
 from app.engine import db, create_app
 from sqlalchemy import engine_from_config, pool
+from flask_sqlalchemy import SQLAlchemy
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
@@ -26,7 +30,7 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = db.metadata
+target_metadata = NewModel.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -88,6 +92,6 @@ def run_migrations_online():
 
 
 if context.is_offline_mode():
-    run_migrations_offline()
+    run_migrations_online()
 else:
     run_migrations_online()

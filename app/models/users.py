@@ -18,14 +18,19 @@ class UserModel(UserMixin, BaseModelExtended):
         nullable=False
     )
 
+    gesture_hash = Column(
+        String(length=255),
+        nullable=True
+    )
+
     first_name = Column(
         String(length=255),
-        nullable=False
+        nullable=True
     )
 
     last_name = Column(
         String(length=255),
-        nullable=False
+        nullable=True
     )
 
     username = Column(
@@ -33,9 +38,22 @@ class UserModel(UserMixin, BaseModelExtended):
         nullable=False
     )
 
+    phone_num = Column(
+        String(length=255),
+        nullable=True
+    )
+
     avatar = Column(
         String(length=255),
         nullable=True
+    )
+
+    # 0: root
+    # 1: aadmin
+    # 2: normal
+    level = Column(
+        Integer,
+        default=2
     )
 
     is_active = Column(
@@ -50,10 +68,36 @@ class UserModel(UserMixin, BaseModelExtended):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+    
+    def check_gesture_hash(self, gesture_list):
+        return check_password_hash(self.gesture_hash, str(gesture_list))
+    
+    @staticmethod
+    def generate_gesture_hash(gesture_list):
+        return generate_password_hash(str(gesture_list))
 
     @login_manager.user_loader
     def load_user(id):
         return UserModel.query.get(int(id))
+    
+    @property
+    def serialize(self):
+        ""
+        "Return object data in easily serializeable format"
+        ""
+        return {
+            'id': self.id,
+            'email': self.email,
+            'password': self.password,
+            'username': self.username,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'avatar': self.avatar,
+            'ip_addresses': self.ip_addresses,
+            'is_active': self.is_active,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
     
     def __repr__(self):
         return (
@@ -63,7 +107,7 @@ class UserModel(UserMixin, BaseModelExtended):
             password='{password}', \
             username='{username}', \
             first_name='{first_name}', \
-            last_namelast_name='{last_name}', \
+            last_name='{last_name}', \
             avatar='{avatar}', \
             is_active='{is_active}', \
             ip_addresses='{ip_addresses}', \

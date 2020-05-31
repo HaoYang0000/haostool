@@ -1,0 +1,46 @@
+
+
+#canvas {
+	width: 400px;
+	height: 400px;
+	/*! 要想让元素铺满全屏，要么用absolute的100%，要么用100vh */
+    position: absolute;
+    z-index: 10;
+}
+
+.user-login-middle-panel {
+	margin:5vh 35vw 20px 10vw;
+	width: 75vw;
+}
+
+.user-login-middle-panel img {
+	border-radius: 50%;
+  	height: 100px;
+  	width: 100px;
+}
+
+.user-login-right-panel {
+	float: right;
+	height: 400px;
+	width: 150px;
+}
+
+.user-login-right-panel div {
+	color: #000000;
+	background-color: #f9f9f9;
+	text-align: center;
+	padding: 21px 12px;
+	text-decoration: none;
+	font-size: 18px;	
+	border: 1px solid #ececec;
+}
+.user-login-right-panel div.active {
+	background-color:  #ddd;	
+}
+.user-login-right-panel div:hover {
+	cursor: pointer;
+	background-color: #ddd;
+	color: black;
+	transition: 0.5s;
+}
+
