@@ -29,10 +29,10 @@ def get_config_file():
         with open(f"{dir_path}/local.json", 'r') as config_file:
             return json.load(config_file)
     elif platform.system() == "Linux":
-        with open(f"{dir_path}/linux_server.json", 'r') as config_file:
+        with open(f"/var/www/haostool/config/linux_server.json", 'r') as config_file:
             return json.load(config_file)
     else:
-        with open(f"{dir_path}/linux_server.json", 'r') as config_file:
+        with open(f"/var/www/haostool/config/linux_server.json", 'r') as config_file:
             return json.load(config_file)
     
 def get_database_uri():
