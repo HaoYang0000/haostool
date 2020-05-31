@@ -77,7 +77,7 @@ def create_app():
     app.register_blueprint(socket_service.app)
     app.register_blueprint(aws.app)
     app.register_blueprint(videos.app)
-    app.register_blueprint(streaming.app)
+    # app.register_blueprint(streaming.app)
     app.register_blueprint(shadow_url.app)
     app.register_blueprint(blog.app)
 
