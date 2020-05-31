@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), nullable=False),
     sa.Column('title', sa.String(length=255), nullable=False),
     sa.Column('path', sa.String(length=255), nullable=False),
-    sa.Column('uuid', sa.Boolean(), nullable=True),
+    sa.Column('uuid', sa.String(length=255), nullable=True),
     sa.Column('liked_number', sa.Integer(), nullable=True),
     sa.Column('viewed_number', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
