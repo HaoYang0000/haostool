@@ -32,8 +32,8 @@ def get_config_file():
         with open(f"{dir_path}/linux_server.json", 'r') as config_file:
             return json.load(config_file)
     else:
-        print("Unknown system")
-        return None
+        with open(f"{dir_path}/linux_server.json", 'r') as config_file:
+            return json.load(config_file)
     
 def get_database_uri():
     db_dict = get_config_file().get("database_info")
