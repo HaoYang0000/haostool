@@ -6,10 +6,11 @@ import os
 from flask_login import current_user, login_user, logout_user
 from app.models.users import UserModel as User
 from app.models.user_ip_mapping import UserIpMappingServiceModel as UserIps
-from app.engine import db
+from app.engine import db, USER_PROFILE_DIR
 from app.forms.auth.auth_forms import RegistrationForm, LoginForm
 from wtforms.validators import ValidationError
 from flask_login import login_required
+import random
  
 app = Blueprint(
     'auth',
@@ -86,7 +87,8 @@ def register():
             first_name=form.first_name.data, 
             last_name=form.last_name.data, 
             email=form.email.data,
-            phone_num=form.phone.data
+            phone_num=form.phone.data,
+            avatar=f"{USER_PROFILE_DIR}/random/{random.randint(1,3)}.jpg"
         )
         user.set_password(form.password.data)
         db.session.add(user)

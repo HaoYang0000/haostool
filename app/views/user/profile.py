@@ -4,7 +4,7 @@ import logging
 from flask import Flask, flash, redirect, Blueprint, jsonify, render_template, request, session, abort, url_for
 import os
 from flask_login import current_user, login_user, logout_user
-from app.engine import db, UPLOAD_FOLDER, ALLOWED_EXTENSIONS
+from app.engine import db, UPLOAD_ROOT, ALLOWED_EXTENSIONS, USER_PROFILE_DIR
 from app.forms.user.profile import ProfileForm, IpWhiteListForm, IpAddress
 from wtforms.validators import ValidationError
 from flask_login import login_required
@@ -18,8 +18,6 @@ app = Blueprint(
     url_prefix='/user'
 )
 logger = logging.getLogger(__name__)
-
-UPLOAD_URL = 'uploads/'
 
 
 @app.route('/profile_setting', methods=['GET'])
@@ -105,9 +103,9 @@ def uploaded_file():
         return redirect(url_for('user.profile'))
 
     filename = secure_filename(file.filename)
-    file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), UPLOAD_FOLDER, filename))
+    file.save(f"{UPLOAD_ROOT}/{USER_PROFILE_DIR}/{filename}")
     user = db.session.query(User).filter(User.id == current_user.id).first()
-    user.avatar = UPLOAD_URL + filename
+    user.avatar = f"{USER_PROFILE_DIR}/{filename}"
     db.session.commit()
     flash('File upload successful')
     return redirect(url_for('user.profile'))

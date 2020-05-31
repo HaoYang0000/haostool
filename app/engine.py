@@ -24,6 +24,7 @@ babel = Babel()
 
 UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__)) + '/static/uploads'
 UPLOAD_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/static'
+USER_PROFILE_DIR = 'user_profile'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 @babel.localeselector
