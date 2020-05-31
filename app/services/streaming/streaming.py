@@ -4,6 +4,9 @@ import threading
 from io import BytesIO
 import cv2
 from PIL import ImageGrab, Image, ImageDraw
+import os
+os.environ['DISPLAY'] = ':0'
+
 import pyautogui
 
 try:
