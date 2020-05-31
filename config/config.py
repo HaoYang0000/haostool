@@ -28,6 +28,9 @@ def get_config_file():
     if platform.system() == "Windows":
         with open(f"{dir_path}/local.json", 'r') as config_file:
             return json.load(config_file)
+    elif platform.system() == "Linux":
+        open(f"{dir_path}/linux_server.json", 'r') as config_file:
+            return json.load(config_file)
     else:
         print("Unknown system")
         return None
