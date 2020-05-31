@@ -65,7 +65,7 @@ def create_app():
     from app.views.games import games
     from app.views.aws import aws
     from app.views.videos import videos
-    from app.views.streaming import streaming
+    # from app.views.streaming import streaming
     from app.views.shadow_url import shadow_url
     from app.views.blog import blog
 
