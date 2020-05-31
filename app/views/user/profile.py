@@ -76,6 +76,7 @@ def ip_white_list_update():
             user_ip = UserIps(
                 user_id=current_user.id, ip_address=data['ip_address'])
             db.session.add(user_ip)
+        db.session.flush()
         db.session.commit()
 
     return redirect(url_for('user.profile'))
