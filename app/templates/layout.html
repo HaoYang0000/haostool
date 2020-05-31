@@ -36,13 +36,13 @@
             <a class="nav-button middle-align"  href="{{ url_for('videos.videos') }}">{{_('Videos')}}</a>
             {% endif %}
             {% if current_user.level == 0 %}
-            <div class="dropdown nav-button middle-align">
+            <!-- <div class="dropdown nav-button middle-align">
                 {{_('Streaming')}}
                 <div class="dropdown-content">
                     <a href="{{ url_for('streaming.video_feed') }}">{{_('Video feed')}}</a>
                     <a href="{{ url_for('streaming.streaming') }}">{{_('Streaming')}}</a>
                 </div>
-            </div>
+            </div> -->
             <div class="dropdown nav-button middle-align">
                 test
                 <div class="dropdown-content">
