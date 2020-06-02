@@ -45,8 +45,8 @@ def create_app():
     app.config['BABEL_DEFAULT_LOCALE'] = 'zh_Hans_CN'
     app.config['BABEL_DEFAULT_TIMEZONE'] = 'UTC'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.secret_key="key"
     app.config.update(dict(
-        SECRET_KEY="powerful secretkey",
         WTF_CSRF_SECRET_KEY="a csrf secret key"
     ))
         
