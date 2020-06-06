@@ -9,6 +9,7 @@ from app.services.videos.video_service import VideoService
 from werkzeug.utils import secure_filename
 from app.engine import UPLOAD_ROOT
 import uuid
+from pypinyin import pinyin, lazy_pinyin
 
 app = Blueprint('videos', __name__)
 logger = logging.getLogger(__name__)
@@ -64,7 +65,7 @@ def upload_video():
 
     uuid_val = uuid.uuid4().hex
     # save file
-    filename = secure_filename(file.filename)
+    filename = secure_filename(str(lazy_pinyin(file.filename)))
     file.save(f"{UPLOAD_ROOT}/{VIDEOS_FOLDER}/{filename}")
 
     video_input_path = f"{UPLOAD_ROOT}/{VIDEOS_FOLDER}/{filename}"
