@@ -10,6 +10,7 @@ from flask_login import login_required
 from app.models.socket_service.game_room import GameRoomModel
 from app.forms.socket_service.create_game_room import CreateGameRoomForm
 import uuid
+from app.engine import session_scope
 
 app = Blueprint(
     'socket_service',
@@ -21,9 +22,10 @@ logger = logging.getLogger(__name__)
 
 @app.route('/')
 def view_rooms():
-    form = CreateGameRoomForm()
-    game_rooms = GameRoomModel.query.all()
-    return render_template('socket_service/socket_service.html', form=form, rooms=game_rooms)
+    with session_scope() as session:
+        form = CreateGameRoomForm()
+        game_rooms = session.query(GameRoomModel).all()
+        return render_template('socket_service/socket_service.html', form=form, rooms=game_rooms)
 
 
 @app.route('/enter_room/<string:room_uuid>', methods=['GET'])
@@ -33,17 +35,18 @@ def enter_room(room_uuid):
 
 @app.route('/create_room', methods=['POST'])
 def create_room():
-    form = CreateGameRoomForm()
-    if form.validate_on_submit():
-        game_room = GameRoomModel(
-            name=form.name.data,
-            uuid=uuid.uuid4().hex,
-            expire_at=form.expire_at.data
-        )
-        db.session.add(game_room)
-        db.session.commit()
+    with session_scope() as session:
+        form = CreateGameRoomForm()
+        if form.validate_on_submit():
+            game_room = GameRoomModel(
+                name=form.name.data,
+                uuid=uuid.uuid4().hex,
+                expire_at=form.expire_at.data
+            )
+            session.add(game_room)
+            session.commit()
 
-    return redirect(url_for('socket_service.view_rooms'))
+        return redirect(url_for('socket_service.view_rooms'))
 
 
 def messageReceived(methods=['GET', 'POST']):

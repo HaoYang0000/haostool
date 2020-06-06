@@ -2,6 +2,7 @@ from sqlalchemy import Column, text, DateTime, Integer
 import config
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import ModelSchema
+
 db = SQLAlchemy()
 
 

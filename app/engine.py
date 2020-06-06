@@ -7,7 +7,9 @@ from flask_apispec import FlaskApiSpec
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, emit
-from app.views.index import login_required
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy import create_engine
+from contextlib import contextmanager
 from werkzeug.utils import secure_filename
 from config.config import get_database_uri, LANGUAGES
 from flask_babel import Babel, gettext as _
@@ -21,6 +23,13 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 socketIO = SocketIO()
 babel = Babel()
+engine = create_engine(
+    get_database_uri(),
+    convert_unicode=True,
+    pool_pre_ping=True,
+    pool_recycle=300,
+    isolation_level='READ UNCOMMITTED'
+)
 
 UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__)) + '/static/uploads'
 UPLOAD_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/static'
@@ -45,6 +54,9 @@ def create_app():
     app.config['BABEL_DEFAULT_LOCALE'] = 'zh_Hans_CN'
     app.config['BABEL_DEFAULT_TIMEZONE'] = 'UTC'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_POOL_RECYCLE'] = 60
+    app.config['SQLALCHEMY_ECHO'] = False
+    app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
     app.secret_key="key"
     app.config.update(dict(
         WTF_CSRF_SECRET_KEY="a csrf secret key"
@@ -57,6 +69,8 @@ def create_app():
     babel.init_app(app)
     app.logger.addHandler(handler)
 
+
+
     from app.views import index
     from app.views.accounting import accounting
     from app.views.auth import auth
@@ -68,6 +82,7 @@ def create_app():
     # from app.views.streaming import streaming
     from app.views.shadow_url import shadow_url
     from app.views.blog import blog
+    from app.views.index import login_required
 
     app.register_blueprint(index.app)
     app.register_blueprint(accounting.app)
@@ -85,3 +100,24 @@ def create_app():
     app.register_error_handler(401, login_required)
 
     return app
+
+@contextmanager
+def session_scope():
+    """
+    Provide a transactional scope around a series of operations.
+    This is the preferred way to get a session. It ensures a commit,
+    optional rollback, and close
+    """
+    current_session = scoped_session(
+        sessionmaker(
+            autocommit=False,
+            autoflush=False,
+            bind=engine
+        )
+    )
+    try:
+        yield current_session
+    except Exception as exception:
+        raise exception
+    finally:
+        current_session.remove()
