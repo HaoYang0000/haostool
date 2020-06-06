@@ -21,7 +21,7 @@ SINGLE_QUOTE = '__SINGLE_QUOTE__'
 
 @app.route('/', methods=['GET'])
 def blogs():
-    posts = BlogService().get_all_posts()
+    posts = BlogService().get_all()
     return render_template('blog/blog.html', posts=posts)
 
 @app.route('/view/<string:uuid>', methods=['GET'])
