@@ -5,5 +5,11 @@
         "user":"hao",
         "password": "root",
         "database": "personal_tool"
+    },
+    "aws_ec2":{
+        "aws_access_key_id": "AKIAYT6G4F4C3AFTISGJ",
+        "aws_secret_access_key": "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",
+        "ec2_region_name": "us-east-2",
+        "vpn_instance_id": "i-05987b5a913f218b3"
     }
 }
