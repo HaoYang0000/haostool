@@ -22,12 +22,12 @@ logger = logging.getLogger(__name__)
  
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    with session_scope() as session:
+    with session_scope() as ss:
         if current_user.is_authenticated:
             return redirect(url_for('index.main'))
         form = LoginForm()
         if form.validate_on_submit():
-            user = session.query(User).filter(
+            user = ss.query(User).filter(
                 (User.username==form.username.data) | (User.email==form.username.data)
             ).first()
             if user is None or not user.check_password(form.password.data):
