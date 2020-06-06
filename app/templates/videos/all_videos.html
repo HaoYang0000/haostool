@@ -3,19 +3,22 @@
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/video/main.css') }}">
 {%  for video in videos %}
-<a href={{ "/videos/" + video.uuid  }}>
+
 <div class="row all-video-single-row">
+    <a href={{ "/videos/" + video.uuid  }}>
     <div class="all-video-left-panel">
         <img src="{{ url_for('static', filename=video.thumb_nail) }}">
     </div>
-    
+    </a>
+    <a href={{ "/videos/" + video.uuid  }}>
     <div class="all-video-right-panel">
         <div class="title-block">
             <label>{{_('Title: ')}}{{ video.title|string}}</label>
         </div>
     </div>
+    </a>
 </div>
-</a>
+
 {% endfor %}
 
 {% endblock %}
