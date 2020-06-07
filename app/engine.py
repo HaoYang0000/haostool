@@ -79,7 +79,7 @@ def create_app():
     from app.views.games import games
     from app.views.aws import aws
     from app.views.videos import videos
-    # from app.views.streaming import streaming
+    from app.views.streaming import streaming
     from app.views.shadow_url import shadow_url
     from app.views.blog import blog
     from app.views.index import login_required
@@ -92,7 +92,7 @@ def create_app():
     app.register_blueprint(socket_service.app)
     app.register_blueprint(aws.app)
     app.register_blueprint(videos.app)
-    # app.register_blueprint(streaming.app)
+    app.register_blueprint(streaming.app)
     app.register_blueprint(shadow_url.app)
     app.register_blueprint(blog.app)
 

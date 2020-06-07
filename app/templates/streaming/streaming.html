@@ -3,6 +3,8 @@
 
 {% block body %}
     <h4>屏幕共享</h4>
-    <img src="{{ url_for('streaming.video_feed') }}">
+    <video controls>
+        <source src="{{ url_for('static', filename='live/index.m3u8') }}" type="application/x-mpegURL">
+    </video>
 {% endblock %}
 

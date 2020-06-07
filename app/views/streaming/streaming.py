@@ -7,8 +7,8 @@ from flask_api import status
 from flask_login import current_user, login_user, logout_user
 # from app.services.streaming.streaming import Camera
 
-# app = Blueprint('streaming', __name__)
-# logger = logging.getLogger(__name__)
+app = Blueprint('streaming', __name__)
+logger = logging.getLogger(__name__)
 
 # def gen(camera):
 #     """
@@ -25,6 +25,6 @@ from flask_login import current_user, login_user, logout_user
 #     return Response(gen(Camera()),
 #                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# @app.route('/streaming', methods=['GET', 'POST'])
-# def streaming():
-#     return render_template('streaming/streaming.html')
+@app.route('/streaming', methods=['GET', 'POST'])
+def streaming():
+    return render_template('streaming/streaming.html')
