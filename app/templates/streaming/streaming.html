@@ -2,9 +2,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<video id="video"></video>
-<script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script> -->
+<video id="video" src="http://121.89.211.28:8090/test.flv"></video>
+<!-- <script>
   var video = document.getElementById('video');
   var videoSrc = 'http://121.89.211.28/static/live/index.m3u8';
   if (Hls.isSupported()) {
@@ -34,6 +34,6 @@
       video.play();
     });
   }
-</script>
+</script> -->
 {% endblock %}
 
