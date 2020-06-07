@@ -7,6 +7,7 @@ from flask_apispec import FlaskApiSpec
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, emit
+from flask_cors import CORS
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
 from contextlib import contextmanager
@@ -23,6 +24,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 socketIO = SocketIO()
 babel = Babel()
+cors = CORS()
 engine = create_engine(
     get_database_uri(),
     convert_unicode=True,
@@ -67,6 +69,7 @@ def create_app():
     login_manager.init_app(app)
     socketIO.init_app(app)
     babel.init_app(app)
+    cors.init_app(app)
     app.logger.addHandler(handler)
 
 
