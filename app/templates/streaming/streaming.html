@@ -2,7 +2,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<!-- <div id="content">
+<div id="content">
     <h1>KeyCDN JW Player HLS Demo</h1>
 
     <script src="http://jwpsrv.com/library/4+R8PsscEeO69iIACooLPQ.js"></script>
@@ -14,10 +14,14 @@
             width: "530",
             height: "300",
             primary: "html",
-            liveSyncDuration: "10"
+            liveSyncDuration: "10",
+            onXhrOpen: function(xhr, url) {
+              xhr.setRequestHeader('Cache-Control', 'no-cache');
+          }
         });
-    </script> -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    </script>
+</div>
+<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <video id="video"></video>
 <script>
   var video = document.getElementById('video');
@@ -72,6 +76,6 @@
       video.play();
     });
   }
-</script>
+</script> -->
 {% endblock %}
 
