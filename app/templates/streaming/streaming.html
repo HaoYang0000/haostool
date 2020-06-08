@@ -23,7 +23,11 @@
   var video = document.getElementById('video');
   var videoSrc = 'http://121.89.211.28/static/live/index.m3u8';
   if (Hls.isSupported()) {
-    var hls = new Hls();
+    var hls = new Hls({
+      xhrSetup: xhr => {
+        xhr.setRequestHeader("Cache-Control", "no-cache")
+      }
+    });
     hls.loadSource(videoSrc);
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED, function() {
