@@ -6,3 +6,4 @@ lib/*
 env/*
 local.json
 app/static/*
+config/*
