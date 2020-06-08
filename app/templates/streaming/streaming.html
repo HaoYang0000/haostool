@@ -10,14 +10,16 @@
     <div id="my-video"></div>
     <script type="text/javascript">
         jwplayer("my-video").setup({
-            file: "http://121.89.211.28/static/live/index.m3u8",
             width: "530",
             height: "300",
-            primary: "html",
-            liveSyncDuration: "10",
-            onXhrOpen: function(xhr, url) {
-              xhr.setRequestHeader('Cache-Control', 'no-cache');
-          }
+            playlist: [{
+                sources: [{
+                    file: 'http://121.89.211.28/static/live/index.m3u8',
+                    onXhrOpen: function(xhr, url) {
+                      xhr.setRequestHeader('Cache-Control', 'no-cache');
+                  }
+                }]
+            }]
         });
     </script>
 </div>
