@@ -44,3 +44,7 @@
 	transition: 0.5s;
 }
 
+.footer {
+    position: static;
+}
+
