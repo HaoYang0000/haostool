@@ -1,6 +1,14 @@
 
 
 $(document).ready(function () {
+
+    setTimeout(function(){
+        $(".notify").toggleClass("active");
+    },1000);
+
+    setTimeout(function(){
+        $(".notify").toggleClass("gone");
+      },6000);
     //置顶栏
     var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;;
     document.getElementById('goTopButton').onclick = function() {
@@ -16,13 +24,6 @@ $(document).ready(function () {
     window.onscroll = function() {
         scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
     }
-
-    // function showpanel() {
-	// 	$('.ball').addClass('active').delay(2000).queue(function(next) {
-    //             $(this).removeClass('active');
-    //             next();
-    //         });
- 	// }
 	
 	$('.ball').click(function() {
         $(this).toggleClass('active');
@@ -37,8 +38,6 @@ $(document).ready(function () {
 	$('.back').click(function() {
 		$(this).removeClass('show');
 	});
-	
- 	// setTimeout(showpanel, 1800);
 
     //神秘栏
     var is_display = false;
@@ -78,8 +77,6 @@ $(document).ready(function () {
             console.log(counter_right);
         });
     }
-    
-    
 
     function fire_it_up(token) {
         $.ajax({

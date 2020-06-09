@@ -99,22 +99,6 @@
   transform: scale(1.1);
   transition: all 200ms cubic-bezier(0.25, 0.75, 0.5, 1.25);
 }
-/* .ball img.first {
-  top: -40px;
-  left: 0;
-  right: 0;
-  text-align: center;
-} */
-/* 
-.ball img.second {
-  left: -25px;
-  top: -25px;
-}
-.ball img.third {
-  left: -40px;
-  top: 0;
-  bottom: 0;
-} */
 
 .page-helper{
   position: fixed;
@@ -167,7 +151,6 @@
 .nav-holder {
   top: 0px;
   height: 50px;
-  background-color: rgb(255, 255, 255);
   margin-bottom: 15px;
 }
 
@@ -206,21 +189,13 @@
 .topnav a > img {
   height: 65px;
   width: 65px;
+  transition: box-shadow 0.5s;
 }
 
-.topnav a.active {
-  background-color: rgb(66, 66, 66);
-  color: white;
-  width: 70px;
-  z-index: 2;
-  display: inline-block;
+.topnav a > img:hover {
+  box-shadow: 0px 5px 10px 5px rgba(0,0,0,0.5)
 }
 
-.topnav a.active:hover {
-  background-color: #666666;
-  color: white;
-  transition: 0.5s;
-}
 
 /* 容器 <div> - 需要定位下拉内容 */
 .dropdown:hover {
@@ -322,6 +297,32 @@
   border-bottom-style: solid;
   border-width: 1px;
   border-color: rgb(162, 162, 162);
-  flex: 0 0 auto;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
 }
 
+.notify {  
+  position:absolute;
+  top:-30%;
+  list-style-type: none;
+  transition:all 1s;
+  text-align:center;
+}
+
+.notify li {  
+  margin: 5px 0 5px;
+  border-radius: 10px;
+  color:white;  
+  background:rgba(64, 176, 255);
+  width: 90vw;
+  padding: 10px;
+}
+
+.active {
+  top:49px;
+}
+
+.gone {
+  top:-30%;
+}

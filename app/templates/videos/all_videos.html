@@ -3,7 +3,6 @@
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/video/main.css') }}">
 {%  for video in videos %}
-
 <div class="row all-video-single-row">
     <a href={{ "/videos/" + video.uuid  }}>
     <div class="all-video-left-panel">
@@ -18,7 +17,5 @@
     </div>
     </a>
 </div>
-
 {% endfor %}
-
 {% endblock %}

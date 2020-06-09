@@ -61,7 +61,6 @@ def slack_emoji():
         output = generate(emoji=form.emoji.data, padding=form.padding.data, input=form.input.data,
                           if_reverse=form.if_reverse.data, if_same_line=form.if_same_line.data,
                           if_copy_to_clipboard=False)
-        logger.error(output)
     return render_template('slack_emoji.html', form=form, output=output)
 
 

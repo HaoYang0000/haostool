@@ -17,9 +17,6 @@
             <a class="left-align" id="home_button" href="{{ url_for('index.main') }}">
                 <img src={{ url_for('static', filename='ydaxian_logo.png') }}>
             </a>
-			<a class="nav-button left-align  active" id="home_button" href="{{ url_for('index.main') }}">
-                {{_('Home')}}
-            </a>
             <!-- <a class="nav-button left-align" href="{{ url_for('index.slack_emoji') }}">Slack Emoji</a> -->
             <a class="nav-button middle-align"  href="{{ url_for('blog.blogs') }}">{{_('Blogs')}}</a>
             {% if current_user.level == 0 %}
@@ -33,6 +30,7 @@
             {% else %}
             <a class="nav-button middle-align"  href="{{ url_for('videos.videos') }}">{{_('Videos')}}</a>
             {% endif %}
+            <a class="nav-button middle-align"  href="{{ url_for('streaming.streaming') }}">{{_('Streaming')}}</a>
             {% if current_user.level == 0 %}
             <div class="dropdown nav-button middle-align">
                 test
@@ -54,7 +52,14 @@
                 {% if current_user.first_name %}
                     <div class="nav-button right-align">{{ _('hi, %(user)s', user=current_user.first_name)  }}  </div>
                 {% endif %}
-	        {% endif %}
+            {% endif %}
+            <div class="dropdown nav-button right-align">
+                <img src={{ url_for('static', filename='icon/language.png') }}>
+                <div class="dropdown-content">
+                    <a class="nav-button middle-align"  href="?lang=zh_CN">{{_('Chinese')}}</a>
+                    <a class="nav-button middle-align"  href="?lang=en">{{_('English')}}</a>
+                </div>
+            </div>
 		</div>
     {% endblock %}
     {% block secret_bar %}
@@ -63,7 +68,7 @@
     {% endblock %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <ul class=flashes>
+            <ul class=notify>
                 {% for message in messages %}
                     <li>{{ message }}</li>
                 {% endfor %}
@@ -72,11 +77,17 @@
     {% endwith %}
     <div class="nav-holder">
     </div>
+
+    {% block body %}
+        <h1>This heading is defined in the parent.</h1>
+    {% endblock %}
+    <div class="footer">
+
+    </div>
     <div class="page-helper" id="goTopButton">
             <span class="arrow_to_top_up" ></span>
             <span class="arrow_to_top_down" ></span>
     </div>
-
     <div class="ball">
         <a href="{{ url_for('auth.login') }}">
             <img class="first" src="{{ url_for('static', filename='icon/login.png') }}">
@@ -100,13 +111,6 @@
         <polygon fill="#FFFFFF" points="30,14.5 15.5,14.5 15.5,0 14.5,0 14.5,14.5 0,14.5 0,15.5 14.5,15.5 14.5,30 15.5,30 15.5,15.5 
             30,15.5 "/>
         </svg>
-    </div>	
-
-    {% block body %}
-        <h1>This heading is defined in the parent.</h1>
-    {% endblock %}
-    <div class="footer">
-
     </div>
     </body>
 </html>

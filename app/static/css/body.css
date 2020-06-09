@@ -4,6 +4,11 @@ html {
     font-family: "Microsoft JhengHei", "Microsoft YaHei", Arial, serif;
 }
 
+body {
+    height: 100%;
+    margin: 0;
+}
+
 .row {
     background-color: #ffffff;
     min-height: 150px;
