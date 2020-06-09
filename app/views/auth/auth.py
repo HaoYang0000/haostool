@@ -51,6 +51,7 @@ def gesture_login():
                 flash(f'Failed to find user associate with current ip:{request.remote_addr}')
                 return redirect(url_for('auth.login'))
             else:
+                flash(f'Success login with ip: {request.remote_addr}')
                 session['logged_in'] = True
                 login_user(user)
                 return redirect(url_for('index.main'))
