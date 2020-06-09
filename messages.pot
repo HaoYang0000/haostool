@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-08 20:42+0800\n"
+"POT-Creation-Date: 2020-06-09 20:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgid "RememberMe"
 msgstr ""
 
 #: app/forms/auth/auth_forms.py:17 app/templates/auth/register.html:9
-#: app/templates/layout.html:47
+#: app/templates/layout.html:45
 msgid "Register"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgid "Please use a different email address."
 msgstr ""
 
 #: app/forms/auth/auth_forms.py:34 app/templates/auth/login.html:19
-#: app/templates/layout.html:46
+#: app/templates/layout.html:44
 msgid "Login"
 msgstr ""
 
@@ -121,40 +121,48 @@ msgid "KGLB"
 msgstr ""
 
 #: app/templates/layout.html:21
-msgid "Home"
-msgstr ""
-
-#: app/templates/layout.html:24
 msgid "Blogs"
 msgstr ""
 
-#: app/templates/layout.html:27 app/templates/layout.html:34
+#: app/templates/layout.html:24 app/templates/layout.html:31
 msgid "Videos"
 msgstr ""
 
-#: app/templates/layout.html:29
+#: app/templates/layout.html:26
 msgid "Check All Videos"
 msgstr ""
 
-#: app/templates/layout.html:30
+#: app/templates/layout.html:27
 msgid "Upload Video"
 msgstr ""
 
-#: app/templates/layout.html:43
+#: app/templates/layout.html:33
+msgid "Streaming"
+msgstr ""
+
+#: app/templates/layout.html:41
 msgid "AWS"
 msgstr ""
 
-#: app/templates/layout.html:49
+#: app/templates/layout.html:47
 msgid "Logout"
 msgstr ""
 
-#: app/templates/layout.html:50
+#: app/templates/layout.html:48
 msgid "Settings"
 msgstr ""
 
-#: app/templates/layout.html:55
+#: app/templates/layout.html:53
 #, python-format
 msgid "hi, %(user)s"
+msgstr ""
+
+#: app/templates/layout.html:59
+msgid "Chinese"
+msgstr ""
+
+#: app/templates/layout.html:60
+msgid "English"
 msgstr ""
 
 #: app/templates/special.html:6
@@ -211,8 +219,16 @@ msgstr ""
 msgid "Please enter your phone number here"
 msgstr ""
 
-#: app/templates/streaming/streaming.html:6
-msgid "Streaming"
+#: app/templates/streaming/streaming.html:7
+msgid "Streaming is on"
+msgstr ""
+
+#: app/templates/streaming/streaming.html:9
+msgid "Loading the player..."
+msgstr ""
+
+#: app/templates/streaming/streaming.html:27
+msgid "Streaming is offline."
 msgstr ""
 
 #: app/templates/user/profile.html:12
@@ -239,7 +255,7 @@ msgstr ""
 msgid "Setup Gesture Login"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:16
+#: app/templates/videos/all_videos.html:15
 msgid "Title: "
 msgstr ""
 
