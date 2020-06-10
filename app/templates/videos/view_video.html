@@ -8,17 +8,66 @@
                 <source src={{ src }} type="video/mp4">
             </video>
     </div>
-    <div class="row video-comment">
-        {{_('Viewed Num: ') }}{{viewed_num}}
-        <br>
-        {{_('Likded Num: ') }}<label id="liked_num">{{liked_num}} </label>
-        <div class="video-like-btn" id="video-like-btn">
-            <img src="{{ url_for('static', filename='icon/thumb_up.png') }}">
+    <div class="video-row">
+        <div class="video-item">
+            <img src="{{ url_for('static', filename='icon/viewed_num.png') }}"><label> {{viewed_num}} </label> 
+        </div>
+        <div class="video-item">
+            <img id="video-like-btn" src="{{ url_for('static', filename='icon/thumb_up.png') }}"><label id="liked_num"> {{liked_num}} </label>
+        </div>
+        <div class="video-item">
+            <img id="comment-btn" src="{{ url_for('static', filename='icon/comment.png') }}"><label> {{_('Comments')}} </label> 
         </div>
     </div>
-    <!-- <div class="row">
-        {{_('Comments:')}}
-    </div> -->
+    <div class="video-comment">
+        <div class="video-comment-input">
+            <textarea id="t" placeholder="写下你想说的，开始我们的对话"></textarea>
+        </div>
+        <input class="button" type="button" value="{{_('publish')}}"></input>
+        <hr>
+        <!-- {%  for coment in comments %}
+        {% endfor %} -->
+        <div class="video-comment-box">
+            <img src="{{ url_for('static', filename='icon/user_known.png') }}">
+            <div class="video-comment-content">
+                <div class="video-comment-content-title">
+                    testtest title
+                </div>
+                <div class="video-comment-content-text">
+                    aaaaaaaaaaaaaaaa
+                </div>
+            </div>
+
+            <img src="{{ url_for('static', filename='icon/user_known.png') }}">
+            <div class="video-comment-content">
+                <div class="video-comment-content-title">
+                    testtest title
+                </div>
+                <div class="video-comment-content-text">
+                    aaaaaaaaaaaaaaa
+                </div>
+            </div>
+            <img src="{{ url_for('static', filename='icon/user_known.png') }}">
+            <div class="video-comment-content">
+                <div class="video-comment-content-title">
+                    testtest title
+                </div>
+                <div class="video-comment-content-text">
+                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                </div>
+            </div>
+            
+            <img src="{{ url_for('static', filename='icon/user_known.png') }}">
+            <div class="video-comment-content">
+                <div class="video-comment-content-title">
+                    testtest title
+                </div>
+                <div class="video-comment-content-text">
+                    aaaaaaaaaaaaaaa
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" >
@@ -38,6 +87,12 @@
                     console.log(jqXHR);
                 }
             });
+        });
+
+        $('#comment-btn').click(function() {
+            
+            $('.video-comment').css("display","inline-block");
+            $('.footer').css("position","static");
         });
     });
 </script>
