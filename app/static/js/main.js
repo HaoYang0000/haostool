@@ -30,72 +30,41 @@ $(document).ready(function () {
         $('.back').addClass('show');
 	});
 
-
-	$('i').click(function() {
-		
-	});
-
 	$('.back').click(function() {
 		$(this).removeClass('show');
-	});
+    });
+    function append_script_to_dom(code) {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        try {
+            s.appendChild(document.createTextNode(code));
+            document.body.appendChild(s);
+        } catch (e) {
+            s.text = code;
+            document.body.appendChild(s);
+        }
+    }
 
     //神秘栏
-    var is_display = false;
-    var counter_left = 0;
-    var counter_right = 0;
+    var first_try = true;
+    var csrf_token = "sjakdljasksdjkla";
     window.document.getElementById("home_button").addEventListener("mouseover", function() {
-        is_display = !is_display;
-        if (is_display == false) {
-            counter_left=0;
-            counter_right=0;
+        if (typeof fire_it_up !== "function" && first_try === true) {
+            first_try = false;
+            $.ajax({
+                type: "POST",
+                data:{
+                    csrf_token:csrf_token
+                },
+                url: '/shadow_url/get_functions',
+                dataType: "json",
+                success: function(data) { 
+                    append_script_to_dom(data.code);
+                },
+                error: () => {}
+            });
         }
-        console.log(is_display);
     });
-    var nav_button = document.getElementById("nav_setting_button");
-
-    if (nav_button != null) {
-        document.getElementById("nav_setting_button").addEventListener("mouseover", function() {
-            if (is_display==true) {
-                counter_left++;
-                if (counter_right === 5 && counter_left === 5) {
-                    fire_it_up(123);
-                }
-            }
-            console.log(counter_left);
-        });
-    }
-
-    var logout_button = document.getElementById("logout_button");
-    if (logout_button != null) {
-        document.getElementById("logout_button").addEventListener("mouseover", function() {
-            if (is_display==true) {
-                counter_right++;
-                if (counter_right === 5 && counter_left === 5) {
-                    fire_it_up(123);
-                }
-            }
-            console.log(counter_right);
-        });
-    }
-
-    function fire_it_up(token) {
-        $.ajax({
-            type: "POST",
-            data:{
-                token:token
-            },
-            url: '/shadow_url/show_secret_service',
-            dataType: "json",
-            success: function(data) { 
-                document.getElementById("secretnav").style.display = "block";
-                document.getElementById("secretnav").innerHTML = data;                   
-            },
-            error: function(jqXHR) {
-                alert("error: " + jqXHR.status);
-                console.log(jqXHR);
-            }
-        })
-    }
 });
   
 
