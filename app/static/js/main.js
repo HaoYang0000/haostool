@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
     setTimeout(function(){
-        $(".notify").toggleClass("active");
+        $(".notify").toggleClass("activate");
     },1000);
 
     setTimeout(function(){
