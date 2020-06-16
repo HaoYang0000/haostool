@@ -47,7 +47,7 @@ def get_locale():
 
 def create_app():
     app = Flask(__name__, static_url_path='/static', )
-    app.wsgi_app = ProxyFix(app.wsgi_app, num_proxies=1)
+    app.wsgi_app = ProxyFix(app.wsgi_app)
     app._static_folder = os.path.join(
     	os.path.dirname(__file__),
     	'static'
