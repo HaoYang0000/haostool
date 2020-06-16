@@ -6,8 +6,10 @@ from flask_apispec import FlaskApiSpec
 from flask_sqlalchemy import SQLAlchemy
 from app.engine import create_app, socketIO
 from flask_socketio import SocketIO
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = create_app()
+app.wsgi_app = ProxyFix(app.wsgi_app, num_proxies=1)
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
