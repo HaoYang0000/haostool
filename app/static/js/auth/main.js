@@ -206,7 +206,6 @@ function gesture_login(gesture_array){
                 window.location.href = "/";                      
             },
             error: function(jqXHR) {
-                alert("error: " + jqXHR.status);
                 console.log(jqXHR);
             }
     });

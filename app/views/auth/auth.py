@@ -1,7 +1,7 @@
 import json
 import logging
 
-from flask import Flask, flash, redirect, Blueprint, jsonify, render_template, request, session, abort, url_for
+from flask import Flask, flash, redirect, Blueprint, jsonify, render_template, request, session, abort, url_for, Response
 import os
 from flask_login import current_user, login_user, logout_user
 from app.models.users import UserModel as User
@@ -48,16 +48,16 @@ def gesture_login():
                 User.id==user_ips.user_id
             ).first()
             if user is None or not user.check_gesture_hash(request.form['gesture_array']):
-                flash(f'Failed to find user associate with current ip:{request.remote_addr}')
-                return redirect(url_for('auth.login'))
+                flash(f'Failed to find user associate with current ip:{request.remote_addr}', 'error')
+                return f'Failed to find user associate with current ip:{request.remote_addr}', 401
             else:
                 flash(f'Success login with ip: {request.remote_addr}')
                 session['logged_in'] = True
                 login_user(user)
-                return redirect(url_for('index.main'))
+                return 'success', 200
         else:
             flash('Current ip is not associated with any user.')
-            return redirect(url_for('auth.login'))
+            return 'Current ip is not associated with any user.', 404
 
 @app.route('/login/gesture/update', methods=['POST'])
 @login_required
