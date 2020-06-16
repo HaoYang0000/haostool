@@ -57,7 +57,7 @@ def gesture_login():
                 return 'success', 200
         else:
             flash('Current ip is not associated with any user.')
-            return 'Current ip is not associated with any user.', 404
+            return f'Current ip is not associated with any user.{ip_address}', 404
 
 @app.route('/login/gesture/update', methods=['POST'])
 @login_required
