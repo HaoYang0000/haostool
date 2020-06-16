@@ -41,17 +41,17 @@ def login():
 @app.route('/login/gesture', methods=['POST'])
 def gesture_login():
     with session_scope() as ss:
-        ip_address = request.remote_addr
+        ip_address = request.headers['X-Real-Ip'] or request.remote_addr
         user_ips = ss.query(UserIps).filter(UserIps.ip_address == ip_address).one_or_none()
         if user_ips:
             user = ss.query(User).filter(
                 User.id==user_ips.user_id
             ).first()
             if user is None or not user.check_gesture_hash(request.form['gesture_array']):
-                flash(f'Failed to find user associate with current ip:{request.remote_addr}', 'error')
-                return f'Failed to find user associate with current ip:{request.remote_addr}', 401
+                flash(f'Failed to find user associate with current ip:{ip_address}', 'error')
+                return f'Failed to find user associate with current ip:{ip_address}', 401
             else:
-                flash(f'Success login with ip: {request.remote_addr}')
+                flash(f'Success login with ip: {ip_address}')
                 session['logged_in'] = True
                 login_user(user)
                 return 'success', 200
