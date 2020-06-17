@@ -75,6 +75,11 @@
   top: 30px;
   opacity: 1;
 }
+.ball.active .six {
+  left: 50px;
+  top: 30px;
+  opacity: 1;
+}
 
 .ball svg {
   position: absolute;
