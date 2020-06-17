@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: yanghao0613@gmail.com\n"
-"POT-Creation-Date: 2020-06-09 20:16+0800\n"
+"POT-Creation-Date: 2020-06-17 22:33+0800\n"
 "PO-Revision-Date: 2020-05-27 20:15+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -49,7 +49,7 @@ msgstr "标签名:"
 msgid "Category Name:"
 msgstr "类别名称:"
 
-#: app/forms/auth/auth_forms.py:8 app/forms/auth/auth_forms.py:30
+#: app/forms/auth/auth_forms.py:8 app/forms/auth/auth_forms.py:31
 #: app/forms/user/profile.py:7
 msgid "Username"
 msgstr "用户名"
@@ -63,41 +63,45 @@ msgid "Last Name"
 msgstr "名"
 
 #: app/forms/auth/auth_forms.py:11 app/forms/user/profile.py:10
+msgid "Nick Name"
+msgstr "昵称"
+
+#: app/forms/auth/auth_forms.py:12 app/forms/user/profile.py:11
 msgid "Email"
 msgstr "邮箱"
 
-#: app/forms/auth/auth_forms.py:12
+#: app/forms/auth/auth_forms.py:13
 msgid "Phone number"
 msgstr "电话"
 
-#: app/forms/auth/auth_forms.py:13 app/forms/auth/auth_forms.py:31
-#: app/forms/user/profile.py:12
+#: app/forms/auth/auth_forms.py:14 app/forms/auth/auth_forms.py:32
+#: app/forms/user/profile.py:13
 msgid "Password"
 msgstr "密码"
 
-#: app/forms/auth/auth_forms.py:15
+#: app/forms/auth/auth_forms.py:16
 msgid "Repeat Password"
 msgstr "重复密码"
 
-#: app/forms/auth/auth_forms.py:16 app/forms/auth/auth_forms.py:33
+#: app/forms/auth/auth_forms.py:17 app/forms/auth/auth_forms.py:34
 msgid "RememberMe"
 msgstr "在这台设备上记住我"
 
-#: app/forms/auth/auth_forms.py:17 app/templates/auth/register.html:9
-#: app/templates/layout.html:45
+#: app/forms/auth/auth_forms.py:18 app/templates/auth/register.html:9
+#: app/templates/layout.html:46
 msgid "Register"
 msgstr "注册"
 
-#: app/forms/auth/auth_forms.py:22
+#: app/forms/auth/auth_forms.py:23
 msgid "Please use a different username."
 msgstr "请使用一个不同的用户名"
 
-#: app/forms/auth/auth_forms.py:27
+#: app/forms/auth/auth_forms.py:28
 msgid "Please use a different email address."
 msgstr "请使用另一个邮箱地址"
 
-#: app/forms/auth/auth_forms.py:34 app/templates/auth/login.html:19
-#: app/templates/layout.html:44
+#: app/forms/auth/auth_forms.py:35 app/templates/auth/login.html:19
+#: app/templates/layout.html:45
 msgid "Login"
 msgstr "登录"
 
@@ -109,60 +113,101 @@ msgstr "标题"
 msgid "content"
 msgstr "内容"
 
-#: app/forms/user/profile.py:11
+#: app/forms/comment/video_comment.py:7
+msgid "Username:"
+msgstr "昵称"
+
+#: app/forms/comment/video_comment.py:8
+msgid "Content"
+msgstr "评论"
+
+#: app/forms/comment/video_comment.py:11 app/templates/comment.html:15
+msgid "Post"
+msgstr "发表"
+
+#: app/forms/user/profile.py:12
 msgid "Phone"
 msgstr "电话"
 
-#: app/forms/user/profile.py:13
+#: app/forms/user/profile.py:14
 msgid "Update"
 msgstr "更新"
+
+#: app/templates/comment.html:8
+msgid "Comment Board"
+msgstr "留言板"
+
+#: app/templates/comment.html:11
+msgid "If you got any feedback, please let me know :)"
+msgstr "如果您有任何意见或建议，请在此处留言 :)"
+
+#: app/templates/comment.html:18
+msgid "Your name:"
+msgstr "昵称:"
+
+#: app/templates/comment.html:24
+msgid "(Optional) Please enter your nick name here"
+msgstr "(选填) 请输入您的昵称"
+
+#: app/templates/comment.html:27
+msgid "Your e-mail:"
+msgstr "邮箱:"
+
+#: app/templates/comment.html:33
+msgid "(Optional) Please enter your email here"
+msgstr "(选填) 请输入您的邮箱"
+
+#: app/templates/comment.html:50 app/templates/videos/view_video.html:56
+#: app/templates/videos/view_video.html:87
+msgid "secret user"
+msgstr "神秘大侠"
 
 #: app/templates/index.html:7
 msgid "KGLB"
 msgstr "柯哥流弊"
 
-#: app/templates/layout.html:21
+#: app/templates/layout.html:22
 msgid "Blogs"
 msgstr "博客"
 
-#: app/templates/layout.html:24 app/templates/layout.html:31
+#: app/templates/layout.html:25 app/templates/layout.html:32
 msgid "Videos"
 msgstr "视频"
 
-#: app/templates/layout.html:26
+#: app/templates/layout.html:27
 msgid "Check All Videos"
 msgstr "查看所有视频"
 
-#: app/templates/layout.html:27
+#: app/templates/layout.html:28
 msgid "Upload Video"
 msgstr "上传视频"
 
-#: app/templates/layout.html:33
+#: app/templates/layout.html:34
 msgid "Streaming"
 msgstr "直播"
 
-#: app/templates/layout.html:41
+#: app/templates/layout.html:42
 msgid "AWS"
 msgstr "AWS"
 
-#: app/templates/layout.html:47
+#: app/templates/layout.html:48
 msgid "Logout"
 msgstr "登出"
 
-#: app/templates/layout.html:48
+#: app/templates/layout.html:49
 msgid "Settings"
 msgstr "设置"
 
-#: app/templates/layout.html:53
+#: app/templates/layout.html:54
 #, python-format
 msgid "hi, %(user)s"
 msgstr "你好, %(user)s"
 
-#: app/templates/layout.html:59
+#: app/templates/layout.html:60
 msgid "Chinese"
 msgstr "中文"
 
-#: app/templates/layout.html:60
+#: app/templates/layout.html:61
 msgid "English"
 msgstr "英文"
 
@@ -209,14 +254,18 @@ msgid "Information Below is not required."
 msgstr "以下信息为选填."
 
 #: app/templates/auth/register.html:51 app/templates/user/profile.html:52
+msgid "Please enter your nick name here"
+msgstr "请输入您的昵称"
+
+#: app/templates/auth/register.html:56 app/templates/user/profile.html:57
 msgid "Please enter your first name here"
 msgstr "请输入您的姓氏"
 
-#: app/templates/auth/register.html:56 app/templates/user/profile.html:57
+#: app/templates/auth/register.html:61 app/templates/user/profile.html:62
 msgid "Please enter your last name here"
 msgstr "请输入您的名字"
 
-#: app/templates/auth/register.html:61 app/templates/user/profile.html:62
+#: app/templates/auth/register.html:66 app/templates/user/profile.html:67
 msgid "Please enter your phone number here"
 msgstr "请输入您的电话"
 
@@ -248,11 +297,11 @@ msgstr "登录方式"
 msgid "Upload"
 msgstr "上传"
 
-#: app/templates/user/profile.html:76
+#: app/templates/user/profile.html:81
 msgid "Your trusted IP address."
 msgstr "您信任的IP地址"
 
-#: app/templates/user/profile.html:83
+#: app/templates/user/profile.html:88
 msgid "Setup Gesture Login"
 msgstr "设置手势登录"
 
@@ -264,20 +313,17 @@ msgstr "标题:"
 msgid "Please enter title name"
 msgstr "请输入标题名称"
 
-#: app/templates/videos/view_video.html:12
-msgid "Viewed Num: "
-msgstr "已被播放:"
-
-#: app/templates/videos/view_video.html:14
-msgid "Likded Num: "
-msgstr "点赞数:"
-
-#: app/templates/videos/view_video.html:20
-msgid "Comments:"
-msgstr "评论:"
-
 #~ msgid "Video feed"
 #~ msgstr "直播源"
 
 #~ msgid "Home"
 #~ msgstr "主页"
+
+#~ msgid "Viewed Num: "
+#~ msgstr "已被播放:"
+
+#~ msgid "Likded Num: "
+#~ msgstr "点赞数:"
+
+#~ msgid "Comments:"
+#~ msgstr "评论:"

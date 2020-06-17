@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-09 20:16+0800\n"
+"POT-Creation-Date: 2020-06-17 22:33+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Category Name:"
 msgstr ""
 
-#: app/forms/auth/auth_forms.py:8 app/forms/auth/auth_forms.py:30
+#: app/forms/auth/auth_forms.py:8 app/forms/auth/auth_forms.py:31
 #: app/forms/user/profile.py:7
 msgid "Username"
 msgstr ""
@@ -62,41 +62,45 @@ msgid "Last Name"
 msgstr ""
 
 #: app/forms/auth/auth_forms.py:11 app/forms/user/profile.py:10
+msgid "Nick Name"
+msgstr ""
+
+#: app/forms/auth/auth_forms.py:12 app/forms/user/profile.py:11
 msgid "Email"
 msgstr ""
 
-#: app/forms/auth/auth_forms.py:12
+#: app/forms/auth/auth_forms.py:13
 msgid "Phone number"
 msgstr ""
 
-#: app/forms/auth/auth_forms.py:13 app/forms/auth/auth_forms.py:31
-#: app/forms/user/profile.py:12
+#: app/forms/auth/auth_forms.py:14 app/forms/auth/auth_forms.py:32
+#: app/forms/user/profile.py:13
 msgid "Password"
 msgstr ""
 
-#: app/forms/auth/auth_forms.py:15
+#: app/forms/auth/auth_forms.py:16
 msgid "Repeat Password"
 msgstr ""
 
-#: app/forms/auth/auth_forms.py:16 app/forms/auth/auth_forms.py:33
+#: app/forms/auth/auth_forms.py:17 app/forms/auth/auth_forms.py:34
 msgid "RememberMe"
 msgstr ""
 
-#: app/forms/auth/auth_forms.py:17 app/templates/auth/register.html:9
-#: app/templates/layout.html:45
+#: app/forms/auth/auth_forms.py:18 app/templates/auth/register.html:9
+#: app/templates/layout.html:46
 msgid "Register"
 msgstr ""
 
-#: app/forms/auth/auth_forms.py:22
+#: app/forms/auth/auth_forms.py:23
 msgid "Please use a different username."
 msgstr ""
 
-#: app/forms/auth/auth_forms.py:27
+#: app/forms/auth/auth_forms.py:28
 msgid "Please use a different email address."
 msgstr ""
 
-#: app/forms/auth/auth_forms.py:34 app/templates/auth/login.html:19
-#: app/templates/layout.html:44
+#: app/forms/auth/auth_forms.py:35 app/templates/auth/login.html:19
+#: app/templates/layout.html:45
 msgid "Login"
 msgstr ""
 
@@ -108,60 +112,101 @@ msgstr ""
 msgid "content"
 msgstr ""
 
-#: app/forms/user/profile.py:11
+#: app/forms/comment/video_comment.py:7
+msgid "Username:"
+msgstr ""
+
+#: app/forms/comment/video_comment.py:8
+msgid "Content"
+msgstr ""
+
+#: app/forms/comment/video_comment.py:11 app/templates/comment.html:15
+msgid "Post"
+msgstr ""
+
+#: app/forms/user/profile.py:12
 msgid "Phone"
 msgstr ""
 
-#: app/forms/user/profile.py:13
+#: app/forms/user/profile.py:14
 msgid "Update"
+msgstr ""
+
+#: app/templates/comment.html:8
+msgid "Comment Board"
+msgstr ""
+
+#: app/templates/comment.html:11
+msgid "If you got any feedback, please let me know :)"
+msgstr ""
+
+#: app/templates/comment.html:18
+msgid "Your name:"
+msgstr ""
+
+#: app/templates/comment.html:24
+msgid "(Optional) Please enter your nick name here"
+msgstr ""
+
+#: app/templates/comment.html:27
+msgid "Your e-mail:"
+msgstr ""
+
+#: app/templates/comment.html:33
+msgid "(Optional) Please enter your email here"
+msgstr ""
+
+#: app/templates/comment.html:50 app/templates/videos/view_video.html:56
+#: app/templates/videos/view_video.html:87
+msgid "secret user"
 msgstr ""
 
 #: app/templates/index.html:7
 msgid "KGLB"
 msgstr ""
 
-#: app/templates/layout.html:21
+#: app/templates/layout.html:22
 msgid "Blogs"
 msgstr ""
 
-#: app/templates/layout.html:24 app/templates/layout.html:31
+#: app/templates/layout.html:25 app/templates/layout.html:32
 msgid "Videos"
 msgstr ""
 
-#: app/templates/layout.html:26
+#: app/templates/layout.html:27
 msgid "Check All Videos"
 msgstr ""
 
-#: app/templates/layout.html:27
+#: app/templates/layout.html:28
 msgid "Upload Video"
 msgstr ""
 
-#: app/templates/layout.html:33
+#: app/templates/layout.html:34
 msgid "Streaming"
 msgstr ""
 
-#: app/templates/layout.html:41
+#: app/templates/layout.html:42
 msgid "AWS"
 msgstr ""
 
-#: app/templates/layout.html:47
+#: app/templates/layout.html:48
 msgid "Logout"
 msgstr ""
 
-#: app/templates/layout.html:48
+#: app/templates/layout.html:49
 msgid "Settings"
 msgstr ""
 
-#: app/templates/layout.html:53
+#: app/templates/layout.html:54
 #, python-format
 msgid "hi, %(user)s"
 msgstr ""
 
-#: app/templates/layout.html:59
+#: app/templates/layout.html:60
 msgid "Chinese"
 msgstr ""
 
-#: app/templates/layout.html:60
+#: app/templates/layout.html:61
 msgid "English"
 msgstr ""
 
@@ -208,14 +253,18 @@ msgid "Information Below is not required."
 msgstr ""
 
 #: app/templates/auth/register.html:51 app/templates/user/profile.html:52
-msgid "Please enter your first name here"
+msgid "Please enter your nick name here"
 msgstr ""
 
 #: app/templates/auth/register.html:56 app/templates/user/profile.html:57
-msgid "Please enter your last name here"
+msgid "Please enter your first name here"
 msgstr ""
 
 #: app/templates/auth/register.html:61 app/templates/user/profile.html:62
+msgid "Please enter your last name here"
+msgstr ""
+
+#: app/templates/auth/register.html:66 app/templates/user/profile.html:67
 msgid "Please enter your phone number here"
 msgstr ""
 
@@ -247,11 +296,11 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
-#: app/templates/user/profile.html:76
+#: app/templates/user/profile.html:81
 msgid "Your trusted IP address."
 msgstr ""
 
-#: app/templates/user/profile.html:83
+#: app/templates/user/profile.html:88
 msgid "Setup Gesture Login"
 msgstr ""
 
@@ -261,17 +310,5 @@ msgstr ""
 
 #: app/templates/videos/upload.html:12
 msgid "Please enter title name"
-msgstr ""
-
-#: app/templates/videos/view_video.html:12
-msgid "Viewed Num: "
-msgstr ""
-
-#: app/templates/videos/view_video.html:14
-msgid "Likded Num: "
-msgstr ""
-
-#: app/templates/videos/view_video.html:20
-msgid "Comments:"
 msgstr ""
 
