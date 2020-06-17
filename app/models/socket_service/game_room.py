@@ -11,7 +11,7 @@ class GameRoomModel(BaseModelExtended):
     )
 
     uuid = Column(
-        String,
+        String(length=255),
         nullable=False
     )
 

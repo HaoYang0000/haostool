@@ -7,6 +7,7 @@
         <meta charset="UTF-8"> 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/body.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <script src="https://libs.cdnjs.net/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/popup.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
@@ -100,13 +101,19 @@
             <span class="arrow_to_top_down" ></span>
     </div>
     <div class="ball">
+        {% if current_user.is_anonymous %}
         <a href="{{ url_for('auth.login') }}">
             <img class="first" src="{{ url_for('static', filename='icon/login.png') }}">
         </a>
+        {% else %}
+        <a href="{{ url_for('user.profile') }}">
+            <img class="first" src="{{ url_for('static', filename='icon/settings.png') }}">
+        </a>
+        {% endif %}
         <a href="{{ url_for('index.donate_page') }}">
             <img class="second" src="{{ url_for('static', filename='icon/donate.png') }}">
         </a>
-        <a href="{{ url_for('index.comment_page') }}">
+        <a href="{{ url_for('comment.comment_page') }}">
             <img class="third" src="{{ url_for('static', filename='icon/comment.png') }}">
         </a>
         <a href="{{ url_for('index.contact_us') }}">
@@ -114,6 +121,9 @@
         </a>
         <a href="{{ url_for('videos.videos') }}">
             <img class="five" src="{{ url_for('static', filename='icon/movie.png') }}">
+        </a>
+        <a href="{{ url_for('blog.blogs') }}">
+            <img class="six" src="{{ url_for('static', filename='icon/blog.png') }}">
         </a>
 
         <?xml version="1.0" encoding="utf-8"?>

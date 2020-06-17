@@ -5,10 +5,11 @@
 # from .accounting.account_categories import AccountCategoryModel
 # from .accounting.account_items import AccountItemModel
 # from .accounting.account_tags import AccountTagModel
-from .socket_service.game_room import GameRoomModel
-from .blog.post import BlogPostModel
-from app.models.services import ServiceModel
-from app.models.blog.post import (
-    BlogPostModel
-)
-from app.models.videos.video import VideoModel
+# from .socket_service.game_room import GameRoomModel
+# from .blog.post import BlogPostModel
+# from app.models.services import ServiceModel
+# from app.models.blog.post import (
+#     BlogPostModel
+# )
+# from app.models.videos.video import VideoModel
+# from app.models.comment import CommentModel

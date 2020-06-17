@@ -86,6 +86,7 @@ def create_app():
     from app.views.shadow_url import shadow_url
     from app.views.blog import blog
     from app.views.index import login_required
+    from app.views.comment import comment
 
     app.register_blueprint(index.app)
     app.register_blueprint(accounting.app)
@@ -98,6 +99,7 @@ def create_app():
     app.register_blueprint(streaming.app)
     app.register_blueprint(shadow_url.app)
     app.register_blueprint(blog.app)
+    app.register_blueprint(comment.app)
 
 
     app.register_error_handler(401, login_required)
@@ -115,7 +117,8 @@ def session_scope():
         sessionmaker(
             autocommit=False,
             autoflush=False,
-            bind=engine
+            bind=engine,
+            expire_on_commit=False
         )
     )
     try:

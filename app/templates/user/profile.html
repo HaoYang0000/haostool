@@ -47,18 +47,23 @@
                 <hr>
                 <p>{{_("Information Below is not required.")}}</p>
                 <div class="input-family">
+                    {{ user_setting_form.nickname.label }}
+                    {{ user_setting_form.nickname(size=64, value=current_user.nickname if current_user.nickname else "") }}
+                    <span>{{_('Please enter your nick name here')}}</span>
+                </div>
+                <div class="input-family">
                     {{ user_setting_form.first_name.label }}
-                    {{ user_setting_form.first_name(size=64, value=current_user.first_name) }}
+                    {{ user_setting_form.first_name(size=64, value=current_user.first_name if current_user.first_name else "") }}
                     <span>{{_('Please enter your first name here')}}</span>
                 </div>
                 <div class="input-family">
                     {{ user_setting_form.last_name.label }}
-                    {{ user_setting_form.last_name(size=64, value=current_user.last_name) }}
+                    {{ user_setting_form.last_name(size=64, value=current_user.last_name if current_user.last_name else "") }}
                     <span>{{_('Please enter your last name here')}}</span>
                 </div>
                 <div class="input-family">
                     {{ user_setting_form.phone.label }}
-                    {{ user_setting_form.phone(size=64, value=current_user.phone_num) }}
+                    {{ user_setting_form.phone(size=64, value=current_user.phone_num if current_user.phone_num else "") }}
                     <span>{{_('Please enter your phone number here')}}</span>
                 </div>
                 <p>{{ user_setting_form.submit(class="button") }}</p>

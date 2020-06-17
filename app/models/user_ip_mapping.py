@@ -13,7 +13,7 @@ class UserIpMappingServiceModel(BaseModelExtended):
     )
 
     ip_address = Column(
-        String,
+        String(length=255),
         nullable=False
     )
 

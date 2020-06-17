@@ -16,61 +16,91 @@
             <img id="video-like-btn" src="{{ url_for('static', filename='icon/thumb_up.png') }}"><label id="liked_num"> {{liked_num}} </label>
         </div>
         <div class="video-item">
-            <img id="comment-btn" src="{{ url_for('static', filename='icon/comment.png') }}"><label> {{_('Comments')}} </label> 
+            <img id="comment-btn" src="{{ url_for('static', filename='icon/comment.png') }}"><label> {{comments|count}} </label> 
         </div>
     </div>
     <div class="video-comment">
-        <div class="video-comment-input">
-            <textarea id="t" placeholder="写下你想说的，开始我们的对话"></textarea>
-        </div>
-        <input class="button" type="button" value="{{_('publish')}}"></input>
-        <hr>
-        <!-- {%  for coment in comments %}
-        {% endfor %} -->
-        <div class="video-comment-box">
-            <img src="{{ url_for('static', filename='icon/user_known.png') }}">
-            <div class="video-comment-content">
-                <div class="video-comment-content-title">
-                    testtest title
-                </div>
-                <div class="video-comment-content-text">
-                    aaaaaaaaaaaaaaaa
-                </div>
+        <form id="video_comment_form">
+            {{ video_form.hidden_tag() }}
+            <div class="video-comment-input">
+                {{ video_form.content }}
             </div>
-
-            <img src="{{ url_for('static', filename='icon/user_known.png') }}">
-            <div class="video-comment-content">
-                <div class="video-comment-content-title">
-                    testtest title
-                </div>
-                <div class="video-comment-content-text">
-                    aaaaaaaaaaaaaaa
-                </div>
+            {% for error in video_form.content.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            <div class="video-comment-title">
+                {{ video_form.unknown_user_name.label }}
+            {% if current_user.nickname %}
+                {{ video_form.unknown_user_name(value=current_user.nickname) }}
+            {% else %}
+                {{ video_form.unknown_user_name }}
+            {% endif %}
+                
             </div>
-            <img src="{{ url_for('static', filename='icon/user_known.png') }}">
-            <div class="video-comment-content">
-                <div class="video-comment-content-title">
-                    testtest title
+            {{ video_form.video_uuid(style="display:none;", value=uuid) }}
+            {{ video_form.submit(class="button video-comment-submit-button") }}
+        </form>
+        <div id="video-comment-box" class="video-comment-box">
+            {%  for coment in comments %}
+                <hr>
+                {% if coment.user %}
+                    <img src="{{ url_for('static', filename=coment.user.avatar) }}">
+                {% else %}
+                    <img src="{{ url_for('static', filename='icon/user_known.png') }}">
+                {% endif %}
+                <div class="video-comment-content">
+                    <div class="video-comment-content-title">
+                        {% if coment.unknown_user_name %}
+                            {{coment.unknown_user_name}}
+                        {% else %}
+                            {{_('secret user')}}
+                        {% endif %}
+                        <em class="video-comment-content-timestamp">
+                            {{ coment.created_at }}
+                        </em>
+                    </div>
+                    <div class="video-comment-content-text">
+                        {{coment.content}}
+                    </div>
                 </div>
-                <div class="video-comment-content-text">
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                </div>
-            </div>
-            
-            <img src="{{ url_for('static', filename='icon/user_known.png') }}">
-            <div class="video-comment-content">
-                <div class="video-comment-content-title">
-                    testtest title
-                </div>
-                <div class="video-comment-content-text">
-                    aaaaaaaaaaaaaaa
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
 
 <script type="text/javascript" >
+    $('#video_comment_form').on('submit', function(e){
+		$.ajax({
+			data: {
+				content:$('#content').val(),
+                unknown_user_name:$('#unknown_user_name').val(),
+                video_uuid:$('#video_uuid').val()
+			},
+			type: 'POST',
+            url : '/comment/video/post',
+            success: function(data) { 
+                let hr = "<hr>";
+                let avatar = '<img src="{{ url_for("static", filename="icon/user_known.png") }}">';
+                if (data.user != null) {
+                    avatar = '<img src="/static/' + data.user.avatar + '">';
+                }
+                let nickname = "{{_('secret user')}}";
+                if (data.unknown_user_name != ''){
+                    nickname = data.unknown_user_name;
+                }
+                let div = '<div class="video-comment-content"><div class="video-comment-content-title">' + nickname + '</div><div class="video-comment-content-text">' + data.content + '</div></div>';
+                var html = hr + avatar + div;
+                $("#video-comment-box").prepend(html);
+                 
+            },
+            error: function(jqXHR) {
+                console.log(jqXHR);
+            }
+		});
+		e.preventDefault();
+    });
+    
+    
 
     $(function() {
         $('#video-like-btn').click(function() {

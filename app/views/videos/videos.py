@@ -9,6 +9,8 @@ from app.services.videos.video_service import VideoService
 from werkzeug.utils import secure_filename
 from app.engine import UPLOAD_ROOT
 import uuid
+from app.forms.comment.video_comment import VideoCommentForm
+from app.services.comment.comment_service import CommentService
 from pypinyin import pinyin, lazy_pinyin
 
 app = Blueprint('videos', __name__)
@@ -25,10 +27,21 @@ def videos():
 def view_video(uuid):
     video_service = VideoService()
     video = video_service.get_video_by_uuid(uuid=uuid)
+    video_form = VideoCommentForm() 
+    comment_service = CommentService()
+
     if video:
         video_service._view_increase(video)
         src = f"/static/{video.path}"
-        return render_template('videos/view_video.html', src=src, viewed_num=video.viewed_number, liked_num=video.liked_number, uuid=video.uuid)
+        comments = comment_service.get_reply_for_video_uuid(video_uuid=uuid)
+        return render_template('videos/view_video.html', 
+                                src=src, 
+                                viewed_num=video.viewed_number, 
+                                liked_num=video.liked_number, 
+                                uuid=video.uuid,
+                                video_form=video_form,
+                                comments=comments
+                            )
     else:
         flash('No video found')
         return redirect(url_for('videos.videos'))

@@ -46,6 +46,11 @@
             <hr>
             <p>{{_("Information Below is not required.")}}</p>
             <div class="input-family">
+                {{ form.nickname.label }}
+                {{ form.nickname(size=32) }}
+                <span>{{_('Please enter your nick name here')}}</span>
+            </div>
+            <div class="input-family">
                 {{ form.first_name.label }}
                 {{ form.first_name(size=32) }}
                 <span>{{_('Please enter your first name here')}}</span>

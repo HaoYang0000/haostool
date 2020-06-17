@@ -3,5 +3,61 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/feedback/main.css') }}">
+<div class="container-center">
+    <h1>{{_('Comment Board')}}</h1>
+    <form id="video_comment_form" action="/comment/feedback/post" method="post">
+        <div class="feedback-comment-input">
+            <textarea id="content" name="content" placeholder="{{_('If you got any feedback, please let me know :)')}}"></textarea>
+        </div>
+        <div class="feedback-comment-title">
+            <div>
+                <input id="feedback_comment_submit_btn" class="button feedback-comment-submit-button" value="{{_('Post')}}" type="submit">
+            </div>
+            <div class="input-family">
+                <label >{{_('Your name:')}}</label>
+                {% if current_user.nickname %}
+                    <input id="unknown_user_name" name="unknown_user_name" type="text" value="{{current_user.nickname}}">
+                {% else %}
+                    <input id="unknown_user_name" name="unknown_user_name" type="text">
+                {% endif %}
+                <span>{{_('(Optional) Please enter your nick name here')}}</span>
+            </div>
+            <div class="input-family">
+                <label >{{_('Your e-mail:')}}</label>
+                {% if current_user.email %}
+                    <input id="contact_email" name="contact_email" type="text" value="{{current_user.email}}">
+                {% else %}
+                    <input id="contact_email" name="contact_email" type="text">
+                {% endif %}
+                <span>{{_('(Optional) Please enter your email here')}}</span>
+            </div>     
+        </div>
+    </form>
+    <div id="feedback-comment-box" class="feedback-comment-box">
+        {%  for coment in comments %}
+            <hr>
+            {% if coment.user %}
+                <img src="{{ url_for('static', filename=coment.user.avatar) }}">
+            {% else %}
+                <img src="{{ url_for('static', filename='icon/user_known.png') }}">
+            {% endif %}
+            <div class="feedback-comment-content">
+                <div class="feedback-comment-content-title">
+                    {% if coment.unknown_user_name %}
+                        {{coment.unknown_user_name}}
+                    {% else %}
+                        {{_('secret user')}}
+                    {% endif %}
+                    <em class="feedback-comment-content-timestamp">
+                        {{ coment.created_at }}
+                    </em>
+                </div>
+                <div class="feedback-comment-content-text">
+                    {{coment.content}}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

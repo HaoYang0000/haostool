@@ -36,20 +36,15 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-@app.route('/donate', methods=['GET', 'POST'])
+@app.route('/donate', methods=['GET'])
 def donate_page():
     return render_template('donate.html')
 
-
-@app.route('/comment', methods=['GET', 'POST'])
-def comment_page():
-    return render_template('comment.html')
-
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact', methods=['GET'])
 def contact_us():
     return render_template('contact.html')
 
-@app.route('/special', methods=['GET', 'POST'])
+@app.route('/special', methods=['GET'])
 def special():
     return render_template('special.html')
 

@@ -58,6 +58,7 @@ def profile_update():
             user.username = user_setting_form.username.data
             user.first_name = user_setting_form.first_name.data
             user.last_name = user_setting_form.last_name.data
+            user.nickname = user_setting_form.nickname.data
             user.email = user_setting_form.email.data
             user.phone_num = user_setting_form.phone.data
             if user_setting_form.password.data:

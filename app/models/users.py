@@ -38,6 +38,11 @@ class UserModel(UserMixin, BaseModelExtended):
         nullable=False
     )
 
+    nickname = Column(
+        String(length=255),
+        nullable=True
+    )
+
     phone_num = Column(
         String(length=255),
         nullable=True
@@ -61,7 +66,7 @@ class UserModel(UserMixin, BaseModelExtended):
         default=True
     )
 
-    ip_addresses = db.relationship('UserIpMappingServiceModel', backref='users', lazy=True)
+    ip_addresses = db.relationship('UserIpMappingServiceModel', backref='users', lazy='subquery')
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -92,8 +97,8 @@ class UserModel(UserMixin, BaseModelExtended):
             'username': self.username,
             'first_name': self.first_name,
             'last_name': self.last_name,
+            'nickname': self.nickname,
             'avatar': self.avatar,
-            'ip_addresses': self.ip_addresses,
             'is_active': self.is_active,
             'created_at': self.created_at,
             'updated_at': self.updated_at

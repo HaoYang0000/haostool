@@ -86,6 +86,7 @@ def register():
                 username=form.username.data, 
                 first_name=form.first_name.data, 
                 last_name=form.last_name.data, 
+                nickname=form.nickname.data,
                 email=form.email.data,
                 phone_num=form.phone.data,
                 avatar=f"{USER_PROFILE_DIR}/random/{random.randint(1,3)}.jpg"
