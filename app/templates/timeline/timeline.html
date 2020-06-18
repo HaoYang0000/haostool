@@ -1,0 +1,26 @@
+{# app/templates/timeline.html_ #}
+
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container-center">
+    <div id="timeline-box">
+
+    </div>
+</div>
+<script type="text/javascript" >
+    $(document).ready(function() {
+        $.ajax({
+			type: 'GET',
+            url : '/timeline/get_timelines',
+            success: function(html) { 
+                console.log(html);
+                $("#timeline-box").prepend(html);
+            },
+            error: function(jqXHR) {
+                console.log(jqXHR);
+            }
+		});
+    });
+</script>
+{% endblock %}

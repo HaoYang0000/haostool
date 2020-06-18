@@ -31,46 +31,10 @@
     float: right;
     margin-right: 4vw;
 }
-.feedback-comment-box {
-    margin: 10px 0;
-    clear: both;
-}
-.feedback-comment-box img{
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-    float: left;
-    margin-bottom: 50px;
-    margin-top: 12px;
-    border-radius: 50%;
-}
-.feedback-comment-content {
-    min-height: 100px;
-    width: 100%;
-}
-.feedback-comment-content-title {
-    margin: 10px;
-    width: 100%;
-    text-align: left;
-}
-.feedback-comment-content-timestamp {
-    padding-left: 6px;
-    color: #A8A8A8;
-    font-size: 12px;
-    font-style: normal;
-}
-.feedback-comment-content-text {
-    line-height: 26px;
-    font-size: 14px;
-    word-wrap: break-word;
-    text-align: left;
-    margin-right: 20px;
-    color: #555;
-}
-.feedback-comment-box hr {
+hr {
+    width: 90%;
     border: 1px solid #f1f1f1;
 }
-
 .footer{
     position: static;
 }

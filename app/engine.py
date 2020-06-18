@@ -1,10 +1,9 @@
 import os
 import sys
 import platform
-from flask import Flask, render_template, request, session
-from flask_login import LoginManager
+from flask import Flask, render_template, request, session, current_app
+from flask_login import LoginManager, current_user
 from flask_apispec import FlaskApiSpec
-from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
@@ -87,6 +86,7 @@ def create_app():
     from app.views.blog import blog
     from app.views.index import login_required
     from app.views.comment import comment
+    from app.views.timeline import timeline
 
     app.register_blueprint(index.app)
     app.register_blueprint(accounting.app)
@@ -100,6 +100,7 @@ def create_app():
     app.register_blueprint(shadow_url.app)
     app.register_blueprint(blog.app)
     app.register_blueprint(comment.app)
+    app.register_blueprint(timeline.app)
 
 
     app.register_error_handler(401, login_required)

@@ -9,6 +9,7 @@ from app.services.aws.aws_service import AwsService
 from flask import send_from_directory
 from collections import namedtuple
 from flask_login import login_required
+from app.utils import admin_required
 
 VpnInstance=namedtuple("VpnInstance",['name','type','state', 'ip_address'])
 
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 @app.route('/aws', methods=['GET', 'POST'])
+@admin_required
 def aws():
     aws_service = AwsService()
     aws_service._init_connect()
@@ -32,7 +34,7 @@ def aws():
     return render_template('aws/aws.html', vpn_instance=instance)
 
 @app.route('/aws/start_instance', methods=['POST'])
-@login_required
+@admin_required
 def aws_start_instance():
     aws_service = AwsService()
     aws_service._init_connect()
@@ -40,7 +42,7 @@ def aws_start_instance():
     return jsonify(response)
 
 @app.route('/aws/stop_instance', methods=['POST'])
-@login_required
+@admin_required
 def aws_stop_instance():
     aws_service = AwsService()
     aws_service._init_connect()
@@ -48,7 +50,7 @@ def aws_stop_instance():
     return jsonify(response)
 
 @app.route('/aws/change_ip', methods=['POST'])
-@login_required
+@admin_required
 def aws_change_vpn_ip():
     aws_service = AwsService()
     aws_service._init_connect()
