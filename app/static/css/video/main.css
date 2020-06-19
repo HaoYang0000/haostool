@@ -3,7 +3,6 @@
 }
 
 .all-video-single-row:hover {
-    cursor: pointer;
     transition: 0.5s;
     transform: scale(1.02);
 }
@@ -24,13 +23,23 @@
     min-width: 200px;
     min-height: 200px;
 }
+.all-video-right-panel a{
+    text-decoration: none;
+}
+.all-video-right-panel img{
+    width: 40px;
+    height: 40px;
+}
 .title-block {
     font-size: x-large;
     margin-top: 1%;
     margin-left: 5%;
+    width:100%;
 }
-.title-block > label{
-    text-decoration: none;
+.content-block {
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .footer {

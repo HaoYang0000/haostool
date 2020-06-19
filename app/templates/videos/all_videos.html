@@ -9,13 +9,17 @@
         <img src="{{ url_for('static', filename=video.thumb_nail) }}">
     </div>
     </a>
-    <a href={{ "/videos/" + video.uuid  }}>
     <div class="all-video-right-panel">
         <div class="title-block">
-            <label>{{_('Title: ')}}{{ video.title|string}}</label>
+            <a href={{ "/videos/" + video.uuid  }}>{{_('Title: ')}}{{ video.title|string}}</a>
+        </div>
+        <div class="content-block">
+            <img src="{{ url_for('static', filename='icon/viewed_num.png') }}"><label> {{ video.viewed_number }} </label>
+        </div>
+        <div class="content-block">
+            <img src="{{ url_for('static', filename='icon/thumb_up.png') }}"><label id="liked_num"> {{ video.liked_number }} </label>
         </div>
     </div>
-    </a>
 </div>
 {% endfor %}
 {% endblock %}

@@ -32,6 +32,7 @@
             <a class="nav-button middle-align"  href="{{ url_for('videos.videos') }}">{{_('Videos')}}</a>
             {% endif %}
             <a class="nav-button middle-align"  href="{{ url_for('streaming.streaming') }}">{{_('Streaming')}}</a>
+            <a class="nav-button middle-align"  href="{{ url_for('timeline.timelines') }}">{{_('Timeline')}}</a>
             {% if current_user.level == 0 %}
             <div class="dropdown nav-button middle-align">
                 test

@@ -5,8 +5,13 @@ from sqlalchemy.orm import relationship
 class TimelineModel(BaseModelExtended):
     __tablename__ = 'timelines'
 
-    message = Column(
+    title = Column(
         String(length=255),
+        nullable=False
+    )
+
+    content = Column(
+        String(length=2000),
         nullable=False
     )
 
@@ -15,9 +20,9 @@ class TimelineModel(BaseModelExtended):
         nullable=True
     )
 
-    is_active = Column(
+    is_removed = Column(
         Boolean,
-        default=True
+        default=False
     )
 
 
@@ -28,7 +33,8 @@ class TimelineModel(BaseModelExtended):
         ""
         return {
             'id': self.id,
-            'message': self.message,
+            'title': self.title,
+            'content': self.content,
             'url': self.url,
-            'is_active': self.is_active
+            'is_removed': self.is_removed
         }

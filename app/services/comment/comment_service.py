@@ -16,16 +16,16 @@ class CommentService(BaseService):
 
 	def get_reply_for_video_uuid(self, video_uuid):
 		with session_scope() as session:
-			return session.query(self.model).filter(self.model.video_uuid==video_uuid).filter(self.model.is_active==1).order_by(self.model.created_at.desc()).all()
+			return session.query(self.model).filter(self.model.video_uuid==video_uuid).filter(self.model.is_removed.isnot(True)).order_by(self.model.created_at.desc()).all()
 	
 	def get_all_feedback_comment(self):
 		with session_scope() as session:
-			return session.query(self.model).filter(self.model.category=='feedback').filter(self.model.is_active==1).order_by(self.model.created_at.desc()).all()
+			return session.query(self.model).filter(self.model.category=='feedback').filter(self.model.is_removed.isnot(True)).order_by(self.model.created_at.desc()).all()
 	
 	def deactive_comment(self, id):
 		with session_scope() as session:
 			comment = session.query(self.model).filter(self.model.id==id).first()
-			comment.is_active = 0
+			comment.is_removed = 1
 			session.commit()
 			return True
 	

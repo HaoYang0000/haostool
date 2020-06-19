@@ -47,9 +47,9 @@ class CommentModel(BaseModelExtended):
         nullable=True
     )
 
-    is_active = Column(
+    is_removed = Column(
         Boolean,
-        default=True
+        default=False
     )
 
     user = relationship("UserModel", lazy='subquery')

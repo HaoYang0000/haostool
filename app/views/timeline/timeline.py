@@ -19,37 +19,24 @@ logger = logging.getLogger(__name__)
 
 timeline_service = TimelineService()
 
-@app.route('/', methods=['POST'])
-@admin_required
-def video_comment():
-    pass
-    # comment_service = CommentService()
-    # form = VideoCommentForm()
-    # if form.is_submitted():
-    #     new_comment = comment_service.create(
-    #         user_id=None if not current_user.is_authenticated else current_user.id,
-    #         unknown_user_name=form.unknown_user_name.data,
-    #         content=form.content.data,
-    #         category='video',
-    #         video_uuid=form.video_uuid.data
-    #     )
-    #     comment = new_comment.serialize
-    #     if current_user.is_authenticated:
-    #         user = UserService().get_by_id(current_user.id).serialize
-    #         comment['user'] = {
-    #             'avatar': user.get('avatar')
-    #         }
-    #     if new_comment:
-    #         return comment, 200
-    # return 'err', 400
 @app.route('/', methods=['GET'])
 def timelines():
-    return render_template('timeline/timeline.html')
-
-@app.route('/get_timelines', methods=['GET'])
-def get_timelines():
-    html = ""
     timelines = timeline_service.get_all()
-    for timeline in timelines:
-        html+= f"<li>{timeline.message}  --  {timeline.created_at}</li>"
-    return html
+    return render_template('timeline/timeline.html', timelines=timelines)
+
+@app.route('/add', methods=['POST'])
+@admin_required
+def add_timeline():
+    timeline_service.create(
+        title=request.form['timeline_title'],
+        content=request.form['timeline_content']
+    )
+    return redirect(url_for('timeline.timelines'))
+
+@app.route('/disable', methods=['POST'])
+@admin_required
+def disable_timeline():
+    result = timeline_service.deactive_timeline(id=request.form['timeline_id'])
+    if result:
+        return 'success', 200
+    return 'err', 400
