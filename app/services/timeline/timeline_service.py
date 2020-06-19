@@ -9,7 +9,7 @@ class TimelineService(BaseService):
 
 	def get_all(self):
 		with session_scope() as session:
-			timelines = session.query(self.model).filter(self.model.is_removed.isnot(True)).all()
+			timelines = session.query(self.model).filter(self.model.is_removed.isnot(True)).order_by(self.model.created_at.desc()).all()
 			return timelines
 
 	def deactive_timeline(self, id):
