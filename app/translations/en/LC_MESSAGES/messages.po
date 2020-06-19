@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: yanghao0613@gmail.com\n"
-"POT-Creation-Date: 2020-06-17 22:33+0800\n"
+"POT-Creation-Date: 2020-06-19 18:34+0800\n"
 "PO-Revision-Date: 2020-05-27 20:15+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -88,7 +88,7 @@ msgid "RememberMe"
 msgstr "RememberMe"
 
 #: app/forms/auth/auth_forms.py:18 app/templates/auth/register.html:9
-#: app/templates/layout.html:46
+#: app/templates/layout.html:47
 msgid "Register"
 msgstr "Register"
 
@@ -101,7 +101,7 @@ msgid "Please use a different email address."
 msgstr "Please use a different email address."
 
 #: app/forms/auth/auth_forms.py:35 app/templates/auth/login.html:19
-#: app/templates/layout.html:45
+#: app/templates/layout.html:46
 msgid "Login"
 msgstr "Login"
 
@@ -158,7 +158,7 @@ msgid "(Optional) Please enter your email here"
 msgstr "(Optional) Please enter your email here"
 
 #: app/templates/comment.html:50 app/templates/videos/view_video.html:56
-#: app/templates/videos/view_video.html:87
+#: app/templates/videos/view_video.html:89
 msgid "secret user"
 msgstr "secret user"
 
@@ -186,28 +186,32 @@ msgstr "Upload Video"
 msgid "Streaming"
 msgstr "Streaming"
 
-#: app/templates/layout.html:42
+#: app/templates/layout.html:35
+msgid "Timeline"
+msgstr "Timeline"
+
+#: app/templates/layout.html:43
 msgid "AWS"
 msgstr "AWS"
 
-#: app/templates/layout.html:48
+#: app/templates/layout.html:49
 msgid "Logout"
 msgstr "Logout"
 
-#: app/templates/layout.html:49
+#: app/templates/layout.html:50
 msgid "Settings"
 msgstr "Settings"
 
-#: app/templates/layout.html:54
+#: app/templates/layout.html:55
 #, python-format
 msgid "hi, %(user)s"
 msgstr "hi, %(user)s"
 
-#: app/templates/layout.html:60
+#: app/templates/layout.html:61
 msgid "Chinese"
 msgstr "Chinese"
 
-#: app/templates/layout.html:61
+#: app/templates/layout.html:62
 msgid "English"
 msgstr "English"
 
@@ -281,6 +285,18 @@ msgstr "Loading the player..."
 msgid "Streaming is offline."
 msgstr "Streaming is offline."
 
+#: app/templates/timeline/timeline.html:30
+msgid "Add a new time line:"
+msgstr "Add a new time line:"
+
+#: app/templates/timeline/timeline.html:32
+msgid "Title:"
+msgstr "Title:"
+
+#: app/templates/timeline/timeline.html:35
+msgid "Content:"
+msgstr "Content:"
+
 #: app/templates/user/profile.html:12
 msgid "Basics"
 msgstr "Basics"
@@ -305,7 +321,7 @@ msgstr "Your trusted IP address."
 msgid "Setup Gesture Login"
 msgstr "Setup Gesture Login"
 
-#: app/templates/videos/all_videos.html:15
+#: app/templates/videos/all_videos.html:14
 msgid "Title: "
 msgstr "Title: "
 

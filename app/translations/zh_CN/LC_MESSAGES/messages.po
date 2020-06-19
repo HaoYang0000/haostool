@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: yanghao0613@gmail.com\n"
-"POT-Creation-Date: 2020-06-17 22:33+0800\n"
+"POT-Creation-Date: 2020-06-19 18:34+0800\n"
 "PO-Revision-Date: 2020-05-27 20:15+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -88,7 +88,7 @@ msgid "RememberMe"
 msgstr "在这台设备上记住我"
 
 #: app/forms/auth/auth_forms.py:18 app/templates/auth/register.html:9
-#: app/templates/layout.html:46
+#: app/templates/layout.html:47
 msgid "Register"
 msgstr "注册"
 
@@ -101,7 +101,7 @@ msgid "Please use a different email address."
 msgstr "请使用另一个邮箱地址"
 
 #: app/forms/auth/auth_forms.py:35 app/templates/auth/login.html:19
-#: app/templates/layout.html:45
+#: app/templates/layout.html:46
 msgid "Login"
 msgstr "登录"
 
@@ -158,7 +158,7 @@ msgid "(Optional) Please enter your email here"
 msgstr "(选填) 请输入您的邮箱"
 
 #: app/templates/comment.html:50 app/templates/videos/view_video.html:56
-#: app/templates/videos/view_video.html:87
+#: app/templates/videos/view_video.html:89
 msgid "secret user"
 msgstr "神秘大侠"
 
@@ -186,28 +186,32 @@ msgstr "上传视频"
 msgid "Streaming"
 msgstr "直播"
 
-#: app/templates/layout.html:42
+#: app/templates/layout.html:35
+msgid "Timeline"
+msgstr "时间线"
+
+#: app/templates/layout.html:43
 msgid "AWS"
 msgstr "AWS"
 
-#: app/templates/layout.html:48
+#: app/templates/layout.html:49
 msgid "Logout"
 msgstr "登出"
 
-#: app/templates/layout.html:49
+#: app/templates/layout.html:50
 msgid "Settings"
 msgstr "设置"
 
-#: app/templates/layout.html:54
+#: app/templates/layout.html:55
 #, python-format
 msgid "hi, %(user)s"
 msgstr "你好, %(user)s"
 
-#: app/templates/layout.html:60
+#: app/templates/layout.html:61
 msgid "Chinese"
 msgstr "中文"
 
-#: app/templates/layout.html:61
+#: app/templates/layout.html:62
 msgid "English"
 msgstr "英文"
 
@@ -281,6 +285,18 @@ msgstr "播放器载入中..."
 msgid "Streaming is offline."
 msgstr "没有直播源."
 
+#: app/templates/timeline/timeline.html:30
+msgid "Add a new time line:"
+msgstr "创建新的时间线:"
+
+#: app/templates/timeline/timeline.html:32
+msgid "Title:"
+msgstr "标题:"
+
+#: app/templates/timeline/timeline.html:35
+msgid "Content:"
+msgstr "内容:"
+
 #: app/templates/user/profile.html:12
 msgid "Basics"
 msgstr "基本设置"
@@ -305,7 +321,7 @@ msgstr "您信任的IP地址"
 msgid "Setup Gesture Login"
 msgstr "设置手势登录"
 
-#: app/templates/videos/all_videos.html:15
+#: app/templates/videos/all_videos.html:14
 msgid "Title: "
 msgstr "标题:"
 
