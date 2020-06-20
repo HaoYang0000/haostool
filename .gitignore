@@ -5,5 +5,5 @@ __pycache__/
 lib/*
 env/*
 local.json
-app/static/*
+app/static/videos
 config/*
