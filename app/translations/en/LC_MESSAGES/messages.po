@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: yanghao0613@gmail.com\n"
-"POT-Creation-Date: 2020-06-19 18:34+0800\n"
+"POT-Creation-Date: 2020-06-20 19:08+0800\n"
 "PO-Revision-Date: 2020-05-27 20:15+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -321,7 +321,19 @@ msgstr "Your trusted IP address."
 msgid "Setup Gesture Login"
 msgstr "Setup Gesture Login"
 
-#: app/templates/videos/all_videos.html:14
+#: app/templates/videos/all_videos.html:6
+msgid "Search for title"
+msgstr "Search for title"
+
+#: app/templates/videos/all_videos.html:7
+msgid "Filter:"
+msgstr "Filter:"
+
+#: app/templates/videos/all_videos.html:8
+msgid "Show all"
+msgstr "Show all"
+
+#: app/templates/videos/all_videos.html:22
 msgid "Title: "
 msgstr "Title: "
 

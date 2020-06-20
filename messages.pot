@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-19 18:34+0800\n"
+"POT-Creation-Date: 2020-06-20 19:08+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -320,7 +320,19 @@ msgstr ""
 msgid "Setup Gesture Login"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:14
+#: app/templates/videos/all_videos.html:6
+msgid "Search for title"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:7
+msgid "Filter:"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:8
+msgid "Show all"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:22
 msgid "Title: "
 msgstr ""
 
