@@ -2,6 +2,14 @@
 
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/video/main.css') }}">
+<div class="row all-video-filter-row">
+    <input type="text" id="search_filter_input" class="all-video-search-bar" onkeyup="search_filter()" placeholder="{{_('Search for title')}}">
+    <label>{{_('Filter:')}}</label>
+    <input type="button" class="active" onclick="video_filter_select(this, 'all')" value="{{_('Show all')}}">
+    <input type="image" onclick="video_filter_select(this, 'dota')" src="{{ url_for('static', filename='icon/dota.png') }}" />
+    <input type="image" onclick="video_filter_select(this, 'pubg')" src="{{ url_for('static', filename='icon/pubg.png') }}" />
+</div>
+</div>
 {%  for video in videos %}
 <div class="row all-video-single-row">
     <a href={{ "/videos/" + video.uuid  }}>
@@ -13,13 +21,66 @@
         <div class="title-block">
             <a href={{ "/videos/" + video.uuid  }}>{{_('Title: ')}}{{ video.title|string}}</a>
         </div>
+        <input type="hidden" value="{{ video.category }}">
         <div class="content-block">
             <img src="{{ url_for('static', filename='icon/viewed_num.png') }}"><label> {{ video.viewed_number }} </label>
         </div>
         <div class="content-block">
-            <img src="{{ url_for('static', filename='icon/thumb_up.png') }}"><label id="liked_num"> {{ video.liked_number }} </label>
+            <img src="{{ url_for('static', filename='icon/thumb_up.png') }}"><label> {{ video.liked_number }} </label>
         </div>
+        {% if video.category == 'pubg' %}
+        <div class="content-block">
+            <img src="{{ url_for('static', filename='icon/pubg.png') }}">
+        </div>
+        {% elif video.category == 'dota' %}
+        <div class="content-block">
+            <img src="{{ url_for('static', filename='icon/dota.png') }}">
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endfor %}
+<script type="text/javascript">
+    var current_title = "";
+    var current_category = "";
+
+    function search_filter() {
+        current_title = $('#search_filter_input').val();
+        __video_filter();
+    }
+    function video_filter_select(e, current_selection) {
+        current_category = current_selection;
+        $('.all-video-filter-row').find('input[type=button],input[type=image]').each(function() {
+            $(this).removeClass("active");
+        });
+        $(e).addClass("active");
+        __video_filter();
+    }
+
+    function __get_title(e) {
+        return $(e).find('.title-block').first().first().text();
+    }
+    function __get_category(e) {
+        return $(e).find('input').first().val();
+    }
+    function __video_filter() {
+        $(".all-video-single-row").each(function() {
+            let category = __get_category(this);
+            let title = __get_title(this);
+            if (current_category == 'all' || category == current_category) {
+                if (title.includes(current_title)) {
+                    $(this).css("display", "flex");
+                }
+                else {
+                    $(this).css("display", "none");
+                }
+            }
+            else {
+                $(this).css("display", "none");
+            }
+        });
+    }
+
+    
+</script>
 {% endblock %}

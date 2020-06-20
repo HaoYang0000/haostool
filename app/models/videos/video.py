@@ -1,5 +1,5 @@
 from app.models.base import BaseMeta, BaseModelExtended, BaseSchema
-from sqlalchemy import Column, ForeignKey, Boolean, String, Integer, DateTime, Text, Float, Text
+from sqlalchemy import Column, ForeignKey, Boolean, String, Integer, DateTime, Text, Float, Text, Enum
 from marshmallow import fields
 
 class VideoModel(BaseModelExtended):
@@ -35,6 +35,11 @@ class VideoModel(BaseModelExtended):
         default=0
     )
 
+    category = Column(
+        Enum('dota', 'pubg', 'blog'),
+        nullable=False
+    )
+
     is_published = Column(
         Boolean(),
         default=False
@@ -54,6 +59,7 @@ class VideoModel(BaseModelExtended):
             'liked_number': self.liked_number,
             'viewed_number': self.viewed_number,
             'is_published': self.is_published,
+            'category': self.category,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
