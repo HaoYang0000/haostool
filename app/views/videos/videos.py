@@ -90,6 +90,7 @@ def upload_video():
     # Create model
     new_video = VideoService().create(
         title=request.form['title'],
+        category=request.form['category'],
         path=f"{VIDEOS_FOLDER}/{filename}",
         uuid=uuid_val,
         thumb_nail=f"{VIDEOS_FOLDER}/{uuid_val}.gif"

@@ -11,6 +11,14 @@
             <input name="title" type="text">
             <span>{{_('Please enter title name')}}</span>
         </div>
+        <div class="input-family">
+            <label>{{_('Category')}}</label>
+            <select id="category" name="category" value="dota">
+                <option value="dota">Dota</option>
+                <option value="pubg">PUBG</option>
+            </select>
+            <span>{{_('dota, pubg or etc')}}</span>
+        </div>
         <input class="button" name="file" type="file">
         <button id="video-upload-file-btn" type="button">{{_('Upload')}}</button>
     </form>
