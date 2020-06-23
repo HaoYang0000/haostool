@@ -36,6 +36,7 @@ def view_video(uuid):
         comments = comment_service.get_reply_for_video_uuid(video_uuid=uuid)
         return render_template('videos/view_video.html', 
                                 src=src, 
+                                title=video.title,
                                 viewed_num=video.viewed_number, 
                                 liked_num=video.liked_number, 
                                 uuid=video.uuid,

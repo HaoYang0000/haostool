@@ -26,6 +26,12 @@ body {
     min-width: 400px;
     width: 50vw;
 }
+@media screen and (max-width: 1000px) {
+    .video-panel > video{
+        width: 80vw;
+    }
+}
+
 
 .video-row {
     width: 50vw;
@@ -36,6 +42,12 @@ body {
     box-shadow: 0px 0px 5px 0px rgb(162, 162, 162);
     justify-content: space-evenly;
     align-items: center;
+    font-size: 1.2em;
+}
+@media screen and (max-width: 1000px) {
+    .video-row {
+        width: 80vw;
+    }
 }
 
 .video-item img{
