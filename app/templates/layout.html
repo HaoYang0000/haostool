@@ -11,6 +11,7 @@
         <script src="https://libs.cdnjs.net/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/popup.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/draw_a_cat.js') }}"></script>
     </head>
     <body>
     {% block navigation_bar %}
@@ -79,7 +80,9 @@
     {% endwith %}
     <div class="nav-holder">
     </div>
-
+    <img id="background_cat_head" hidden="true" src="{{ url_for('static', filename='cat_head.png') }}">
+    <canvas id="background_img">
+    </canvas>
     {% block body %}
         <h1>This heading is defined in the parent.</h1>
     {% endblock %}

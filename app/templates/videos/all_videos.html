@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+
 <link rel="stylesheet" href="{{ url_for('static', filename='css/video/main.css') }}">
 <div class="row all-video-filter-row">
     <input type="text" id="search_filter_input" class="all-video-search-bar" onkeyup="search_filter()" placeholder="{{_('Search for title')}}">
@@ -8,7 +9,6 @@
     <input type="button" class="active" onclick="video_filter_select(this, 'all')" value="{{_('Show all')}}">
     <input type="image" onclick="video_filter_select(this, 'dota')" src="{{ url_for('static', filename='icon/dota.png') }}" />
     <input type="image" onclick="video_filter_select(this, 'pubg')" src="{{ url_for('static', filename='icon/pubg.png') }}" />
-</div>
 </div>
 {%  for video in videos %}
 <div class="row all-video-single-row">
@@ -40,6 +40,7 @@
     </div>
 </div>
 {% endfor %}
+
 <script type="text/javascript">
     var current_title = "";
     var current_category = "";
