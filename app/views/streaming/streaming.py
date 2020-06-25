@@ -15,5 +15,5 @@ logger = logging.getLogger(__name__)
 @app.route('/streaming', methods=['GET', 'POST'])
 @cross_origin()
 def streaming():
-    is_streaming = os.path.exists(f"{UPLOAD_ROOT}/live/index.m3u8")
+    is_streaming = os.path.exists(f"{UPLOAD_ROOT}/live/main/index.m3u8")
     return render_template('streaming/streaming.html', is_streaming=is_streaming)
