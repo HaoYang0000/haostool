@@ -51,13 +51,13 @@ class Application {
         this.height = this.canvas.height = window.innerHeight;
         this.numberOfCats = Math.round((this.width + this.height) / 100);
 
-        //Empty the previous container and fill it again with new Ghost objects
+        //Empty the previous container and fill it again with new Cat objects
         this.cats = [];
         this.initializeCats();
     }
 
     /**
-     * Create a number of Ghost objects based on the width and height of the screen
+     * Create a number of Cat objects based on the width and height of the screen
      * @return void
      */
     initializeCats() {
@@ -67,17 +67,17 @@ class Application {
                 position = new Vector2D(getRandomInt(0, this.width), getRandomInt(0, this.height));
             }
 
-            //Initialize a new instance of the Ghost class
-            let cat = new Ghost(
+            //Initialize a new instance of the Cat class
+            let cat = new Cat(
                 position,
                 this.context,
                 this.cathead
             );
 
-            //Initialize the Ghost object so it can create it's Eye objects
+            //Initialize the Cat object so it can create it's Eye objects
             cat.initialize();
 
-            //Add the Ghost object to our array of Ghost objects
+            //Add the Cat object to our array of Cat objects
             this.cats.push(cat);
         }
     }
@@ -142,7 +142,7 @@ class Application {
 
     /**
      * Check if the position have a colision with other cats
-     * @param Vector2D - The horizontal and vertical position of this Ghost
+     * @param Vector2D - The horizontal and vertical position of this Cat
      * @param int - The radius of the cat
      * @return bool
      */
@@ -166,12 +166,12 @@ class Application {
 }
 
 /**
- * Ghost Class
+ * Cat Class
  */
-class Ghost {
+class Cat {
     /**
-     * Ghost constructor
-     * @param Vector2D - The horizontal and vertical position of this Ghost
+     * Cat constructor
+     * @param Vector2D - The horizontal and vertical position of this Cat
      * @param context - The context from the canvas object of the Application
      */
     constructor(position, context, cathead) {
@@ -186,8 +186,8 @@ class Ghost {
         this.eyesWhite = [];
         
         this.bodyBounceAngle = getRandomInt(0, 100);
-        this.bounceDistance = 0.5;
-        this.bounceSpeed = 0.05;
+        this.bounceDistance = 0;
+        this.bounceSpeed = 0;
 
         this.velocity = new Vector2D(0, 0);
         this.velocity.setLength(Math.random() * 2 + 1);
@@ -242,7 +242,7 @@ class Ghost {
     }
 
     /**
-     * Renders this Ghost object on the canvas
+     * Renders this Cat object on the canvas
      * @return void
      */
     render() {
