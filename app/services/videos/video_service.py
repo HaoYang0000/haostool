@@ -7,6 +7,11 @@ from app.engine import db, session_scope
 class VideoService(BaseService):
 	model = VideoModel
 
+	def get_all_videos_created_desc(self):
+		with session_scope() as session:
+			return session.query(self.model).order_by(self.model.created_at.desc()).all()
+
+
 	def _like_increase(self, video):
 		with session_scope() as session:
 			video.liked_number = video.liked_number + 1
