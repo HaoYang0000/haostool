@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: yanghao0613@gmail.com\n"
-"POT-Creation-Date: 2020-06-20 19:08+0800\n"
+"POT-Creation-Date: 2020-07-04 20:11+0800\n"
 "PO-Revision-Date: 2020-05-27 20:15+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -88,7 +88,7 @@ msgid "RememberMe"
 msgstr "在这台设备上记住我"
 
 #: app/forms/auth/auth_forms.py:18 app/templates/auth/register.html:9
-#: app/templates/layout.html:47
+#: app/templates/layout.html:48
 msgid "Register"
 msgstr "注册"
 
@@ -101,7 +101,7 @@ msgid "Please use a different email address."
 msgstr "请使用另一个邮箱地址"
 
 #: app/forms/auth/auth_forms.py:35 app/templates/auth/login.html:19
-#: app/templates/layout.html:46
+#: app/templates/layout.html:47
 msgid "Login"
 msgstr "登录"
 
@@ -157,8 +157,8 @@ msgstr "邮箱:"
 msgid "(Optional) Please enter your email here"
 msgstr "(选填) 请输入您的邮箱"
 
-#: app/templates/comment.html:50 app/templates/videos/view_video.html:56
-#: app/templates/videos/view_video.html:89
+#: app/templates/comment.html:50 app/templates/videos/view_video.html:57
+#: app/templates/videos/view_video.html:90
 msgid "secret user"
 msgstr "神秘大侠"
 
@@ -166,52 +166,52 @@ msgstr "神秘大侠"
 msgid "KGLB"
 msgstr "柯哥流弊"
 
-#: app/templates/layout.html:22
+#: app/templates/layout.html:23
 msgid "Blogs"
 msgstr "博客"
 
-#: app/templates/layout.html:25 app/templates/layout.html:32
+#: app/templates/layout.html:26 app/templates/layout.html:33
 msgid "Videos"
 msgstr "视频"
 
-#: app/templates/layout.html:27
+#: app/templates/layout.html:28
 msgid "Check All Videos"
 msgstr "查看所有视频"
 
-#: app/templates/layout.html:28
+#: app/templates/layout.html:29
 msgid "Upload Video"
 msgstr "上传视频"
 
-#: app/templates/layout.html:34
+#: app/templates/layout.html:35
 msgid "Streaming"
 msgstr "直播"
 
-#: app/templates/layout.html:35
+#: app/templates/layout.html:36
 msgid "Timeline"
 msgstr "时间线"
 
-#: app/templates/layout.html:43
+#: app/templates/layout.html:44
 msgid "AWS"
 msgstr "AWS"
 
-#: app/templates/layout.html:49
+#: app/templates/layout.html:50
 msgid "Logout"
 msgstr "登出"
 
-#: app/templates/layout.html:50
+#: app/templates/layout.html:51
 msgid "Settings"
 msgstr "设置"
 
-#: app/templates/layout.html:55
+#: app/templates/layout.html:56
 #, python-format
 msgid "hi, %(user)s"
 msgstr "你好, %(user)s"
 
-#: app/templates/layout.html:61
+#: app/templates/layout.html:62
 msgid "Chinese"
 msgstr "中文"
 
-#: app/templates/layout.html:62
+#: app/templates/layout.html:63
 msgid "English"
 msgstr "英文"
 
@@ -309,7 +309,7 @@ msgstr "管理IP地址"
 msgid "Login method"
 msgstr "登录方式"
 
-#: app/templates/user/profile.html:26 app/templates/videos/upload.html:15
+#: app/templates/user/profile.html:26 app/templates/videos/upload.html:23
 msgid "Upload"
 msgstr "上传"
 
@@ -321,25 +321,54 @@ msgstr "您信任的IP地址"
 msgid "Setup Gesture Login"
 msgstr "设置手势登录"
 
-#: app/templates/videos/all_videos.html:6
+#: app/templates/videos/all_videos.html:7
 msgid "Search for title"
 msgstr "搜索标题"
 
-#: app/templates/videos/all_videos.html:7
+#: app/templates/videos/all_videos.html:8
+msgid "Sort By:"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:10
+msgid "Recent upload"
+msgstr "最新发布"
+
+#: app/templates/videos/all_videos.html:11
+msgid "Ratings"
+msgstr "推荐指数"
+
+#: app/templates/videos/all_videos.html:12
+msgid "Number of Viewed"
+msgstr "浏览量"
+
+#: app/templates/videos/all_videos.html:13
+msgid "Number of Likes"
+msgstr "点赞数"
+
+#: app/templates/videos/all_videos.html:15
 msgid "Filter:"
 msgstr "筛选器:"
 
-#: app/templates/videos/all_videos.html:8
+#: app/templates/videos/all_videos.html:16
 msgid "Show all"
 msgstr "显示全部"
 
-#: app/templates/videos/all_videos.html:22
+#: app/templates/videos/all_videos.html:30
+#: app/templates/videos/view_video.html:12
 msgid "Title: "
 msgstr "标题:"
 
 #: app/templates/videos/upload.html:12
 msgid "Please enter title name"
 msgstr "请输入标题名称"
+
+#: app/templates/videos/upload.html:15
+msgid "Category"
+msgstr "分类"
+
+#: app/templates/videos/upload.html:20
+msgid "dota, pubg or etc"
+msgstr ""
 
 #~ msgid "Video feed"
 #~ msgstr "直播源"
@@ -355,4 +384,3 @@ msgstr "请输入标题名称"
 
 #~ msgid "Comments:"
 #~ msgstr "评论:"
-

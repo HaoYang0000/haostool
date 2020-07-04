@@ -5,11 +5,19 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/video/main.css') }}">
 <div class="row all-video-filter-row">
     <input type="text" id="search_filter_input" class="all-video-search-bar" onkeyup="search_filter()" placeholder="{{_('Search for title')}}">
+    <label>{{_('Sort By:')}}</label>
+    <select onchange="sort_videos(this.value)">
+        <option value="sort_created_at_desc">{{_('Recent upload')}}</option>
+        <option value="sort_rating_desc">{{_('Ratings')}}</option>
+        <option value="sort_number_views_desc">{{_('Number of Viewed')}}</option>
+        <option value="sort_number_likes_desc">{{_('Number of Likes')}}</option>
+    </select>
     <label>{{_('Filter:')}}</label>
     <input type="button" class="active" onclick="video_filter_select(this, 'all')" value="{{_('Show all')}}">
     <input type="image" onclick="video_filter_select(this, 'dota')" src="{{ url_for('static', filename='icon/dota.png') }}" />
     <input type="image" onclick="video_filter_select(this, 'pubg')" src="{{ url_for('static', filename='icon/pubg.png') }}" />
 </div>
+<div class="all-video-container">
 {%  for video in videos %}
 <div class="row all-video-single-row">
     <a href={{ "/videos/" + video.uuid  }}>
@@ -21,7 +29,10 @@
         <div class="title-block">
             <a href={{ "/videos/" + video.uuid  }}>{{_('Title: ')}}{{ video.title|string}}</a>
         </div>
-        <input type="hidden" value="{{ video.category }}">
+        <input name="category" type="hidden" value="{{ video.category }}">
+        <input name="create_at" type="hidden" value="{{ video.created_at }}">
+        <input name="viewed_number" type="hidden" value="{{ video.viewed_number }}">
+        <input name="liked_number" type="hidden" value="{{ video.liked_number }}">
         <div class="content-block">
             <img src="{{ url_for('static', filename='icon/viewed_num.png') }}"><label> {{ video.viewed_number }} </label>
         </div>
@@ -40,14 +51,19 @@
     </div>
 </div>
 {% endfor %}
-
-<script type="text/javascript">
+</div>
+<script type="text/javascript">    
     var current_title = "";
-    var current_category = "";
+    var current_category = "all";
+    var current_sort = "sort_created_at_desc";
 
+    function sort_videos(method) {
+        current_sort = method;
+        filter_and_sort();
+    }
     function search_filter() {
         current_title = $('#search_filter_input').val();
-        __video_filter();
+        filter_and_sort();
     }
     function video_filter_select(e, current_selection) {
         current_category = current_selection;
@@ -55,6 +71,11 @@
             $(this).removeClass("active");
         });
         $(e).addClass("active");
+        filter_and_sort()
+    }
+
+    function filter_and_sort() {
+        __video_sort();
         __video_filter();
     }
 
@@ -80,6 +101,37 @@
                 $(this).css("display", "none");
             }
         });
+    }
+    function __video_sort() {
+        $('.all-video-container').children().sort(get_sort_method(current_sort)).appendTo('.all-video-container');
+        function get_sort_method(method) {
+            if (method == 'sort_created_at_desc') {
+                return sort_created_at_desc;
+            } else if (method == 'sort_rating_desc') {
+                return sort_rating_desc;
+            } else if (method == 'sort_number_views_desc') {
+                return sort_number_views_desc;
+            } else if (method == 'sort_number_likes_desc') {
+                return sort_number_likes_desc;
+            }
+        }
+        function sort_created_at_desc (a, b) {
+            return $(b).find('input[name="create_at"]').val() > $(a).find('input[name="create_at"]').val() ? 1 : -1;
+        }
+
+        function sort_rating_desc (a, b) {
+            return $(b).find('input[name="create_at"]').val() > $(a).find('input[name="create_at"]').val() ? 1 : -1;
+        }
+
+        function sort_number_views_desc (a, b) {
+            return $(b).find('input[name="viewed_number"]').val() > $(a).find('input[name="viewed_number"]').val() ? 1 : -1;
+        }
+
+        function sort_number_likes_desc (a, b) {
+            console.log($(b).find('input[name="liked_number"]').val());
+            console.log($(a).find('input[name="liked_number"]').val());
+            return $(b).find('input[name="liked_number"]').val() > $(a).find('input[name="liked_number"]').val() ? 1 : -1;
+        }
     }
 
     

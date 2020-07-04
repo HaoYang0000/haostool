@@ -20,7 +20,7 @@ VIDEOS_FOLDER = 'videos'
 @app.route('/videos', methods=['GET', 'POST'])
 def videos():
     video_service = VideoService()
-    videos = video_service.get_all_videos_created_desc()
+    videos = video_service.get_all()
     return render_template('videos/all_videos.html', videos=videos)
 
 @app.route('/videos/<string:uuid>', methods=['GET', 'POST'])
@@ -60,7 +60,7 @@ def like_video(uuid):
 
 @app.route('/videos/upload', methods=['GET'])
 def upload_video_page():
-    videos = VideoService().get_all()
+    videos = VideoService().get_all_videos_created_desc()
     return render_template('videos/upload.html', videos=videos)
 
 @app.route('/videos/upload', methods=['POST'])

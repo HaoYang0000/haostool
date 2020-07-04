@@ -47,6 +47,11 @@
     align-items: center;
     font-size: 25px;
 }
+@media screen and (max-width: 1200px) {
+    .all-video-filter-row {
+        font-size: 15px;
+    }
+}
 .all-video-search-bar{
     background-image: url('/static/icon/search.png'); 
     background-repeat: no-repeat; 
@@ -57,8 +62,13 @@
     border:1px solid #89958F;
     font-size: 25px;
 }
+@media screen and (max-width: 1200px) {
+    .all-video-search-bar {
+        width: 20vw;
+    }
+}
 .all-video-filter-row label{
-    margin-left: 10vw;
+    margin: 10px;
 }
 .all-video-filter-row input[type=button]{
     height: 50px;
