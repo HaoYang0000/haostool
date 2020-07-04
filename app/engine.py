@@ -28,7 +28,7 @@ engine = create_engine(
     get_database_uri(),
     convert_unicode=True,
     pool_pre_ping=True,
-    pool_recycle=300,
+    pool_recycle=3600,
     isolation_level='READ UNCOMMITTED'
 )
 
