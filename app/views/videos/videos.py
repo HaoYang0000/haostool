@@ -20,7 +20,7 @@ VIDEOS_FOLDER = 'videos'
 @app.route('/videos', methods=['GET', 'POST'])
 def videos():
     video_service = VideoService()
-    videos = video_service.get_all()
+    videos = video_service.get_all_videos_created_desc()
     return render_template('videos/all_videos.html', videos=videos)
 
 @app.route('/videos/<string:uuid>', methods=['GET', 'POST'])
