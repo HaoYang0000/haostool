@@ -124,13 +124,13 @@
         }
 
         function sort_number_views_desc (a, b) {
-            return $(b).find('input[name="viewed_number"]').val() > $(a).find('input[name="viewed_number"]').val() ? 1 : -1;
+            return parseInt($(b).find('input[name="viewed_number"]').val()) > parseInt($(a).find('input[name="viewed_number"]').val()) ? 1 : -1;
         }
 
         function sort_number_likes_desc (a, b) {
             console.log($(b).find('input[name="liked_number"]').val());
             console.log($(a).find('input[name="liked_number"]').val());
-            return $(b).find('input[name="liked_number"]').val() > $(a).find('input[name="liked_number"]').val() ? 1 : -1;
+            return parseInt($(b).find('input[name="liked_number"]').val()) > parseInt($(a).find('input[name="liked_number"]').val()) ? 1 : -1;
         }
     }
 
