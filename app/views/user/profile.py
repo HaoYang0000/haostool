@@ -4,7 +4,7 @@ import logging
 from flask import Flask, flash, redirect, Blueprint, jsonify, render_template, request, session, abort, url_for
 import os
 from flask_login import current_user, login_user, logout_user
-from app.engine import db, UPLOAD_ROOT, ALLOWED_EXTENSIONS, USER_PROFILE_DIR
+from app.engine import db, UPLOAD_ROOT, USER_PROFILE_DIR
 from app.forms.user.profile import ProfileForm, IpWhiteListForm, IpAddress
 from wtforms.validators import ValidationError
 from flask_login import login_required
@@ -12,6 +12,7 @@ from app.models.users import UserModel as User
 from app.models.user_ip_mapping import UserIpMappingServiceModel as UserIps
 from werkzeug.utils import secure_filename
 from app.engine import session_scope
+from app.utils import allowed_file
 
 app = Blueprint(
     'user',
@@ -90,12 +91,6 @@ def ip_white_list_update():
             session.commit()
 
         return redirect(url_for('user.profile'))
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 
 @app.route('/uploads', methods=['POST'])
 def uploaded_file():

@@ -3,32 +3,63 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<script charset="utf-8" src="{{ url_for('static', filename='js/kindeditor/kindeditor-all.js') }}"></script>
-<script charset="utf-8" src="{{ url_for('static', filename='js/kindeditor/lang/zh-CN.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blog/main.css') }}">
+<link href="{{ url_for('static', filename='js/froala_editor/css/themes/gray.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static', filename='js/froala_editor/css/froala_editor.pkgd.css') }}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/froala_editor/js/froala_editor.pkgd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/froala_editor/js/langs/zh_cn.js') }}"></script>
+<div class="container-center">
+    <form id="create_blog_form">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=32) }}<br>
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        {{ form.content(class="fr-view") }}<br>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
 <script>
-    KindEditor.ready(function(K) {
-        window.editor = K.create('#text_editor', {
-            width : '700px',
-            height: '800px',
-            uploadJson : '/static/js/kindeditor/jsp/upload_json.jsp',
-            fileManagerJson : '/static/js/kindeditor/jsp/file_manager_json.jsp',
-            allowFileManager : true
-        });
+    var editor = new FroalaEditor('#text_editor', {
+      // Set the language code.
+        language                : 'zh_cn',
+        dragInline              : true,
+        charCounterCount        : true,//默认 显示字数
+        theme                   : "gray",//主题：dark，red，gray，royal，注意需要引入对应主题的css
+        height                  : "400px",
+        editorClass             : 'editor-class',
+        toolbarInline           : false,//true选中设置样式,默认false
+        imageUploadMethod       : 'POST',
+        heightMin               : 450,
+        imageUploadURL          : '/blog/image_upload',//上传到本地服务器
+        videoUploadURL          : '/blog/video_upload',
+        fileUploadURL           : '/blog/file_upload',
+        toolbarButtons          : ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertLink', 'insertImage', 'insertTable', '|', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
+    });
+
+    $('#create_blog_form').on('submit', function(e){
+        var html = editor.html.get(); //返回富文本编辑里面的html代码
+		$.ajax({
+			data: {
+				title: $('#title').val(),
+                content: html
+			},
+			type: 'POST',
+            url : '/blog/create_post',
+            success: function(result) { 
+                console.log("保存成功");
+            },
+            error: function(jqXHR) {
+                console.log("保存失败");
+                console.log(jqXHR);
+            }
+		});
+        e.preventDefault();
     });
 </script>
-<form action="/blog/create_post" method="post">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.title.label }}<br>
-        {{ form.title(size=32) }}<br>
-        {% for error in form.title.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    {{ form.content.label }}
-    {{ form.content() }}<br>
-    <p>{{ form.submit() }}</p>
-</form>
 {% endblock %}
 
 

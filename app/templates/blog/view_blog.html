@@ -4,27 +4,26 @@
 
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/blog/main.css') }}">
-<script charset="utf-8" src="{{ url_for('static', filename='js/kindeditor/kindeditor-all.js') }}"></script>
-<script charset="utf-8" src="{{ url_for('static', filename='js/kindeditor/lang/zh-CN.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='js/kindeditor/themes/default/default.css') }}" />
+<link href="{{ url_for('static', filename='js/froala_editor/css/themes/gray.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static', filename='js/froala_editor/css/froala_editor.pkgd.css') }}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/froala_editor/js/froala_editor.pkgd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/froala_editor/js/langs/zh_cn.js') }}"></script>
 {% autoescape false %}
+<div class="container">
+    <h1 class="blog_title">{{ post.title }}</h1>
+    <div class="blog_create_time">{{_('Published Time:')}} {{ post.created_at }}</div>
+    <div class="blog_tag"></div>
+    <hr>
+    <div id="view_blog" class="fr-view"></div>
+</div>
 <script>
-    var editor;
-    KindEditor.ready(function(K) {
-        editor = K.create('#text_editor', {
-
-        });
-        editor.html('{{ content }}');
-        editor.sync();
-        //html=document.getElementById('text_editor').value;//原生API
-        document.getElementById("schtmlnr").innerHTML = editor.fullHtml();
-        editor.remove('#text_editor');
-    });
+    document.getElementById("view_blog").innerHTML = '{{ content }}';
+    // var editor = new FroalaEditor('#view_blog', {},function () {
+    //     editor.html.set('{{ content }}');
+    //     document.getElementById("view_blog").innerHTML = editor.html.get();
+    //     editor.destroy();
+    // });
 </script>
-{{ post.title }}
-<textarea id="text_editor" hidden="true">
-</textarea>
-<div id="schtmlnr"></div>
 {% endautoescape %}
 {% endblock %}
 

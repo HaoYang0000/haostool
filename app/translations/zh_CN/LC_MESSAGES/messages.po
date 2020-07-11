@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: yanghao0613@gmail.com\n"
-"POT-Creation-Date: 2020-07-04 20:11+0800\n"
+"POT-Creation-Date: 2020-07-12 00:11+0800\n"
 "PO-Revision-Date: 2020-05-27 20:15+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -273,6 +273,14 @@ msgstr "请输入您的名字"
 msgid "Please enter your phone number here"
 msgstr "请输入您的电话"
 
+#: app/templates/blog/blog.html:11
+msgid "New Blog"
+msgstr "发布新博客"
+
+#: app/templates/blog/view_blog.html:14
+msgid "Published Time:"
+msgstr "发布时间:"
+
 #: app/templates/streaming/streaming.html:7
 msgid "Streaming is on"
 msgstr "直播正在进行"
@@ -384,3 +392,4 @@ msgstr ""
 
 #~ msgid "Comments:"
 #~ msgstr "评论:"
+

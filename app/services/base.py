@@ -123,7 +123,7 @@ class BaseService:
                 return None
             else:
                 record.update(data)
-                db.session.commit()
+                session.commit()
                 logger.debug('Updating {model_name} with {data}, id:{id}'.format(
                     data=data,
                     model_name=self.model.__table__.name,

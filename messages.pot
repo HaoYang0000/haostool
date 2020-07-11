@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-20 19:08+0800\n"
+"POT-Creation-Date: 2020-07-12 00:11+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,7 +87,7 @@ msgid "RememberMe"
 msgstr ""
 
 #: app/forms/auth/auth_forms.py:18 app/templates/auth/register.html:9
-#: app/templates/layout.html:47
+#: app/templates/layout.html:48
 msgid "Register"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgid "Please use a different email address."
 msgstr ""
 
 #: app/forms/auth/auth_forms.py:35 app/templates/auth/login.html:19
-#: app/templates/layout.html:46
+#: app/templates/layout.html:47
 msgid "Login"
 msgstr ""
 
@@ -156,8 +156,8 @@ msgstr ""
 msgid "(Optional) Please enter your email here"
 msgstr ""
 
-#: app/templates/comment.html:50 app/templates/videos/view_video.html:56
-#: app/templates/videos/view_video.html:89
+#: app/templates/comment.html:50 app/templates/videos/view_video.html:57
+#: app/templates/videos/view_video.html:90
 msgid "secret user"
 msgstr ""
 
@@ -165,52 +165,52 @@ msgstr ""
 msgid "KGLB"
 msgstr ""
 
-#: app/templates/layout.html:22
+#: app/templates/layout.html:23
 msgid "Blogs"
 msgstr ""
 
-#: app/templates/layout.html:25 app/templates/layout.html:32
+#: app/templates/layout.html:26 app/templates/layout.html:33
 msgid "Videos"
 msgstr ""
 
-#: app/templates/layout.html:27
+#: app/templates/layout.html:28
 msgid "Check All Videos"
 msgstr ""
 
-#: app/templates/layout.html:28
+#: app/templates/layout.html:29
 msgid "Upload Video"
 msgstr ""
 
-#: app/templates/layout.html:34
+#: app/templates/layout.html:35
 msgid "Streaming"
 msgstr ""
 
-#: app/templates/layout.html:35
+#: app/templates/layout.html:36
 msgid "Timeline"
 msgstr ""
 
-#: app/templates/layout.html:43
+#: app/templates/layout.html:44
 msgid "AWS"
 msgstr ""
 
-#: app/templates/layout.html:49
+#: app/templates/layout.html:50
 msgid "Logout"
 msgstr ""
 
-#: app/templates/layout.html:50
+#: app/templates/layout.html:51
 msgid "Settings"
 msgstr ""
 
-#: app/templates/layout.html:55
+#: app/templates/layout.html:56
 #, python-format
 msgid "hi, %(user)s"
 msgstr ""
 
-#: app/templates/layout.html:61
+#: app/templates/layout.html:62
 msgid "Chinese"
 msgstr ""
 
-#: app/templates/layout.html:62
+#: app/templates/layout.html:63
 msgid "English"
 msgstr ""
 
@@ -272,6 +272,14 @@ msgstr ""
 msgid "Please enter your phone number here"
 msgstr ""
 
+#: app/templates/blog/blog.html:11
+msgid "New Blog"
+msgstr ""
+
+#: app/templates/blog/view_blog.html:14
+msgid "Published Time:"
+msgstr ""
+
 #: app/templates/streaming/streaming.html:7
 msgid "Streaming is on"
 msgstr ""
@@ -308,7 +316,7 @@ msgstr ""
 msgid "Login method"
 msgstr ""
 
-#: app/templates/user/profile.html:26 app/templates/videos/upload.html:15
+#: app/templates/user/profile.html:26 app/templates/videos/upload.html:23
 msgid "Upload"
 msgstr ""
 
@@ -320,23 +328,52 @@ msgstr ""
 msgid "Setup Gesture Login"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:6
+#: app/templates/videos/all_videos.html:7
 msgid "Search for title"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:7
+#: app/templates/videos/all_videos.html:8
+msgid "Sort By:"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:10
+msgid "Recent upload"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:11
+msgid "Ratings"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:12
+msgid "Number of Viewed"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:13
+msgid "Number of Likes"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:15
 msgid "Filter:"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:8
+#: app/templates/videos/all_videos.html:16
 msgid "Show all"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:22
+#: app/templates/videos/all_videos.html:30
+#: app/templates/videos/view_video.html:12
 msgid "Title: "
 msgstr ""
 
 #: app/templates/videos/upload.html:12
 msgid "Please enter title name"
+msgstr ""
+
+#: app/templates/videos/upload.html:15
+msgid "Category"
+msgstr ""
+
+#: app/templates/videos/upload.html:20
+msgid "dota, pubg or etc"
 msgstr ""
 

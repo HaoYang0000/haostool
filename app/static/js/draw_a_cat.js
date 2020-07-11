@@ -271,7 +271,7 @@ class Eye {
     constructor(x, y) {
         this.position = new Vector2D(x, y);
         this.irisPosition = new Vector2D(x, y);
-        this.moveRadius = 10;
+        this.moveRadius = 6;
         this.sizeRadius = 9;
     }
 
@@ -315,7 +315,7 @@ class EyeWhite {
     constructor(x, y) {
         this.position = new Vector2D(x, y);
         this.irisPosition = new Vector2D(x, y);
-        this.moveRadius = 13;
+        this.moveRadius = 8;
         this.sizeRadius = 4;
     }
 
