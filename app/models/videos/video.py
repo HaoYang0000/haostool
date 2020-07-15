@@ -35,6 +35,10 @@ class VideoModel(BaseModelExtended):
         default=0
     )
 
+    star = Column(
+        Integer,
+        default=1
+    )
     category = Column(
         Enum('dota', 'pubg', 'blog'),
         nullable=False
@@ -59,6 +63,7 @@ class VideoModel(BaseModelExtended):
             'liked_number': self.liked_number,
             'viewed_number': self.viewed_number,
             'is_published': self.is_published,
+            'star': self.star,
             'category': self.category,
             'created_at': self.created_at,
             'updated_at': self.updated_at

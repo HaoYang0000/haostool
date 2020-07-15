@@ -33,7 +33,6 @@ class AwsService:
                 VPN_INSTANCE_ID
             ]
         )
-
     def stop_instance(self):
         return self._client.stop_instances(
             InstanceIds=[

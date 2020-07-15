@@ -25,6 +25,22 @@ class VideoService(BaseService):
 			session.merge(video)
 			session.commit()
 			return
+	
+	def increse_star(self, id):
+		with session_scope() as session:
+			video = session.query(self.model).filter(self.model.id==id).first()
+			cur_num = video.star if video.star else 0
+			video.star = cur_num + 1
+			session.commit()
+			return cur_num + 1
+	
+	def decrease_star(self, id):
+		with session_scope() as session:
+			video = session.query(self.model).filter(self.model.id==id).first()
+			cur_num = video.star if video.star else 0
+			video.star = cur_num - 1
+			session.commit()
+			return cur_num - 1
 
 	def get_video_by_uuid(self, uuid: str):
 		with session_scope() as session:

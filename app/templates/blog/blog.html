@@ -4,20 +4,208 @@
 
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/blog/main.css') }}">
-<div class="container-center">
-  <h1>Blog Posts:</h1>
-  {% if current_user.level == 0 %}
-    <a href="{{ url_for('blog.create_post_main') }}">
-      <button>{{_('New Blog')}}</button>
-    </a>
-  {% endif %}
+<div class="row single-row-filter-row">
+  <h3>{{_('Blog Posts:')}}</h3>
+  <input type="text" id="search_filter_input" class="single-row-search-bar" onkeyup="search_filter()"
+    placeholder="{{_('Search for title')}}">
+  <label>{{_('Sort By:')}}</label>
+  <select onchange="sort_blogs(this.value)">
+    <option value="sort_created_at_desc">{{_('Recent upload')}}</option>
+    <!-- <option value="sort_rating_desc">{{_('Ratings')}}</option> -->
+    <option value="sort_number_views_desc">{{_('Number of Viewed')}}</option>
+    <option value="sort_number_likes_desc">{{_('Number of Likes')}}</option>
+  </select>
+  <!-- <label>{{_('Filter:')}}</label>
+  <input type="button" class="active" onclick="blog_filter_select(this, 'all')" value="{{_('Show all')}}">
+  <input type="image" onclick="blog_filter_select(this, 'javascript')"
+    src="{{ url_for('static', filename='icon/dota.png') }}" />
+  <input type="image" onclick="blog_filter_select(this, 'python')"
+    src="{{ url_for('static', filename='icon/pubg.png') }}" /> -->
+</div>
+{% if current_user.level == 0 %}
+  <div class="row single-row-filter-row">
+  <a href="{{ url_for('blog.create_post_main') }}">
+    <button>{{_('New Blog')}}</button>
+  </a>
+</div>
+{% endif %}
+<div class="all-blog-container">
   {%  for post in posts %}
-    <div class="clickable">
-      <a href={{ "/blog/edit/" + post.uuid  }}>
-        {{ post.id|string + ".title: " + post.title|string +", created at: " +post.created_at|string + ", published: " + post.is_published|string  }}
+    {% if current_user.level == 0 %}
+    <div class="row single-row">
+      <a href={{ "/blog/view/" + post.uuid  }}>
+        <div class="single-row-left-panel">
+          <img src="{{ url_for('static', filename=post.cover_img) }}">
+        </div>
       </a>
+      <div class="single-row-right-panel">
+        <div class="single-row-title-block">
+          <a href={{ "/blog/view/" + post.uuid  }}>{{_('Title: ')}}{{ post.title|string}}</a>
+        </div>
+        <div class="single-row-intro-block">
+          {{ post.blog_intro|string}}
+        </div>
+        <input name="category" type="hidden" value="{{ post.category }}">
+        <input name="create_at" type="hidden" value="{{ post.created_at }}">
+        <input name="viewed_number" type="hidden" value="{{ post.viewed_number }}">
+        <input name="liked_number" type="hidden" value="{{ post.liked_number }}">
+        <div class="single-row-content-block">
+          <img src="{{ url_for('static', filename='icon/blog_view.png') }}"><label> {{ post.viewed_number }} </label>
+        </div>
+        <div class="single-row-content-block">
+          <img src="{{ url_for('static', filename='icon/love.png') }}"><label> {{ post.liked_number }} </label>
+        </div>
+        <div class="single-row-content-block">
+          {{_("is_published: " + post.is_published | string)}}
+        </div>
+        <button name="blog_publish_button">{{_('Publish')}}</button>
+        <button name="blog_unpublish_button">{{_('Unpublish')}}</button>
+        <a href={{ "/blog/edit/" + post.uuid  }}>
+          <button>{{_('Edit')}}</button>
+        </a>
+        <input name="blog_post_id" type="hidden" value="{{post.id}}">
+      </div>
     </div>
+    {% else %}
+      {% if post.is_published %}
+      <div class="row single-row">
+        <a href={{ "/blog/view/" + post.uuid  }}>
+          <div class="single-row-left-panel">
+            <img src="{{ url_for('static', filename=post.cover_img) }}">
+          </div>
+        </a>
+        <div class="single-row-right-panel">
+          <div class="single-row-title-block">
+            <a href={{ "/blog/view/" + post.uuid  }}>{{_('Title: ')}}{{ post.title|string}}</a>
+          </div>
+          <div class="single-row-intro-block">
+            {{ post.blog_intro|string}}
+          </div>
+          <input name="category" type="hidden" value="{{ post.category }}">
+          <input name="create_at" type="hidden" value="{{ post.created_at }}">
+          <input name="viewed_number" type="hidden" value="{{ post.viewed_number }}">
+          <input name="liked_number" type="hidden" value="{{ post.liked_number }}">
+          <div class="single-row-content-block">
+            <img src="{{ url_for('static', filename='icon/blog_view.png') }}"><label> {{ post.viewed_number }} </label>
+          </div>
+          <div class="single-row-content-block">
+            <img src="{{ url_for('static', filename='icon/love.png') }}"><label> {{ post.liked_number }} </label>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    {% endif %}
   {% endfor %}
 </div>
-    
+
+<script type="text/javascript">
+  $('button[name="blog_publish_button"]').on('click', function (e) {
+    $.ajax({
+      data: {
+        post_id: $(this).siblings('input[name="blog_post_id"]').val()
+      },
+      type: 'POST',
+      url: '/blog/publish',
+      success: function (data) {
+        console.log(data)
+      },
+      error: function (jqXHR) {
+        console.log(jqXHR);
+      }
+    });
+  });
+  $('button[name="blog_unpublish_button"]').on('click', function (e) {
+    $.ajax({
+      data: {
+        post_id: $(this).siblings('input[name="blog_post_id"]').val()
+      },
+      type: 'POST',
+      url: '/blog/unpublish',
+      success: function (data) {
+        console.log(data)
+      },
+      error: function (jqXHR) {
+        console.log(jqXHR);
+      }
+    });
+  });
+  var current_title = "";
+  var current_category = "all";
+  var current_sort = "sort_created_at_desc";
+
+  function sort_blogs(method) {
+    current_sort = method;
+    filter_and_sort();
+  }
+  function search_filter() {
+    current_title = $('#search_filter_input').val();
+    filter_and_sort();
+  }
+  function blog_filter_select(e, current_selection) {
+    current_category = current_selection;
+    $('.single-row-filter-row').find('input[type=button],input[type=image]').each(function () {
+      $(this).removeClass("active");
+    });
+    $(e).addClass("active");
+    filter_and_sort()
+  }
+
+  function filter_and_sort() {
+    __blog_sort();
+    __blog_filter();
+  }
+
+  function __get_title(e) {
+    return $(e).find('.single-row-title-block').first().first().text();
+  }
+  function __get_category(e) {
+    return $(e).find('input').first().val();
+  }
+  function __blog_filter() {
+    $(".single-row").each(function () {
+      let category = __get_category(this);
+      let title = __get_title(this);
+      if (current_category == 'all' || category == current_category) {
+        if (title.includes(current_title)) {
+          $(this).css("display", "flex");
+        }
+        else {
+          $(this).css("display", "none");
+        }
+      }
+      else {
+        $(this).css("display", "none");
+      }
+    });
+  }
+  function __blog_sort() {
+    $('.all-blog-container').children().sort(get_sort_method(current_sort)).appendTo('.all-blog-container');
+    function get_sort_method(method) {
+      if (method == 'sort_created_at_desc') {
+        return sort_created_at_desc;
+      } else if (method == 'sort_rating_desc') {
+        return sort_rating_desc;
+      } else if (method == 'sort_number_views_desc') {
+        return sort_number_views_desc;
+      } else if (method == 'sort_number_likes_desc') {
+        return sort_number_likes_desc;
+      }
+    }
+    function sort_created_at_desc(a, b) {
+      return $(b).find('input[name="create_at"]').val() > $(a).find('input[name="create_at"]').val() ? 1 : -1;
+    }
+
+    function sort_rating_desc(a, b) {
+      return $(b).find('input[name="create_at"]').val() > $(a).find('input[name="create_at"]').val() ? 1 : -1;
+    }
+
+    function sort_number_views_desc(a, b) {
+      return parseInt($(b).find('input[name="viewed_number"]').val()) > parseInt($(a).find('input[name="viewed_number"]').val()) ? 1 : -1;
+    }
+
+    function sort_number_likes_desc(a, b) {
+      return parseInt($(b).find('input[name="liked_number"]').val()) > parseInt($(a).find('input[name="liked_number"]').val()) ? 1 : -1;
+    }
+  }
+</script>
 {% endblock %}

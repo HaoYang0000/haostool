@@ -10,7 +10,7 @@
 <script src="{{ url_for('static', filename='js/froala_editor/js/langs/zh_cn.js') }}"></script>
 {% autoescape false %}
 <div class="container-center">
-    <form id="edit_blog_form">
+    <form id="edit_blog_form" action="/blog/edit/{{post.uuid}}" method="post" enctype=multipart/form-data>
         {{ form.hidden_tag() }}
         <p>
             {{ form.title.label }}<br>
@@ -18,12 +18,19 @@
             {% for error in form.title.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
+            {% if post.cover_img %}
+                <img src={{ url_for('static', filename=post.cover_img) }}/>
+                <br>
+            {% endif %}
+            {{ form.cover_img.label }}<br>
+            {{ form.cover_img(class="button") }}<br>
+            {{ form.blog_intro.label }}<br>
+            {{ form.blog_intro(value=post.blog_intro) }}<br>
         </p>
         {{ form.content(class="fr-view") }}<br>
         <p>{{ form.submit() }}</p>
     </form>
 </div>
-<input type="hidden" id="blog_edit_uuid" value="{{post.uuid}}">
 <script>
     var editor = new FroalaEditor('#text_editor', {
       // Set the language code.
@@ -42,28 +49,6 @@
         toolbarButtons          : ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertLink', 'insertImage', 'insertTable', '|', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
     },function () {
         editor.html.set('{{ content }}');
-    });
-    
-
-    $('#edit_blog_form').on('submit', function(e){
-        var html = editor.html.get(); //返回富文本编辑里面的html代码
-        var url = '/blog/edit/' + $('#blog_edit_uuid').val();
-		$.ajax({
-			data: {
-				title: $('#title').val(),
-                content: html
-			},
-			type: 'POST',
-            url : url,
-            success: function(result) { 
-                console.log("保存成功");
-            },
-            error: function(jqXHR) {
-                console.log("保存失败");
-                console.log(jqXHR);
-            }
-		});
-        e.preventDefault();
     });
 </script>
 {% endautoescape %}

@@ -19,32 +19,44 @@
 </div>
 <div class="all-video-container">
 {%  for video in videos %}
-<div class="row all-video-single-row">
+<div class="row single-row">
     <a href={{ "/videos/" + video.uuid  }}>
-    <div class="all-video-left-panel">
-        <img src="{{ url_for('static', filename=video.thumb_nail) }}">
-    </div>
+        <div class="single-row-left-panel">
+            <img src="{{ url_for('static', filename=video.thumb_nail) }}">
+        </div>
     </a>
-    <div class="all-video-right-panel">
-        <div class="title-block">
+    <div class="single-row-right-panel">
+        <div class="single-row-title-block">
             <a href={{ "/videos/" + video.uuid  }}>{{_('Title: ')}}{{ video.title|string}}</a>
         </div>
         <input name="category" type="hidden" value="{{ video.category }}">
         <input name="create_at" type="hidden" value="{{ video.created_at }}">
         <input name="viewed_number" type="hidden" value="{{ video.viewed_number }}">
         <input name="liked_number" type="hidden" value="{{ video.liked_number }}">
-        <div class="content-block">
+        <input name="ratings" type="hidden" value="{{video.star}}">
+        <input name="video_id" type="hidden" value="{{video.id}}">
+        <div class="single-row-content-block">
             <img src="{{ url_for('static', filename='icon/viewed_num.png') }}"><label> {{ video.viewed_number }} </label>
         </div>
-        <div class="content-block">
+        <div class="single-row-content-block">
             <img src="{{ url_for('static', filename='icon/thumb_up.png') }}"><label> {{ video.liked_number }} </label>
         </div>
+        <div class="single-row-content-block">
+            <label> {{ _("Ratings: ") }} </label>
+            {%  for i in range(0,video.star) %}
+                <img class="ratings" src="{{ url_for('static', filename='icon/star.png') }}">
+            {% endfor %}
+            {% if current_user.level == 0 %}
+                <button name="video_increase_star_button">{{_('Increase Star')}}</button>
+                <button name="video_decrease_star_button">{{_('Decrease Star')}}</button>
+            {% endif %}
+        </div>
         {% if video.category == 'pubg' %}
-        <div class="content-block">
+        <div class="single-row-content-block">
             <img src="{{ url_for('static', filename='icon/pubg.png') }}">
         </div>
         {% elif video.category == 'dota' %}
-        <div class="content-block">
+        <div class="single-row-content-block">
             <img src="{{ url_for('static', filename='icon/dota.png') }}">
         </div>
         {% endif %}
@@ -52,7 +64,38 @@
 </div>
 {% endfor %}
 </div>
-<script type="text/javascript">    
+<script type="text/javascript">  
+    $('button[name="video_increase_star_button"]').on('click', function (e) {
+        console.log($(this).siblings('input[name="video_id"]').val())
+        $.ajax({
+            data: {
+                video_id: $(this).siblings('input[name="video_id"]').val()
+            },
+            type: 'POST',
+                url: '/videos/increase_star',
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (jqXHR) {
+                    console.log(jqXHR);
+                }
+        });
+    });
+    $('button[name="video_decrease_star_button"]').on('click', function (e) {
+        $.ajax({
+        data: {
+            video_id: $(this).siblings('input[name="video_id"]').val()
+        },
+        type: 'POST',
+        url: '/videos/decrease_star',
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (jqXHR) {
+                console.log(jqXHR);
+            }
+        });
+    });
     var current_title = "";
     var current_category = "all";
     var current_sort = "sort_created_at_desc";
@@ -67,7 +110,7 @@
     }
     function video_filter_select(e, current_selection) {
         current_category = current_selection;
-        $('.all-video-filter-row').find('input[type=button],input[type=image]').each(function() {
+        $('.single-row-filter-row').find('input[type=button],input[type=image]').each(function() {
             $(this).removeClass("active");
         });
         $(e).addClass("active");
@@ -80,13 +123,13 @@
     }
 
     function __get_title(e) {
-        return $(e).find('.title-block').first().first().text();
+        return $(e).find('.single-row-title-block').first().first().text();
     }
     function __get_category(e) {
         return $(e).find('input').first().val();
     }
     function __video_filter() {
-        $(".all-video-single-row").each(function() {
+        $(".single-row").each(function() {
             let category = __get_category(this);
             let title = __get_title(this);
             if (current_category == 'all' || category == current_category) {
@@ -120,7 +163,7 @@
         }
 
         function sort_rating_desc (a, b) {
-            return $(b).find('input[name="create_at"]').val() > $(a).find('input[name="create_at"]').val() ? 1 : -1;
+            return $(b).find('input[name="ratings"]').val() > $(a).find('input[name="ratings"]').val() ? 1 : -1;
         }
 
         function sort_number_views_desc (a, b) {
@@ -128,8 +171,6 @@
         }
 
         function sort_number_likes_desc (a, b) {
-            console.log($(b).find('input[name="liked_number"]').val());
-            console.log($(a).find('input[name="liked_number"]').val());
             return parseInt($(b).find('input[name="liked_number"]').val()) > parseInt($(a).find('input[name="liked_number"]').val()) ? 1 : -1;
         }
     }

@@ -32,9 +32,12 @@ def blogs():
 @app.route('/view/<string:uuid>', methods=['GET'])
 def view_blogs(uuid):
     post = BlogService().get_posts_by_uuid(uuid=uuid)
-    content = post.content
-    logger.error(content)
-    return render_template('blog/view_blog.html', post=post, content=content)
+    if post:
+        blog_service.view_increase(post)
+        content = post.content
+        return render_template('blog/view_blog.html', post=post, content=content, uuid=uuid)
+    flash('No blog found')
+    return redirect(url_for('blog.blogs'))
 
 @app.route('/edit/<string:uuid>', methods=['GET'])
 @login_required
@@ -42,7 +45,6 @@ def edit_post(uuid):
     post = BlogService().get_posts_by_uuid(uuid=uuid)
     content = post.content
     form = CreateBlogPostForm()
-    logger.error(content)
     return render_template('blog/edit_post.html', post=post, form=form, content=content)
 
 @app.route('/edit/<string:uuid>', methods=['POST'])
@@ -50,14 +52,49 @@ def edit_post(uuid):
 def update_post(uuid):
     form = CreateBlogPostForm()
     if form.is_submitted():
+        cover_img_path = ""
+        if form.cover_img.data:
+            cover_img = form.cover_img.data
+            filename = secure_filename(cover_img.filename)
+            cover_img.save(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}/{filename}")
+            cover_img_path = f"{BLOG_IMAGE_DIR}/{filename}"
         content=form.content.data
         post = BlogService().update_by_uuid(
             uuid=uuid,
             title=form.title.data,
-            content=content
+            content=content,
+            blog_intro=form.blog_intro.data,
+            cover_img=cover_img_path
         )
-        if post:
-            return "success", 200
+        flash('Update success')
+        return render_template('blog/edit_post.html', post=post, form=form, content=content)
+    flash('Failed to update')
+    return redirect(url_for('blog.blogs'))
+
+@app.route('/like/<string:uuid>', methods=['POST'])
+def like_blog(uuid):
+    blog = blog_service.get_posts_by_uuid(uuid=uuid)
+    current_num = blog.liked_number
+    if blog:
+        blog_service.like_increase(blog)
+        return str(current_num + 1)
+    else:
+        return "No blog found"
+
+@app.route('/publish', methods=['POST'])
+@login_required
+def publish_post():
+    result = blog_service.publish_blog(post_id=request.form['post_id'])
+    if result:
+        return "success", 200
+    return "err", 400
+
+@app.route('/unpublish', methods=['POST'])
+@login_required
+def unpublish_post():
+    result = blog_service.unpublish_blog(post_id=request.form['post_id'])
+    if result:
+        return "success", 200
     return "err", 400
 
 @app.route('/create_post', methods=['GET'])
@@ -71,15 +108,23 @@ def create_post_main():
 def create_post():
     form = CreateBlogPostForm()
     if form.is_submitted():
+        cover_img_path = ""
+        if form.cover_img.data:
+            cover_img = form.cover_img.data
+            filename = secure_filename(cover_img.filename)
+            cover_img.save(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}/{filename}")
+            cover_img_path = f"{BLOG_IMAGE_DIR}/{filename}"
         new_blog = BlogService().create(
             title=form.title.data,
             content=form.content.data,
-            uuid=uuid.uuid4().hex
+            uuid=uuid.uuid4().hex,
+            blog_intro=form.blog_intro.data,
+            cover_img=cover_img_path
         )
-        logger.error(new_blog)
-        if new_blog:
-            return 'success', 200
-    return 'err',400
+        flash('Create blog success')
+        return redirect(url_for('blog.blogs'))
+    flash('Failed to create blog')
+    return redirect(url_for('blog.blogs'))
 
 
 @app.route('/image_upload', methods=['POST'])

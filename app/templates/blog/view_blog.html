@@ -10,19 +10,52 @@
 <script src="{{ url_for('static', filename='js/froala_editor/js/langs/zh_cn.js') }}"></script>
 {% autoescape false %}
 <div class="container">
-    <h1 class="blog_title">{{ post.title }}</h1>
-    <div class="blog_create_time">{{_('Published Time:')}} {{ post.created_at }}</div>
-    <div class="blog_tag"></div>
+    <h1 class="blog-title">{{ post.title }}</h1>
+    <div class="blog-create-time">{{_('Published Time:')}} {{ post.created_at }}</div>
+    <div class="blog-tag"></div>
+    <hr>
+    <div class="blog-intro">
+        {{_("Introduction: ")}}{{ post.blog_intro|string}}
+    </div>
     <hr>
     <div id="view_blog" class="fr-view"></div>
+    <hr>
+    <div class="blog-func-row">
+        <div class="blog-func-item">
+            <img src="{{ url_for('static', filename='icon/blog_view.png') }}"><label> {{post.viewed_number}} </label> 
+        </div>
+        <div class="blog-func-item">
+            <img id="blog-like-btn" src="{{ url_for('static', filename='icon/love.png') }}"><label id="liked_num"> {{post.liked_number}} </label>
+        </div>
+        <!-- <div class="blog-func-item">
+            <img id="blog-comment-btn" src="{{ url_for('static', filename='icon/comment.png') }}"><label> {{comments|count}} </label> 
+        </div> -->
+    </div>
 </div>
 <script>
     document.getElementById("view_blog").innerHTML = '{{ content }}';
-    // var editor = new FroalaEditor('#view_blog', {},function () {
-    //     editor.html.set('{{ content }}');
-    //     document.getElementById("view_blog").innerHTML = editor.html.get();
-    //     editor.destroy();
-    // });
+    $(function() {
+        $('#blog-like-btn').click(function() {
+            $.ajax({
+                type: 'POST',
+                url: '/blog/like/' + '{{uuid}}',
+                success: function(data) { 
+                    $('#liked_num').html(data);
+                    console.log(data);                   
+                },
+                error: function(jqXHR) {
+                    alert("error: " + jqXHR.status);
+                    console.log(jqXHR);
+                }
+            });
+        });
+
+        // $('#comment-btn').click(function() {
+            
+        //     $('.video-comment').css("display","inline-block");
+        //     $('.footer').css("position","static");
+        // });
+    });
 </script>
 {% endautoescape %}
 {% endblock %}

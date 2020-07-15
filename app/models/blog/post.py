@@ -20,6 +20,21 @@ class BlogPostModel(BaseModelExtended):
         default=False
     )
 
+    liked_number = Column(
+        Integer,
+        default=0
+    )
+
+    blog_intro = Column(
+        Text,
+        nullable=False
+    )
+
+    cover_img = Column(
+        String(length=255),
+        nullable=False
+    )
+
     viewed_number = Column(
         Integer,
         default=0
@@ -40,6 +55,7 @@ class BlogPostModel(BaseModelExtended):
             'title': self.title,
             'content': self.content,
             'is_published': self.is_published,
+            'liked_number': self.liked_number,
             'viewed_number': self.viewed_number,
             'uuid': self.uuid,
             'created_at': self.created_at,

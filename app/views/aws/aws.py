@@ -15,15 +15,13 @@ VpnInstance=namedtuple("VpnInstance",['name','type','state', 'ip_address'])
 
 app = Blueprint('aws', __name__)
 logger = logging.getLogger(__name__)
-
+aws_service = AwsService()
+aws_service._init_connect()
 
 @app.route('/aws', methods=['GET', 'POST'])
 @admin_required
 def aws():
-    aws_service = AwsService()
-    aws_service._init_connect()
     instance_list = aws_service.list_instances()
-    logger.error(instance_list)
     vpn_instance = instance_list.get('Reservations')[0].get('Instances')[0]
     instance = VpnInstance(
         name=vpn_instance.get('Tags')[0].get('Value'),
@@ -36,23 +34,17 @@ def aws():
 @app.route('/aws/start_instance', methods=['POST'])
 @admin_required
 def aws_start_instance():
-    aws_service = AwsService()
-    aws_service._init_connect()
     response = aws_service.start_instance()
     return jsonify(response)
 
 @app.route('/aws/stop_instance', methods=['POST'])
 @admin_required
 def aws_stop_instance():
-    aws_service = AwsService()
-    aws_service._init_connect()
     response = aws_service.stop_instance()
     return jsonify(response)
 
 @app.route('/aws/change_ip', methods=['POST'])
 @admin_required
 def aws_change_vpn_ip():
-    aws_service = AwsService()
-    aws_service._init_connect()
     response = aws_service.replace_elastic_address()
     return jsonify(response)

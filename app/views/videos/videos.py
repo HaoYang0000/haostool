@@ -12,10 +12,12 @@ import uuid
 from app.forms.comment.video_comment import VideoCommentForm
 from app.services.comment.comment_service import CommentService
 from pypinyin import pinyin, lazy_pinyin
+from app.utils import admin_required
 
 app = Blueprint('videos', __name__)
 logger = logging.getLogger(__name__)
 VIDEOS_FOLDER = 'videos'
+video_service = VideoService()
 
 @app.route('/videos', methods=['GET', 'POST'])
 def videos():
@@ -57,6 +59,22 @@ def like_video(uuid):
         return str(current_num + 1)
     else:
         return "No video found"
+
+@app.route('/videos/increase_star', methods=['POST'])
+@admin_required
+def video_increase_star():
+    result = video_service.increse_star(id=request.form['video_id'])
+    if result:
+        return str(result), 200
+    return "err", 400
+
+@app.route('/videos/decrease_star', methods=['POST']) 
+@admin_required
+def video_decrease_star():
+    result = video_service.decrease_star(id=request.form['video_id'])
+    if result:
+        return str(result), 200
+    return "err", 400
 
 @app.route('/videos/upload', methods=['GET'])
 def upload_video_page():
