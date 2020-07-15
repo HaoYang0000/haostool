@@ -34,7 +34,6 @@
         <input name="viewed_number" type="hidden" value="{{ video.viewed_number }}">
         <input name="liked_number" type="hidden" value="{{ video.liked_number }}">
         <input name="ratings" type="hidden" value="{{video.star}}">
-        <input name="video_id" type="hidden" value="{{video.id}}">
         <div class="single-row-content-block">
             <img src="{{ url_for('static', filename='icon/viewed_num.png') }}"><label> {{ video.viewed_number }} </label>
         </div>
@@ -47,7 +46,7 @@
                 {%  for i in range(0,video.star) %}
                     <img class="ratings" src="{{ url_for('static', filename='icon/star.png') }}">
                 {% endfor %}
-            (% else %)
+            {% else %}
                 {%  for i in range(0,1) %}
                     <img class="ratings" src="{{ url_for('static', filename='icon/star.png') }}">
                 {% endfor %}
@@ -55,6 +54,7 @@
             {% if current_user.level == 0 %}
                 <button name="video_increase_star_button">{{_('Increase Star')}}</button>
                 <button name="video_decrease_star_button">{{_('Decrease Star')}}</button>
+                <input name="video_id" type="hidden" value="{{video.id}}">
             {% endif %}
         </div>
         {% if video.category == 'pubg' %}
