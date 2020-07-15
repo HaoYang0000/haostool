@@ -43,9 +43,15 @@
         </div>
         <div class="single-row-content-block">
             <label> {{ _("Ratings: ") }} </label>
-            {%  for i in range(0,video.star) %}
-                <img class="ratings" src="{{ url_for('static', filename='icon/star.png') }}">
-            {% endfor %}
+            {% if video.star %}
+                {%  for i in range(0,video.star) %}
+                    <img class="ratings" src="{{ url_for('static', filename='icon/star.png') }}">
+                {% endfor %}
+            (% else %)
+                {%  for i in range(0,1) %}
+                    <img class="ratings" src="{{ url_for('static', filename='icon/star.png') }}">
+                {% endfor %}
+            {% endif %}
             {% if current_user.level == 0 %}
                 <button name="video_increase_star_button">{{_('Increase Star')}}</button>
                 <button name="video_decrease_star_button">{{_('Decrease Star')}}</button>
