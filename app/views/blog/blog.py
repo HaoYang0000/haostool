@@ -119,7 +119,9 @@ def create_post():
             content=form.content.data,
             uuid=uuid.uuid4().hex,
             blog_intro=form.blog_intro.data,
-            cover_img=cover_img_path
+            cover_img=cover_img_path,
+            liked_number=0,
+            viewed_number=0
         )
         flash('Create blog success')
         return redirect(url_for('blog.blogs'))
