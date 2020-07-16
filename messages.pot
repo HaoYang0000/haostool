@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-12 00:11+0800\n"
+"POT-Creation-Date: 2020-07-16 17:08+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,15 @@ msgstr ""
 msgid "title"
 msgstr ""
 
+#: app/forms/blog/create_post_form.py:10
+msgid "cover img"
+msgstr ""
+
 #: app/forms/blog/create_post_form.py:11
+msgid "intro"
+msgstr ""
+
+#: app/forms/blog/create_post_form.py:12
 msgid "content"
 msgstr ""
 
@@ -272,12 +280,58 @@ msgstr ""
 msgid "Please enter your phone number here"
 msgstr ""
 
-#: app/templates/blog/blog.html:11
+#: app/templates/blog/blog.html:9 app/templates/videos/all_videos.html:7
+msgid "Search for title"
+msgstr ""
+
+#: app/templates/blog/blog.html:10 app/templates/videos/all_videos.html:8
+msgid "Sort By:"
+msgstr ""
+
+#: app/templates/blog/blog.html:12 app/templates/videos/all_videos.html:10
+msgid "Recent upload"
+msgstr ""
+
+#: app/templates/blog/blog.html:13 app/templates/videos/all_videos.html:11
+msgid "Ratings"
+msgstr ""
+
+#: app/templates/blog/blog.html:14 app/templates/videos/all_videos.html:12
+msgid "Number of Viewed"
+msgstr ""
+
+#: app/templates/blog/blog.html:15 app/templates/videos/all_videos.html:13
+msgid "Number of Likes"
+msgstr ""
+
+#: app/templates/blog/blog.html:21
 msgid "New Blog"
+msgstr ""
+
+#: app/templates/blog/blog.html:36 app/templates/blog/blog.html:72
+#: app/templates/videos/all_videos.html:30
+#: app/templates/videos/view_video.html:12
+msgid "Title: "
+msgstr ""
+
+#: app/templates/blog/blog.html:54
+msgid "Publish"
+msgstr ""
+
+#: app/templates/blog/blog.html:55
+msgid "Unpublish"
+msgstr ""
+
+#: app/templates/blog/blog.html:57
+msgid "Edit"
 msgstr ""
 
 #: app/templates/blog/view_blog.html:14
 msgid "Published Time:"
+msgstr ""
+
+#: app/templates/blog/view_blog.html:18
+msgid "Introduction: "
 msgstr ""
 
 #: app/templates/streaming/streaming.html:7
@@ -328,30 +382,6 @@ msgstr ""
 msgid "Setup Gesture Login"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:7
-msgid "Search for title"
-msgstr ""
-
-#: app/templates/videos/all_videos.html:8
-msgid "Sort By:"
-msgstr ""
-
-#: app/templates/videos/all_videos.html:10
-msgid "Recent upload"
-msgstr ""
-
-#: app/templates/videos/all_videos.html:11
-msgid "Ratings"
-msgstr ""
-
-#: app/templates/videos/all_videos.html:12
-msgid "Number of Viewed"
-msgstr ""
-
-#: app/templates/videos/all_videos.html:13
-msgid "Number of Likes"
-msgstr ""
-
 #: app/templates/videos/all_videos.html:15
 msgid "Filter:"
 msgstr ""
@@ -360,9 +390,16 @@ msgstr ""
 msgid "Show all"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:30
-#: app/templates/videos/view_video.html:12
-msgid "Title: "
+#: app/templates/videos/all_videos.html:44
+msgid "Ratings: "
+msgstr ""
+
+#: app/templates/videos/all_videos.html:55
+msgid "Increase Star"
+msgstr ""
+
+#: app/templates/videos/all_videos.html:56
+msgid "Decrease Star"
 msgstr ""
 
 #: app/templates/videos/upload.html:12
