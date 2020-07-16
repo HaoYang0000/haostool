@@ -25,7 +25,7 @@
             {{ form.cover_img.label }}<br>
             {{ form.cover_img(class="button") }}<br>
             {{ form.blog_intro.label }}<br>
-            {{ form.blog_intro(value=post.blog_intro) }}<br>
+            {{ form.blog_intro() }}<br>
         </p>
         {{ form.content(class="fr-view") }}<br>
         <p>{{ form.submit() }}</p>
@@ -49,6 +49,8 @@
         toolbarButtons          : ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertLink', 'insertImage', 'insertTable', '|', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
     },function () {
         editor.html.set('{{ content }}');
+        var textarea = document.getElementById('blog_intro'); 
+        textarea.innerHTML = "{{ post.blog_intro }}";
     });
 </script>
 {% endautoescape %}

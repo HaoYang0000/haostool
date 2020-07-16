@@ -151,7 +151,7 @@ class Application {
         let y = position.getY();
         for (let i = 0; i < this.cats.length; i++) {
             let distance = this.calculateDistance(this.cats[i].position.getX(), this.cats[i].position.getY(), x, y);
-            if ( distance <= 100) {
+            if ( distance <= 200) {
                 return true;
             }
         }
@@ -295,7 +295,7 @@ class Eye {
      */
     render(context) {
         //Draw the iris of the eye
-        context.fillStyle = "#000000";
+        context.fillStyle = "#f4a028";
         context.beginPath();
         context.arc(this.irisPosition.getX(), this.irisPosition.getY()+ 15, this.sizeRadius, 0, TWO_PI);
         context.fill();
@@ -316,7 +316,7 @@ class EyeWhite {
         this.position = new Vector2D(x, y);
         this.irisPosition = new Vector2D(x, y);
         this.moveRadius = 8;
-        this.sizeRadius = 4;
+        this.sizeRadius = 5;
     }
 
     /**
@@ -339,7 +339,7 @@ class EyeWhite {
      */
     render(context) {
         //Draw the iris of the eye
-        context.fillStyle = "#FFFFFF";
+        context.fillStyle = "#000000";
         context.beginPath();
         context.arc(this.irisPosition.getX(), this.irisPosition.getY()+ 15, this.sizeRadius, 0, TWO_PI);
         context.fill();
