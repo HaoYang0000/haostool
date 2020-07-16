@@ -78,14 +78,14 @@
             </ul>
         {% endif %}
     {% endwith %}
-    <div class="nav-holder">
-    </div>
     <img id="background_cat_head" hidden="true" src="{{ url_for('static', filename='cat_head.png') }}">
     <canvas id="background_img">
     </canvas>
-    {% block body %}
-        <h1>This heading is defined in the parent.</h1>
-    {% endblock %}
+    <div class="body-wrapper">
+        {% block body %}
+            <h1>This heading is defined in the parent.</h1>
+        {% endblock %}
+    </div>
     <div class="footer">
         <p>
             Copyright ©

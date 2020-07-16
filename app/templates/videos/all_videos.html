@@ -3,8 +3,8 @@
 {% block body %}
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/video/main.css') }}">
-<div class="row all-video-filter-row">
-    <input type="text" id="search_filter_input" class="all-video-search-bar" onkeyup="search_filter()" placeholder="{{_('Search for title')}}">
+<div class="row single-row-filter-row">
+    <input type="text" id="search_filter_input" class="single-row-search-bar" onkeyup="search_filter()" placeholder="{{_('Search for title')}}">
     <label>{{_('Sort By:')}}</label>
     <select onchange="sort_videos(this.value)">
         <option value="sort_created_at_desc">{{_('Recent upload')}}</option>

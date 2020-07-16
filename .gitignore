@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 lib/*
 env/*
-local.json
 app/static/videos
-config/*
+config
+app/static/blog_image
+backup

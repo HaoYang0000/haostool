@@ -5,7 +5,6 @@
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/blog/main.css') }}">
 <div class="row single-row-filter-row">
-  <h3>{{_('Blog Posts:')}}</h3>
   <input type="text" id="search_filter_input" class="single-row-search-bar" onkeyup="search_filter()"
     placeholder="{{_('Search for title')}}">
   <label>{{_('Sort By:')}}</label>
@@ -15,12 +14,6 @@
     <option value="sort_number_views_desc">{{_('Number of Viewed')}}</option>
     <option value="sort_number_likes_desc">{{_('Number of Likes')}}</option>
   </select>
-  <!-- <label>{{_('Filter:')}}</label>
-  <input type="button" class="active" onclick="blog_filter_select(this, 'all')" value="{{_('Show all')}}">
-  <input type="image" onclick="blog_filter_select(this, 'javascript')"
-    src="{{ url_for('static', filename='icon/dota.png') }}" />
-  <input type="image" onclick="blog_filter_select(this, 'python')"
-    src="{{ url_for('static', filename='icon/pubg.png') }}" /> -->
 </div>
 {% if current_user.level == 0 %}
   <div class="row single-row-filter-row">

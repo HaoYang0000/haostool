@@ -152,13 +152,6 @@
   position: absolute;
 }
 
-
-.nav-holder {
-  top: 0px;
-  height: 60px;
-  margin-bottom: 15px;
-}
-
 .bottom-border {
   border-bottom-style: solid;
   border-width: 1px;
@@ -187,8 +180,6 @@
 
 .topnav a:hover {
   background-color: #ddd;
-
-  /* box-shadow: 0px -10px 0px 0px #122849 inset; */
   transition: 0.5s;
 }
 
@@ -295,29 +286,6 @@
   background-color: rgba(64, 176, 255, 0.72);
   color: black;
 }
-
-.footer {
-  background-color:#3e3e3e;
-  height: 80px;
-  width: 100vw;
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  text-align: center;
-  color: white;
-  padding: 5px;
-}
-.footer a {
-  text-decoration: none;
-}
-.footer a:link {
-  color: white;
-}
-.footer a:visited{
-  color: white;
-  text-decoration: none;
-}
-
 .notify {  
   position:absolute;
   top:-30%;
