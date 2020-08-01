@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-16 17:08+0800\n"
+"POT-Creation-Date: 2020-08-01 18:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,7 +87,7 @@ msgid "RememberMe"
 msgstr ""
 
 #: app/forms/auth/auth_forms.py:18 app/templates/auth/register.html:9
-#: app/templates/layout.html:48
+#: app/templates/layout.html:49
 msgid "Register"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgid "Please use a different email address."
 msgstr ""
 
 #: app/forms/auth/auth_forms.py:35 app/templates/auth/login.html:19
-#: app/templates/layout.html:47
+#: app/templates/layout.html:48
 msgid "Login"
 msgstr ""
 
@@ -120,15 +120,16 @@ msgstr ""
 msgid "content"
 msgstr ""
 
-#: app/forms/comment/video_comment.py:7
+#: app/forms/comment/comment_form.py:7
 msgid "Username:"
 msgstr ""
 
-#: app/forms/comment/video_comment.py:8
+#: app/forms/comment/comment_form.py:8
 msgid "Content"
 msgstr ""
 
-#: app/forms/comment/video_comment.py:11 app/templates/comment.html:15
+#: app/forms/comment/comment_form.py:12 app/templates/blog/view_blog.html:41
+#: app/templates/comment.html:15
 msgid "Post"
 msgstr ""
 
@@ -144,27 +145,28 @@ msgstr ""
 msgid "Comment Board"
 msgstr ""
 
-#: app/templates/comment.html:11
+#: app/templates/blog/view_blog.html:37 app/templates/comment.html:11
 msgid "If you got any feedback, please let me know :)"
 msgstr ""
 
-#: app/templates/comment.html:18
+#: app/templates/blog/view_blog.html:44 app/templates/comment.html:18
 msgid "Your name:"
 msgstr ""
 
-#: app/templates/comment.html:24
+#: app/templates/blog/view_blog.html:50 app/templates/comment.html:24
 msgid "(Optional) Please enter your nick name here"
 msgstr ""
 
-#: app/templates/comment.html:27
+#: app/templates/blog/view_blog.html:54 app/templates/comment.html:27
 msgid "Your e-mail:"
 msgstr ""
 
-#: app/templates/comment.html:33
+#: app/templates/blog/view_blog.html:60 app/templates/comment.html:33
 msgid "(Optional) Please enter your email here"
 msgstr ""
 
-#: app/templates/comment.html:50 app/templates/videos/view_video.html:57
+#: app/templates/blog/view_blog.html:77 app/templates/comment.html:50
+#: app/templates/videos/view_video.html:57
 #: app/templates/videos/view_video.html:90
 msgid "secret user"
 msgstr ""
@@ -197,28 +199,32 @@ msgstr ""
 msgid "Timeline"
 msgstr ""
 
-#: app/templates/layout.html:44
+#: app/templates/layout.html:37
+msgid "Comment"
+msgstr ""
+
+#: app/templates/layout.html:45
 msgid "AWS"
 msgstr ""
 
-#: app/templates/layout.html:50
+#: app/templates/layout.html:51
 msgid "Logout"
 msgstr ""
 
-#: app/templates/layout.html:51
+#: app/templates/layout.html:52
 msgid "Settings"
 msgstr ""
 
-#: app/templates/layout.html:56
+#: app/templates/layout.html:57
 #, python-format
 msgid "hi, %(user)s"
 msgstr ""
 
-#: app/templates/layout.html:62
+#: app/templates/layout.html:63
 msgid "Chinese"
 msgstr ""
 
-#: app/templates/layout.html:63
+#: app/templates/layout.html:64
 msgid "English"
 msgstr ""
 
@@ -308,21 +314,19 @@ msgstr ""
 msgid "New Blog"
 msgstr ""
 
-#: app/templates/blog/blog.html:36 app/templates/blog/blog.html:72
-#: app/templates/videos/all_videos.html:30
-#: app/templates/videos/view_video.html:12
-msgid "Title: "
-msgstr ""
-
-#: app/templates/blog/blog.html:54
-msgid "Publish"
+#: app/templates/blog/blog.html:41 app/templates/videos/all_videos.html:33
+msgid "Delete"
 msgstr ""
 
 #: app/templates/blog/blog.html:55
+msgid "Publish"
+msgstr ""
+
+#: app/templates/blog/blog.html:56
 msgid "Unpublish"
 msgstr ""
 
-#: app/templates/blog/blog.html:57
+#: app/templates/blog/blog.html:58
 msgid "Edit"
 msgstr ""
 
@@ -390,15 +394,15 @@ msgstr ""
 msgid "Show all"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:44
+#: app/templates/videos/all_videos.html:48
 msgid "Ratings: "
 msgstr ""
 
-#: app/templates/videos/all_videos.html:55
+#: app/templates/videos/all_videos.html:59
 msgid "Increase Star"
 msgstr ""
 
-#: app/templates/videos/all_videos.html:56
+#: app/templates/videos/all_videos.html:60
 msgid "Decrease Star"
 msgstr ""
 
@@ -412,5 +416,9 @@ msgstr ""
 
 #: app/templates/videos/upload.html:20
 msgid "dota, pubg or etc"
+msgstr ""
+
+#: app/templates/videos/view_video.html:12
+msgid "Title: "
 msgstr ""
 
