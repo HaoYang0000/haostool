@@ -44,12 +44,6 @@ class VideoModel(BaseModelExtended):
         nullable=False
     )
 
-    
-    is_deleted = Column(
-        Boolean(),
-        default=False
-    )
-
     @property
     def serialize(self):
         ""
@@ -63,7 +57,6 @@ class VideoModel(BaseModelExtended):
             'uuid': self.uuid,
             'liked_number': self.liked_number,
             'viewed_number': self.viewed_number,
-            'is_deleted': self.is_deleted,
             'star': self.star,
             'category': self.category,
             'created_at': self.created_at,
