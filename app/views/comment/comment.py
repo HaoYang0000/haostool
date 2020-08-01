@@ -8,7 +8,7 @@ from flask_api import status
 from flask_login import current_user, login_user, logout_user
 import uuid
 from app.services.comment.comment_service import CommentService
-from app.forms.comment.video_comment import VideoCommentForm
+from app.forms.comment.comment_form import CommentForm
 from app.services.user.user_service import UserService
 from app.engine import session_scope
 from app.utils import admin_required
@@ -20,10 +20,10 @@ app = Blueprint(
 logger = logging.getLogger(__name__)
 
 
-@app.route('/video/post', methods=['POST'])
+@app.route('/video', methods=['POST'])
 def video_comment():
     comment_service = CommentService()
-    form = VideoCommentForm()
+    form = CommentForm()
     if form.is_submitted():
         new_comment = comment_service.create(
             user_id=None if not current_user.is_authenticated else current_user.id,
@@ -48,7 +48,21 @@ def comment_page():
     comments = comment_service.get_all_feedback_comment()
     return render_template('comment.html', comments=comments)
 
-@app.route('/feedback/post', methods=['POST'])
+
+@app.route('/blog', methods=['POST'])
+def blog_comment():
+    comment_service = CommentService()
+    comment_service.create(
+        user_id=None if not current_user.is_authenticated else current_user.id,
+        unknown_user_name=request.form['unknown_user_name'],
+        content=request.form['content'],
+        contact_email=request.form['contact_email'],
+        category='blog',
+        blog_uuid=request.form['blog_uuid']
+    )
+    return redirect(f"/blog/view/{request.form['blog_uuid']}")
+
+@app.route('/feedback', methods=['POST'])
 def feedback_comment():
     comment_service = CommentService()
     comment_service.create(

@@ -9,7 +9,7 @@ from app.services.videos.video_service import VideoService
 from werkzeug.utils import secure_filename
 from app.engine import UPLOAD_ROOT
 import uuid
-from app.forms.comment.video_comment import VideoCommentForm
+from app.forms.comment.comment_form import CommentForm as VideoCommentForm
 from app.services.comment.comment_service import CommentService
 from pypinyin import pinyin, lazy_pinyin
 from app.utils import admin_required
@@ -59,6 +59,16 @@ def like_video(uuid):
         return str(current_num + 1)
     else:
         return "No video found"
+
+
+@app.route('/videos/delete', methods=['DELETE'])
+@admin_required
+def delete_video():
+    result = video_service.delete_by_id(id=request.form['video_id'])
+    if result:
+        return "success", 200
+    return "err", 400
+
 
 @app.route('/videos/increase_star', methods=['POST'])
 @admin_required

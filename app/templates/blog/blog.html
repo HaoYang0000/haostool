@@ -33,11 +33,12 @@
       </a>
       <div class="single-row-right-panel">
         <div class="single-row-title-block">
-          <a href={{ "/blog/view/" + post.uuid  }}>{{_('Title: ')}}{{ post.title|string}}</a>
+          <a href={{ "/blog/view/" + post.uuid  }}>{{ post.title|string}}</a>
         </div>
         <div class="single-row-intro-block">
           {{ post.blog_intro|string}}
         </div>
+        <button name="blog_delete_button">{{_('Delete')}}</button>
         <input name="category" type="hidden" value="{{ post.category }}">
         <input name="create_at" type="hidden" value="{{ post.created_at }}">
         <input name="viewed_number" type="hidden" value="{{ post.viewed_number }}">
@@ -69,7 +70,7 @@
         </a>
         <div class="single-row-right-panel">
           <div class="single-row-title-block">
-            <a href={{ "/blog/view/" + post.uuid  }}>{{_('Title: ')}}{{ post.title|string}}</a>
+            <a href={{ "/blog/view/" + post.uuid  }}>{{ post.title|string}}</a>
           </div>
           <div class="single-row-intro-block">
             {{ post.blog_intro|string}}
@@ -114,6 +115,21 @@
       },
       type: 'POST',
       url: '/blog/unpublish',
+      success: function (data) {
+        console.log(data)
+      },
+      error: function (jqXHR) {
+        console.log(jqXHR);
+      }
+    });
+  });
+  $('button[name="blog_delete_button"]').on('click', function (e) {
+    $.ajax({
+      data: {
+        post_id: $(this).siblings('input[name="blog_post_id"]').val()
+      },
+      type: 'DELETE',
+      url: '/blog/delete',
       success: function (data) {
         console.log(data)
       },

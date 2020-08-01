@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/feedback/main.css') }}">
 <div class="container-center">
     <h1>{{_('Comment Board')}}</h1>
-    <form id="video_comment_form" action="/comment/feedback/post" method="post">
+    <form action="/comment/feedback/post" method="post">
         <div class="feedback-comment-input">
             <textarea id="content" name="content" placeholder="{{_('If you got any feedback, please let me know :)')}}"></textarea>
         </div>

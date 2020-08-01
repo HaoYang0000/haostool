@@ -8,8 +8,10 @@ from app.services.blog.blog_service import BlogService
 from app.forms.blog.create_post_form import CreateBlogPostForm
 from app.engine import session_scope
 from werkzeug.utils import secure_filename
-from app.utils import allowed_file
+from app.utils import allowed_file, admin_required
 from app.engine import UPLOAD_ROOT, BLOG_IMAGE_DIR
+from app.forms.comment.comment_form import CommentForm
+from app.services.comment.comment_service import CommentService
 
 import uuid
 import pickle
@@ -22,6 +24,7 @@ app = Blueprint(
 logger = logging.getLogger(__name__)
 
 blog_service = BlogService()
+comment_service = CommentService()
 SINGLE_QUOTE = '__SINGLE_QUOTE__'
 
 @app.route('/', methods=['GET'])
@@ -32,10 +35,12 @@ def blogs():
 @app.route('/view/<string:uuid>', methods=['GET'])
 def view_blogs(uuid):
     post = BlogService().get_posts_by_uuid(uuid=uuid)
+    comment_form = CommentForm()
     if post:
         blog_service.view_increase(post)
+        comments = comment_service.get_reply_for_blog_uuid(blog_uuid=uuid)
         content = post.content
-        return render_template('blog/view_blog.html', post=post, content=content, uuid=uuid)
+        return render_template('blog/view_blog.html', post=post, content=content, uuid=uuid, comments=comments, comment_form=comment_form)
     flash('No blog found')
     return redirect(url_for('blog.blogs'))
 
@@ -81,8 +86,16 @@ def like_blog(uuid):
     else:
         return "No blog found"
 
+@app.route('/delete', methods=['DELETE'])
+@admin_required
+def delete_post():
+    result = blog_service.delete_by_id(id=request.form['post_id'])
+    if result:
+        return "success", 200
+    return "err", 400
+
 @app.route('/publish', methods=['POST'])
-@login_required
+@admin_required
 def publish_post():
     result = blog_service.publish_blog(post_id=request.form['post_id'])
     if result:
@@ -90,7 +103,7 @@ def publish_post():
     return "err", 400
 
 @app.route('/unpublish', methods=['POST'])
-@login_required
+@admin_required
 def unpublish_post():
     result = blog_service.unpublish_blog(post_id=request.form['post_id'])
     if result:
@@ -98,13 +111,13 @@ def unpublish_post():
     return "err", 400
 
 @app.route('/create_post', methods=['GET'])
-@login_required
+@admin_required
 def create_post_main():
     form = CreateBlogPostForm()
     return render_template('blog/create_post.html', form=form)
 
 @app.route('/create_post', methods=['POST'])
-@login_required
+@admin_required
 def create_post():
     form = CreateBlogPostForm()
     if form.is_submitted():

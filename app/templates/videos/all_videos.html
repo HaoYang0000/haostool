@@ -27,8 +27,12 @@
     </a>
     <div class="single-row-right-panel">
         <div class="single-row-title-block">
-            <a href={{ "/videos/" + video.uuid  }}>{{_('Title: ')}}{{ video.title|string}}</a>
+            <a href={{ "/videos/" + video.uuid  }}>{{ video.title|string}}</a>
         </div>
+        {% if current_user.level == 0 %}
+            <button name="video_delete_button">{{_('Delete')}}</button>
+            <input name="video_id" type="hidden" value="{{video.id}}">
+        {% endif %}
         <input name="category" type="hidden" value="{{ video.category }}">
         <input name="create_at" type="hidden" value="{{ video.created_at }}">
         <input name="viewed_number" type="hidden" value="{{ video.viewed_number }}">
@@ -85,6 +89,22 @@
                 error: function (jqXHR) {
                     console.log(jqXHR);
                 }
+        });
+    });
+    $('button[name="video_delete_button"]').on('click', function (e) {
+        console.log($(this).siblings('input[name="video_id"]').val())
+        $.ajax({
+            data: {
+                video_id: $(this).siblings('input[name="video_id"]').val()
+            },
+            type: 'delete',
+            url: '/videos/delete',
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (jqXHR) {
+                console.log(jqXHR);
+            }
         });
     });
     $('button[name="video_decrease_star_button"]').on('click', function (e) {

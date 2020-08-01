@@ -14,6 +14,10 @@ class CommentService(BaseService):
 	# 		session.commit()
 	# 		return
 
+	def get_reply_for_blog_uuid(self, blog_uuid):
+		with session_scope() as session:
+			return session.query(self.model).filter(self.model.blog_uuid==blog_uuid).filter(self.model.is_removed.isnot(True)).order_by(self.model.created_at.desc()).all()
+
 	def get_reply_for_video_uuid(self, video_uuid):
 		with session_scope() as session:
 			return session.query(self.model).filter(self.model.video_uuid==video_uuid).filter(self.model.is_removed.isnot(True)).order_by(self.model.created_at.desc()).all()

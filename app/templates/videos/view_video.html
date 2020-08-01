@@ -81,7 +81,7 @@
                 video_uuid:$('#video_uuid').val()
 			},
 			type: 'POST',
-            url : '/comment/video/post',
+            url : '/comment/video',
             success: function(data) { 
                 let avatar = '<img src="{{ url_for("static", filename="icon/user_known.png") }}">';
                 if (data.user != null) {
@@ -142,7 +142,6 @@
         $('#comment-btn').click(function() {
             
             $('.video-comment').css("display","inline-block");
-            $('.footer').css("position","static");
         });
     });
 </script>

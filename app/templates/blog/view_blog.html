@@ -27,9 +27,69 @@
         <div class="blog-func-item">
             <img id="blog-like-btn" src="{{ url_for('static', filename='icon/love.png') }}"><label id="liked_num"> {{post.liked_number}} </label>
         </div>
-        <!-- <div class="blog-func-item">
+        <div class="blog-func-item">
             <img id="blog-comment-btn" src="{{ url_for('static', filename='icon/comment.png') }}"><label> {{comments|count}} </label> 
-        </div> -->
+        </div>
+    </div>
+    <div class="blog-comment">
+        <form action="/comment/blog" method="post">
+            <div class="blog-comment-input">
+                <textarea id="content" name="content" placeholder="{{_('If you got any feedback, please let me know :)')}}"></textarea>
+            </div>
+            <div class="blog-comment-title">
+                <div>
+                    <input id="blog_comment_submit_btn" class="button blog-comment-submit-button" value="{{_('Post')}}" type="submit">
+                </div>
+                <div class="input-family">
+                    <label >{{_('Your name:')}}</label>
+                    {% if current_user.nickname %}
+                        <input id="unknown_user_name" name="unknown_user_name" type="text" value="{{current_user.nickname}}">
+                    {% else %}
+                        <input id="unknown_user_name" name="unknown_user_name" type="text">
+                    {% endif %}
+                    <span>{{_('(Optional) Please enter your nick name here')}}</span>
+                </div>
+                <input id="blog_uuid" name="blog_uuid" type="hidden" value="{{uuid}}">
+                <div class="input-family">
+                    <label >{{_('Your e-mail:')}}</label>
+                    {% if current_user.email %}
+                        <input id="contact_email" name="contact_email" type="text" value="{{current_user.email}}">
+                    {% else %}
+                        <input id="contact_email" name="contact_email" type="text">
+                    {% endif %}
+                    <span>{{_('(Optional) Please enter your email here')}}</span>
+                </div>     
+            </div>
+        </form>
+        <hr>
+        <div id="comment-box" class="comment-box">
+            {%  for coment in comments %}
+                <div class="comment-content">
+                    {% if coment.user %}
+                        <img src="{{ url_for('static', filename=coment.user.avatar) }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='icon/user_known.png') }}">
+                    {% endif %}
+                    <div class="comment-content-title">
+                        {% if coment.unknown_user_name %}
+                            {{coment.unknown_user_name}}
+                        {% else %}
+                            {{_('secret user')}}
+                        {% endif %}
+                        <em class="comment-content-timestamp">
+                            {{ coment.created_at }}
+                        </em>
+                        {% if current_user.level == 0 %}
+                            <input type="hidden" value="{{coment.id}}">
+                            <img class= "comment-content-delete-btn" src="{{ url_for('static', filename='icon/delete.png') }}">
+                        {% endif %}
+                    </div>
+                    <div class="comment-content-text">
+                        {{coment.content}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 <script>
