@@ -416,8 +416,8 @@ msgid "Category"
 msgstr "Category"
 
 #: app/templates/videos/upload.html:20
-msgid "dota, pubg or etc"
-msgstr "dota, pubg or etc"
+msgid "dota, pubg, fallguys or etc"
+msgstr "dota, pubg, fallguys or etc"
 
 #: app/templates/videos/view_video.html:12
 msgid "Title: "

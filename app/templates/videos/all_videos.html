@@ -16,6 +16,7 @@
     <input type="button" class="active" onclick="video_filter_select(this, 'all')" value="{{_('Show all')}}">
     <input type="image" onclick="video_filter_select(this, 'dota')" src="{{ url_for('static', filename='icon/dota.png') }}" />
     <input type="image" onclick="video_filter_select(this, 'pubg')" src="{{ url_for('static', filename='icon/pubg.png') }}" />
+    <input type="image" onclick="video_filter_select(this, 'fallguys')" src="{{ url_for('static', filename='icon/fallguys.png') }}" />
 </div>
 <div class="all-video-container">
 {%  for video in videos %}
@@ -68,6 +69,10 @@
         {% elif video.category == 'dota' %}
         <div class="single-row-content-block">
             <img src="{{ url_for('static', filename='icon/dota.png') }}">
+        </div>
+        {% elif video.category == 'fallguys' %}
+        <div class="single-row-content-block">
+            <img src="{{ url_for('static', filename='icon/fallguys.png') }}">
         </div>
         {% endif %}
     </div>
@@ -152,7 +157,7 @@
         return $(e).find('.single-row-title-block').first().first().text();
     }
     function __get_category(e) {
-        return $(e).find('input').first().val();
+        return $(e).find('input[name=category]').first().val();
     }
     function __video_filter() {
         $(".single-row").each(function() {
