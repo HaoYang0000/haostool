@@ -5,6 +5,9 @@ body {
     text-align: center;
     margin: 0 auto;
 }
+#background_img {
+    display: none;
+}
 
 #video-like-btn:hover {
     cursor: pointer;
@@ -25,10 +28,12 @@ body {
 .video-panel > video{
     min-width: 400px;
     width: 50vw;
+    height: 50vh;
 }
 @media screen and (max-width: 1000px) {
     .video-panel > video{
         width: 80vw;
+        height: 80vh;
     }
 }
 

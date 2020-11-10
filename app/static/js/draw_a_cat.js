@@ -177,7 +177,6 @@ class Cat {
     constructor(position, context, cathead) {
         this.position = position;
         this.cathead = cathead;
-        // this.handPosition = new Vector2D(x, y);
         this.context = context;
 
         this.radius = 50;
@@ -254,8 +253,6 @@ class Cat {
             this.eyes[i].render(this.context);
             this.eyesWhite[i].render(this.context);
         }
-
-        //
     }
 }
 

@@ -40,7 +40,7 @@ class VideoModel(BaseModelExtended):
         default=1
     )
     category = Column(
-        Enum('dota', 'pubg', 'fallguys', 'blog'),
+        Enum('dota', 'pubg', 'fallguys', 'blog', 'piano'),
         nullable=False
     )
 
