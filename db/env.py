@@ -5,12 +5,12 @@ from os import path, sys
 
 # ensure we catch all models, not just ones in use right now
 # noinspection PyUnresolvedReferences
-import app.models
+import backend.models
 
-from app.models.blog.post import BlogPostModel as NewModel
+from backend.models.base import BaseModelExtended
 
 from alembic import context
-from app.engine import db, create_app
+from backend.engine import db, create_app
 from sqlalchemy import engine_from_config, pool
 from flask_sqlalchemy import SQLAlchemy
 
@@ -30,7 +30,7 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = NewModel.metadata
+target_metadata = BaseModelExtended.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

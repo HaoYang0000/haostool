@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from flask_login import LoginManager
 from flask_apispec import FlaskApiSpec
 from flask_sqlalchemy import SQLAlchemy
-from app.engine import create_app, socketIO
+from backend.engine import create_app, socketIO
 from flask_socketio import SocketIO
 
 app = create_app()
