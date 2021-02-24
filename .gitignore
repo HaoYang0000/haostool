@@ -13,3 +13,7 @@ backend/static/blog_image
 backend/static/user_profile
 backend/static/videos
 local.json
+backend/static/css
+backend/static/js
+backend/static/media
+backend/templates

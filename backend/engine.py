@@ -3,7 +3,6 @@ import sys
 import platform
 import flask_praetorian
 from flask import Flask, render_template, request, session, current_app
-from flask_login import LoginManager, current_user
 from flask_apispec import FlaskApiSpec
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, emit
@@ -24,7 +23,6 @@ handler.setLevel(logging.INFO)
 
 db = SQLAlchemy()
 guard = flask_praetorian.Praetorian()
-login_manager = LoginManager()
 socketIO = SocketIO()
 babel = Babel()
 cors = CORS()
@@ -73,14 +71,13 @@ def create_app():
     ))
 
     db.init_app(app)
-    login_manager.init_app(app)
     socketIO.init_app(app)
     babel.init_app(app)
     cors.init_app(app)
     guard.init_app(app=app, user_class=UserModel)
     app.logger.addHandler(handler)
 
-    # from backend.views import index
+    from backend.views import index
     # from backend.views.accounting import accounting
     from backend.views.auth import auth
     # from backend.views.user import profile
@@ -91,11 +88,10 @@ def create_app():
     # from backend.views.streaming import streaming
     # from backend.views.shadow_url import shadow_url
     from backend.views.blogs import blog
-    from backend.views.index import login_required
     from backend.views.comments import comment
     from backend.views.timelines import timelines
 
-    # app.register_blueprint(index.app)
+    app.register_blueprint(index.app)
     # app.register_blueprint(accounting.app)
     app.register_blueprint(auth.app)
     # app.register_blueprint(profile.app)
@@ -108,8 +104,6 @@ def create_app():
     app.register_blueprint(blog.app)
     app.register_blueprint(comment.app)
     app.register_blueprint(timelines.app)
-
-    app.register_error_handler(401, login_required)
 
     return app
 
