@@ -50,7 +50,7 @@ export default function TimelinePage() {
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   useEffect(() => {
-    fetch("/timelines", {
+    fetch("/api/timelines", {
       method: "get",
     })
       .then((r) => r.json())
@@ -65,7 +65,7 @@ export default function TimelinePage() {
       content: content.current.value,
     };
 
-    authFetch("/timelines/add", {
+    authFetch("/api/timelines/add", {
       method: "post",
       body: JSON.stringify(data),
     }).then((res) =>
@@ -77,7 +77,7 @@ export default function TimelinePage() {
     window.location.reload();
   };
   const deleteTimeline = (timeline_id) => {
-    authFetch("/timelines/disable", {
+    authFetch("/api/timelines/disable", {
       method: "delete",
       body: JSON.stringify({ timeline_id: timeline_id }),
     }).then((res) =>

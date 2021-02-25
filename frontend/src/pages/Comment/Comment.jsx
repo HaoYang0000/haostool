@@ -61,7 +61,7 @@ export default function Comment() {
     formData.append("category", "feedback");
     formData.append("content", content.value);
 
-    fetch("/comments/post-new", {
+    fetch("/api/comments/post-new", {
       method: "POST",
       body: formData,
     }).then((res) =>
@@ -72,7 +72,7 @@ export default function Comment() {
     );
   };
   useEffect(() => {
-    fetch("/comments/feedback", {
+    fetch("/api/comments/feedback", {
       method: "get",
     })
       .then((r) => r.json())

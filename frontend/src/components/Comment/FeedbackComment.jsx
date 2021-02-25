@@ -27,7 +27,7 @@ export default function FeedbackComment(props) {
   const [statusCode, setStatusCode] = useState(null);
 
   const deleteComment = (commentId) => {
-    authFetch("/comments/deactivate-comment", {
+    authFetch("/api/comments/deactivate-comment", {
       method: "POST",
       body: JSON.stringify({ comment_id: commentId }),
     }).then((res) =>

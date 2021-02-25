@@ -13,7 +13,7 @@ import uuid
 # from app.services.comment.comment_service import CommentService
 from pypinyin import pinyin, lazy_pinyin
 
-app = Blueprint('videos', __name__)
+app = Blueprint('videos', __name__, url_prefix='/api')
 logger = logging.getLogger(__name__)
 VIDEOS_FOLDER = 'videos'
 video_service = VideoService()

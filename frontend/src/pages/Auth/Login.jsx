@@ -46,7 +46,7 @@ export default function Login() {
       rememberme: rememberme.current.checked,
     };
 
-    fetch("/auth/login", {
+    fetch("/api/auth/login", {
       method: "post",
       body: JSON.stringify(data),
     })

@@ -13,7 +13,7 @@ from backend.engine import session_scope
 app = Blueprint(
     'timelines',
     __name__,
-    url_prefix='/timelines')
+    url_prefix='/api/timelines')
 logger = logging.getLogger(__name__)
 
 timeline_service = TimelineService()

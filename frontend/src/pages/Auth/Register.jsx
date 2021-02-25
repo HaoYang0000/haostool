@@ -60,7 +60,7 @@ export default function Register() {
       rememberme: rememberme.current.checked,
     };
 
-    fetch("/auth/register", {
+    fetch("/api/auth/register", {
       method: "post",
       body: JSON.stringify(data),
     })

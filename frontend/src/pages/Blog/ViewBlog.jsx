@@ -88,7 +88,7 @@ export default function ViewBlog(props) {
     formData.append("blog_uuid", uuid);
     formData.append("content", content.value);
 
-    fetch("/comments/post-new", {
+    fetch("/api/comments/post-new", {
       method: "POST",
       body: formData,
     }).then((res) =>
@@ -99,14 +99,14 @@ export default function ViewBlog(props) {
     );
   };
   useEffect(() => {
-    fetch("/blogs/fetch/" + uuid, {
+    fetch("/api/blogs/fetch/" + uuid, {
       method: "get",
     })
       .then((r) => r.json())
       .then((data) => {
         setBlog(data);
       });
-    fetch("/comments/blog/" + uuid, {
+    fetch("/api/comments/blog/" + uuid, {
       method: "get",
     })
       .then((r) => r.json())

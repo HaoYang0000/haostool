@@ -16,7 +16,7 @@ export default function Video() {
   const [videos, setVideos] = useState([]);
   const user = useContext(userContext);
   useEffect(() => {
-    fetch("/videos", {
+    fetch("/api/videos", {
       method: "get",
     })
       .then((r) => r.json())

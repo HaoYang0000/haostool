@@ -54,7 +54,6 @@ def create_app():
         os.path.dirname(__file__),
         'static'
     )
-
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['SQLALCHEMY_DATABASE_URI'] = get_database_uri()
     app.config['BABEL_DEFAULT_LOCALE'] = 'zh_Hans_CN'

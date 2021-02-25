@@ -48,7 +48,7 @@ export default function BlogPost(props) {
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   const publishBlog = (blogId) => {
-    authFetch("/blogs/publish", {
+    authFetch("/api/blogs/publish", {
       method: "POST",
       body: JSON.stringify({ blog_id: blogId }),
     }).then((res) =>
@@ -59,7 +59,7 @@ export default function BlogPost(props) {
     );
   };
   const unpublishBlog = (blogId) => {
-    authFetch("/blogs/unpublish", {
+    authFetch("/api/blogs/unpublish", {
       method: "POST",
       body: JSON.stringify({ blog_id: blogId }),
     }).then((res) =>

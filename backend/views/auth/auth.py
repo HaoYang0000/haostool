@@ -17,7 +17,7 @@ from werkzeug.utils import secure_filename
 app = Blueprint(
     'auth',
     __name__,
-    url_prefix='/auth'
+    url_prefix='/api/auth'
 )
 logger = logging.getLogger(__name__)
 user_service = UserService()

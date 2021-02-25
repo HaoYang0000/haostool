@@ -9,7 +9,7 @@ let userContext = createContext({
 export const [useAuth, authFetch, login, logout] = createAuthProvider({
   accessTokenKey: "access_token",
   onUpdateToken: (token) =>
-    fetch("/auth/refresh", {
+    fetch("/api/auth/refresh", {
       method: "POST",
       body: token.access_token,
     }).then((r) => r.json()),

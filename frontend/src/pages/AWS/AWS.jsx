@@ -19,7 +19,7 @@ export default function AWS() {
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   useEffect(() => {
-    authFetch("/aws", {
+    authFetch("/api/aws", {
       method: "get",
     })
       .then((r) => r.json())
@@ -28,7 +28,7 @@ export default function AWS() {
       });
   }, []);
   const startInstance = () => {
-    authFetch("/aws/start_instance", {
+    authFetch("/api/aws/start_instance", {
       method: "post",
     }).then((res) =>
       res.json().then((data) => {
@@ -38,7 +38,7 @@ export default function AWS() {
     );
   };
   const stopInstance = () => {
-    authFetch("/aws/stop_instance", {
+    authFetch("/api/aws/stop_instance", {
       method: "post",
     }).then((res) =>
       res.json().then((data) => {
@@ -48,7 +48,7 @@ export default function AWS() {
     );
   };
   const changeIp = () => {
-    authFetch("/aws/change_ip", {
+    authFetch("/api/aws/change_ip", {
       method: "post",
     }).then((res) =>
       res.json().then((data) => {

@@ -104,7 +104,7 @@ export default function Nav(props) {
 
   useEffect(() => {
     if (logged) {
-      authFetch("/auth/get-user/" + user.id, {
+      authFetch("/api/auth/get-user/" + user.id, {
         method: "get",
         headers: {
           Authorization: "Bearer " + user.access_token,

@@ -16,7 +16,7 @@ from backend.engine import session_scope
 app = Blueprint(
     'comments',
     __name__,
-    url_prefix='/comments')
+    url_prefix='/api/comments')
 logger = logging.getLogger(__name__)
 comment_service = CommentService()
 

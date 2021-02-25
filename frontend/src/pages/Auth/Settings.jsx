@@ -52,7 +52,7 @@ export default function Settings() {
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    authFetch("/auth/get-user/" + user.id, {
+    authFetch("/api/auth/get-user/" + user.id, {
       method: "get",
     })
       .then((r) => r.json())
@@ -69,7 +69,7 @@ export default function Settings() {
     event.preventDefault();
     var formData = new FormData();
     formData.append("file", file);
-    authFetch("/auth/update-profile-img/" + user.id, {
+    authFetch("/api/auth/update-profile-img/" + user.id, {
       method: "post",
       body: formData,
     })
@@ -92,7 +92,7 @@ export default function Settings() {
       phonenumber: phonenumber.current.value || null,
     };
 
-    authFetch("/auth/update/" + user.id, {
+    authFetch("/api/auth/update/" + user.id, {
       method: "post",
       body: JSON.stringify(data),
     })

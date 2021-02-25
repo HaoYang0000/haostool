@@ -17,7 +17,7 @@ import uuid
 app = Blueprint(
     'blogs',
     __name__,
-    url_prefix='/blogs'
+    url_prefix='/api/blogs'
 )
 logger = logging.getLogger(__name__)
 

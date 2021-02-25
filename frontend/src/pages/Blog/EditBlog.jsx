@@ -128,7 +128,7 @@ export default function EditBlog(props) {
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   useEffect(() => {
-    fetch("/blogs/fetch/" + uuid, {
+    fetch("/api/blogs/fetch/" + uuid, {
       method: "get",
     })
       .then((r) => r.json())
@@ -156,7 +156,7 @@ export default function EditBlog(props) {
       formData.append("file", file);
     }
 
-    authFetch("/blogs/edit/" + uuid, {
+    authFetch("/api/blogs/edit/" + uuid, {
       method: "POST",
       body: formData,
     }).then((res) =>

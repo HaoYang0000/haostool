@@ -97,7 +97,7 @@ export default function ViewVideo(props) {
   let name = useRef("");
   let content = useRef("");
   useEffect(() => {
-    fetch("/videos/" + uuid, {
+    fetch("/api/videos/" + uuid, {
       method: "get",
     })
       .then((r) => r.json())
@@ -106,7 +106,7 @@ export default function ViewVideo(props) {
         setCurrentLike(data.liked_number);
         setLoaded(true);
       });
-    fetch("/comments/video/" + uuid, {
+    fetch("/api/comments/video/" + uuid, {
       method: "get",
     })
       .then((r) => r.json())
@@ -115,7 +115,7 @@ export default function ViewVideo(props) {
       });
   }, []);
   const increaseLike = () => {
-    fetch("/videos/like/" + uuid, {
+    fetch("/api/videos/like/" + uuid, {
       method: "post",
     })
       .then((r) => r.json())
@@ -135,7 +135,7 @@ export default function ViewVideo(props) {
     formData.append("video_uuid", uuid);
     formData.append("content", content.value);
 
-    fetch("/comments/post-new", {
+    fetch("/api/comments/post-new", {
       method: "POST",
       body: formData,
     }).then((res) =>

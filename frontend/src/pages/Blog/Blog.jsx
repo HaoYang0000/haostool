@@ -13,7 +13,7 @@ export default function Blog() {
   const classes = useStyles();
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
-    fetch("/blogs", {
+    fetch("/api/blogs", {
       method: "get",
     })
       .then((r) => r.json())

@@ -56,7 +56,7 @@ export default function VideoItem(props) {
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   const increaseStar = (videoId) => {
-    authFetch("/videos/increase_star", {
+    authFetch("/api/videos/increase_star", {
       method: "post",
       body: JSON.stringify({ video_id: videoId }),
     }).then((res) =>
@@ -67,7 +67,7 @@ export default function VideoItem(props) {
     );
   };
   const decreaseStar = (videoId) => {
-    authFetch("/videos/decrease_star", {
+    authFetch("/api/videos/decrease_star", {
       method: "post",
       body: JSON.stringify({ video_id: videoId }),
     }).then((res) =>
@@ -97,7 +97,7 @@ export default function VideoItem(props) {
     }
   };
   const deleteVideo = (videoId) => {
-    authFetch("/videos/delete", {
+    authFetch("/api/videos/delete", {
       method: "delete",
       body: JSON.stringify({ video_id: videoId }),
     }).then((res) =>

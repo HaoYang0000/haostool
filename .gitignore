@@ -5,9 +5,9 @@ __pycache__/
 lib/*
 env/*
 app/static/videos
-config
 app/static/blog_image
 backup
+backend/config
 frontend/node_modules
 backend/static/blog_image
 backend/static/user_profile

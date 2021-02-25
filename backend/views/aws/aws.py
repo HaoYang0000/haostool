@@ -12,7 +12,7 @@ import flask_praetorian
 VpnInstance = namedtuple(
     "VpnInstance", ['name', 'type', 'state', 'ip_address'])
 
-app = Blueprint('aws', __name__)
+app = Blueprint('aws', __name__, url_prefix='/api')
 logger = logging.getLogger(__name__)
 aws_service = AwsService()
 aws_service._init_connect()

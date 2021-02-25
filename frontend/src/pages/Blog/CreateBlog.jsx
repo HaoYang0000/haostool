@@ -134,7 +134,7 @@ export default function CreateBlog() {
     formData.append("content", content);
     formData.append("file", file);
 
-    authFetch("/blogs/create-post", {
+    authFetch("/api/blogs/create-post", {
       method: "POST",
       body: formData,
     }).then((res) =>
