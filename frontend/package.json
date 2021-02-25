@@ -28,7 +28,7 @@
     "start": "react-scripts start",
     "prebuild": "rm -rf ../backend/templates/index.html && rm -rf ../backend/static/css && rm -rf ../backend/static/js && rm -rf ../backend/static/media",
     "build": "react-scripts build",
-    "postbuild": "mv ./build/index.html ../backend/templates/index.html && mv ./build/static/* ../backend/static/",
+    "postbuild": "mv ./build/index.html ../backend/templates/index.html && mv ./build/static/* ../backend/static/ && mv ./build/favicon.ico ../backend/static/ && mv ./build/manifest.json ../backend/static/",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "extract-messages": "set NODE_ENV=production&& babel ./src >NUL"

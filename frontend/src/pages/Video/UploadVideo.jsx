@@ -61,7 +61,7 @@ export default function UploadVideo() {
     formData.append("title", title.current.value);
     formData.append("category", category);
     formData.append("file", file);
-    authFetch("/videos/upload", {
+    authFetch("/api/videos/upload", {
       method: "POST",
       body: formData,
     }).then((res) =>
