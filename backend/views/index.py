@@ -27,10 +27,9 @@ def main():
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(UPLOAD_ROOT,
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory('./templates', 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/manifest.json')
 def manifest():
-    return send_from_directory(UPLOAD_ROOT, 'manifest.json')
+    return send_from_directory('./templates', 'manifest.json')

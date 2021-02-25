@@ -38,8 +38,8 @@ export default function RouterMap(props) {
         <Route path="/aws" exact component={AWS} />
         <Route path="/blogs" exact component={Blog} />
         <Route path="/blogs/create-post" exact component={CreateBlog} />
-        <Route path="/blogs/view/:uuid" exact component={ViewBlog} />
-        <Route path="/blogs/edit/:uuid" exact component={EditBlog} />
+        <Route path="/blogs/view/:uuid" component={ViewBlog} />
+        <Route path="/blogs/edit/:uuid" component={EditBlog} />
         <Route path="/games" exact component={Game} />
         <Route path="/contacts/donate" exact component={Donate} />
         <Route path="/contacts/wechat" exact component={Wechat} />
@@ -47,7 +47,7 @@ export default function RouterMap(props) {
         <Route path="/timelines" exact component={TimelinePage} />
         <Route path="/videos" exact component={Video} />
         <Route path="/videos/upload" exact component={UploadVideo} />
-        <Route path="/videos/:uuid" exact component={ViewVideo} />
+        <Route path="/videos/:uuid" component={ViewVideo} />
         <Route component={NotFound} />
       </Switch>
     </Router>
