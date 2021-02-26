@@ -27,6 +27,8 @@ user_service = UserService()
 def register():
     with session_scope() as ss:
         req = flask.request.get_json(force=True)
+        if user_service.check_duplicate(username=req.get('username'), email=req.get('email')):
+            return jsonify("Duplicate user name or email address"), 409
         user = User(
             username=req.get('username'),
             first_name=req.get('firstname'),
@@ -54,20 +56,19 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    with session_scope() as ss:
-        req = flask.request.get_json(force=True)
-        username = req.get('username', None)
-        password = req.get('password', None)
-        user = guard.authenticate(username, password)
-        output = {
-            'access_token': guard.encode_jwt_token(
-                user),
-            'role': user.rolenames[0] if len(user.rolenames) == 1 else None,
-            'user_name': user.username,
-            'avatar': user.avatar,
-            'id': user.id
-        }
-        return output, 200
+    req = flask.request.get_json(force=True)
+    username = req.get('email', None)
+    password = req.get('password', None)
+    user = guard.authenticate(username, password)
+    output = {
+        'access_token': guard.encode_jwt_token(
+            user),
+        'role': user.rolenames[0] if len(user.rolenames) == 1 else None,
+        'user_name': user.username,
+        'avatar': user.avatar,
+        'id': user.id
+    }
+    return output, 200
 
 
 @app.route('/update/<int:id>', methods=['POST'])

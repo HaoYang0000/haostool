@@ -42,5 +42,13 @@
   "Submit": "Submit",
   "Leave a friendly comment here :)": "Leave a friendly comment here :)",
   "Post": "Post",
-  "Title": "Title"
+  "Title": "Title",
+  "Please fix the input errors.": "Please fix the input errors.",
+  "User name is empty.": "User name can not be empty.",
+  "Email can not be empty.": "Email can not be empty.",
+  "Password can not be empty.": "Password can not be empty.",
+  "Please type same password.": "Please type same password.",
+  "Please provide correct email address format.": "Please provide correct email address format.",
+  "Email Address or User Name": "Email Address or User Name",
+  "Message can not be empty.": "Message can not be empty."
 }

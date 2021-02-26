@@ -42,5 +42,13 @@
   "Submit": "提交",
   "Leave a friendly comment here :)": "发条友善的评论 :)",
   "Post": "发布",
-  "Title": "标题"
+  "Title": "标题",
+  "Please fix the input errors.": "请修复表单红色错误部分.",
+  "User name is empty.": "请填写用户名.",
+  "Email can not be empty.": "请填写邮箱地址.",
+  "Password can not be empty.": "请填写密码.",
+  "Please type same password.": "请输入相同密码.",
+  "Please provide correct email address format.": "请提供正确的邮箱格式.",
+  "Email Address or User Name": "用户名或邮箱",
+  "Message can not be empty.": "消息不能为空."
 }

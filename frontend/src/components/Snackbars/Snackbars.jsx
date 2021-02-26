@@ -12,9 +12,7 @@ function Alert(props) {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
+    marginTop: theme.spacing(8),
   },
 }));
 
@@ -22,6 +20,8 @@ export default function Snackbars(props) {
   const classes = useStyles();
   const { message, statusCode } = props;
   const [open, setOpen] = useState(false);
+  let vertical = "top";
+  let horizontal = "center";
 
   useEffect(() => {
     if (message === null || message === "") {
@@ -47,10 +47,12 @@ export default function Snackbars(props) {
 
   return (
     <Snackbar
+      anchorOrigin={{ vertical, horizontal }}
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}
-      key={"top" + "center"}
+      key={vertical + horizontal}
+      className={classes.root}
     >
       <Alert onClose={handleClose} severity={getSnackBarType()}>
         {message}

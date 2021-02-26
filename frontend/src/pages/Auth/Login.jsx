@@ -32,33 +32,63 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
   const [logged] = useAuth();
-  const username = useRef(null);
+  const email = useRef(null);
   const password = useRef(null);
   const rememberme = useRef(null);
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
+  const [formErros, setFormErros] = useState({});
+
+  const formValidation = () => {
+    let validated = true;
+    if (email.current.value === "") {
+      formErros["email"] = <FormattedMessage id="User name is empty." />;
+      validated = false;
+    } else {
+      delete formErros["email"];
+    }
+    if (password.current.value === "") {
+      formErros["password"] = (
+        <FormattedMessage id="Password can not be empty." />
+      );
+      validated = false;
+    } else {
+      delete formErros["password"];
+    }
+    return validated;
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = {
-      username: username.current.value,
-      password: password.current.value,
-      rememberme: rememberme.current.checked,
-    };
+    if (formValidation()) {
+      const data = {
+        email: email.current.value,
+        password: password.current.value,
+        rememberme: rememberme.current.checked,
+      };
 
-    fetch("/api/auth/login", {
-      method: "post",
-      body: JSON.stringify(data),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.access_token) {
-          login(data);
-        } else {
-          setMsg("Please type in correct username/password");
-          setStatusCode(400);
-        }
-      });
+      fetch("/api/auth/login", {
+        method: "post",
+        body: JSON.stringify(data),
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.access_token) {
+            login(data);
+          } else {
+            setMsg("Please type in correct username/password");
+            setStatusCode(400);
+          }
+        });
+    } else {
+      setMsg(
+        <FormattedMessage
+          id="Please fix the input errors."
+          defaultMessage="Please fix the input errors."
+        />
+      );
+      setStatusCode(400);
+    }
   };
 
   return logged ? (
@@ -72,6 +102,7 @@ export default function Login() {
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
+            error={"email" in formErros}
             variant="outlined"
             margin="normal"
             required
@@ -79,21 +110,24 @@ export default function Login() {
             id="email"
             label={
               <FormattedMessage
-                id="Email Address"
-                defaultMessage="Email Address"
+                id="Email Address or User Name"
+                defaultMessage="Email Address or User Name"
               />
             }
             name="email"
+            helperText={formErros["email"]}
             autoComplete="email"
             autoFocus
-            inputRef={username}
+            inputRef={email}
           />
           <TextField
+            error={"password" in formErros}
             variant="outlined"
             margin="normal"
             required
             fullWidth
             name="password"
+            helperText={formErros["password"]}
             label={<FormattedMessage id="Password" defaultMessage="Password" />}
             type="password"
             id="password"

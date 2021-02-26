@@ -1,6 +1,7 @@
 from backend.models.base import BaseModelExtended
 from sqlalchemy import Column, ForeignKey, Boolean, String, Integer, DateTime, Text
 from flask_login import UserMixin
+from sqlalchemy import or_
 
 
 class UserModel(UserMixin, BaseModelExtended):
@@ -79,7 +80,7 @@ class UserModel(UserMixin, BaseModelExtended):
 
     @classmethod
     def lookup(cls, username):
-        return cls.query.filter_by(username=username).one_or_none()
+        return cls.query.filter(or_(cls.username == username, cls.email == username)).one_or_none()
 
     @classmethod
     def identify(cls, id):

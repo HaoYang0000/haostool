@@ -52,7 +52,7 @@ const useStyles = makeStyles({
     transform: `translateY(10px)`,
   },
   button: {
-    padding: `21px 12px`,
+    padding: `20px 12px`,
     textDecoration: `none`,
   },
   iconButton: {

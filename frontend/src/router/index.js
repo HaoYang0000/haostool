@@ -31,7 +31,7 @@ export default function RouterMap(props) {
     <Router>
       <Nav handleLangChange={props.handleLangChange} />
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact component={Blog} />
         <Route path="/auth/login" exact component={Login} />
         <Route path="/auth/register" exact component={Register} />
         <Route path="/auth/settings" exact component={Settings} />

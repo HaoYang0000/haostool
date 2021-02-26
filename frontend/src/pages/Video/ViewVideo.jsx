@@ -92,10 +92,23 @@ export default function ViewVideo(props) {
   const [comments, setComments] = useState([]);
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
+  const [formErros, setFormErros] = useState({});
   const uuid = props.match.params.uuid;
   const user = useContext(userContext);
   let name = useRef("");
   let content = useRef("");
+
+  const formValidation = () => {
+    let validated = true;
+    if (content.value === "") {
+      formErros["input"] = <FormattedMessage id="Message can not be empty." />;
+      validated = false;
+    } else {
+      delete formErros["input"];
+    }
+    return validated;
+  };
+
   useEffect(() => {
     fetch("/api/videos/" + uuid, {
       method: "get",
@@ -126,24 +139,34 @@ export default function ViewVideo(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    var formData = new FormData();
-    if (user?.id !== undefined) {
-      formData.append("user_id", user.id);
-    }
-    formData.append("name", user?.user_name || name.value);
-    formData.append("category", "video");
-    formData.append("video_uuid", uuid);
-    formData.append("content", content.value);
+    if (formValidation()) {
+      var formData = new FormData();
+      if (user?.id !== undefined) {
+        formData.append("user_id", user.id);
+      }
+      formData.append("name", user?.user_name || name.value);
+      formData.append("category", "video");
+      formData.append("video_uuid", uuid);
+      formData.append("content", content.value);
 
-    fetch("/api/comments/post-new", {
-      method: "POST",
-      body: formData,
-    }).then((res) =>
-      res.json().then((data) => {
-        setMsg(data);
-        setStatusCode(res.status);
-      })
-    );
+      fetch("/api/comments/post-new", {
+        method: "POST",
+        body: formData,
+      }).then((res) =>
+        res.json().then((data) => {
+          setMsg(data);
+          setStatusCode(res.status);
+        })
+      );
+    } else {
+      setMsg(
+        <FormattedMessage
+          id="Please fix the input errors."
+          defaultMessage="Please fix the input errors."
+        />
+      );
+      setStatusCode(400);
+    }
   };
 
   return (
@@ -230,6 +253,7 @@ export default function ViewVideo(props) {
                             />
                           )}
                         </FormattedMessage>
+                        <div style={{ color: "red" }}>{formErros["input"]}</div>
                         <Button
                           type="submit"
                           fullWidth
