@@ -90,7 +90,7 @@ export default function BlogPost(props) {
               <Link href={"/blogs/view/" + blog.uuid}>{blog.title}</Link>
             </Typography>
             <Typography variant="subtitle1" color="textSecondary">
-              {moment(blog.created_at).format("lll")}
+              {moment.utc(blog.created_at).format("lll")}
             </Typography>
             <Typography variant="subtitle2" paragraph>
               {blog.blog_intro}
@@ -160,7 +160,7 @@ export default function BlogPost(props) {
               <Link href={"/blogs/view/" + blog.uuid}>{blog.title}</Link>
             </Typography>
             <Typography variant="subtitle1" color="textSecondary">
-              {moment(blog.created_at).format("lll")}
+              {moment.utc(blog.created_at).format("lll")}
             </Typography>
             <Typography variant="subtitle2" paragraph>
               {blog.blog_intro}

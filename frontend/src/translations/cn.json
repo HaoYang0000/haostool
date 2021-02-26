@@ -50,5 +50,6 @@
   "Please type same password.": "请输入相同密码.",
   "Please provide correct email address format.": "请提供正确的邮箱格式.",
   "Email Address or User Name": "用户名或邮箱",
-  "Message can not be empty.": "消息不能为空."
+  "Message can not be empty.": "消息不能为空.",
+  "Secret User": "神秘大侠"
 }

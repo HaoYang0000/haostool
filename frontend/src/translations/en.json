@@ -50,5 +50,6 @@
   "Please type same password.": "Please type same password.",
   "Please provide correct email address format.": "Please provide correct email address format.",
   "Email Address or User Name": "Email Address or User Name",
-  "Message can not be empty.": "Message can not be empty."
+  "Message can not be empty.": "Message can not be empty.",
+  "Secret User": "Secret User"
 }

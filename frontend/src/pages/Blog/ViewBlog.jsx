@@ -145,7 +145,7 @@ export default function ViewBlog(props) {
           {blog.title}
         </Typography>
         <Typography variant="subtitle2" color="textSecondary">
-          {moment(blog.created_at).format("lll")}
+          {moment.utc(blog.created_at).format("lll")}
         </Typography>
         <hr className={classes.hr} />
         <Typography variant="subtitle1">{blog.blog_intro}</Typography>

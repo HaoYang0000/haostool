@@ -13,6 +13,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
+import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles((theme) => ({
   commentText: {
@@ -57,9 +58,11 @@ export default function FeedbackComment(props) {
         </ListItemAvatar>
         <ListItemText
           primary={
-            comment?.unknown_user_name
-              ? comment.unknown_user_name
-              : "Secret User"
+            comment?.unknown_user_name ? (
+              comment.unknown_user_name
+            ) : (
+              <FormattedMessage id="Secret User" />
+            )
           }
           secondary={
             <React.Fragment>
@@ -68,7 +71,7 @@ export default function FeedbackComment(props) {
                 variant="body2"
                 color="textSecondary"
               >
-                {moment(comment.created_at).format("lll")}
+                {moment.utc(comment.created_at).format("lll")}
                 {user.role === "root" || user.role === "admin" ? (
                   <Button onClick={() => deleteComment(comment.id)}>
                     <DeleteForever />

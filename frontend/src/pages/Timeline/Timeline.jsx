@@ -136,7 +136,7 @@ export default function TimelinePage() {
             <TimelineItem key={timeline.id}>
               <TimelineOppositeContent>
                 <Typography className={classes.timestamp}>
-                  {moment(timeline.created_at).format("lll")}
+                  {moment.utc(timeline.created_at).format("lll")}
                 </Typography>
                 {user.role === "root" ? (
                   <React.Fragment>
