@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 75,
     marginBottom: 15,
     display: "flex",
-    minHeight: "80vh",
+    minHeight: "78vh",
     "& > *": {
       margin: theme.spacing(2),
     },

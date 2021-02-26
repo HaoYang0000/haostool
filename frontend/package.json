@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "prebuild": "rm -rf ../backend/templates",
+    "prebuild": "rm -rf ../backend/templates && rm -rf ../backend/static/css && rm -rf ../backend/static/js && rm -rf ../backend/static/media",
     "build": "react-scripts build",
     "postbuild": "cp -r ./build/ ../backend/templates && mv ../backend/templates/static/* ../backend/static/",
     "test": "react-scripts test",

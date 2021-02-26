@@ -13,3 +13,4 @@ backend/static/blog_image
 backend/static/user_profile
 backend/static/videos
 local.json
+linux_server.json

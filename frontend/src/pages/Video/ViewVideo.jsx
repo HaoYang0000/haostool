@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: `46vw`,
     marginTop: 75,
     marginBottom: 15,
-    minHeight: "80vh",
+    minHeight: "78vh",
   },
   container: {},
   video: {
