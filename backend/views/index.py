@@ -15,14 +15,15 @@ logger = logging.getLogger(__name__)
 # controller = Controller(current_user=current_user)
 
 
+@app.route('/', defaults={'path': ''}, methods=['GET'])
+@app.route('/<path:path>')
+def main(path):
+    return render_template('index.html')
+
+
 @app.route('/health', methods=['GET', 'POST'])
 def health():
     return 'OK', status.HTTP_201_CREATED
-
-
-@app.route('/', methods=['GET', 'POST'])
-def main():
-    return render_template('index.html')
 
 
 @app.route('/favicon.ico')
