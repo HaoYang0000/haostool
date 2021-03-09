@@ -51,5 +51,14 @@
   "Please provide correct email address format.": "请提供正确的邮箱格式.",
   "Email Address or User Name": "用户名或邮箱",
   "Message can not be empty.": "消息不能为空.",
-  "Secret User": "神秘大侠"
+  "Secret User": "神秘大侠",
+  "Filter:": "筛选:",
+  "All": "全部",
+  "Sort By:": "排序:",
+  "ASC": "由少到多",
+  "DESC": "由多到少",
+  "Latest": "最新发布",
+  "Most recommended": "最受推荐",
+  "Most viewed": "最多浏览",
+  "Most liked": "最多点赞"
 }

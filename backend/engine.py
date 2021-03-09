@@ -39,6 +39,7 @@ UPLOAD_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/static'
 USER_PROFILE_DIR = 'user_profile'
 BLOG_IMAGE_DIR = 'blog_image'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+DEFAULT_PAGE_LIMIT = 6
 
 
 @babel.localeselector

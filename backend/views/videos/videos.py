@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import math
 import subprocess
 import flask_praetorian
 from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash, request, make_response, url_for
@@ -8,7 +9,7 @@ from flask_api import status
 from flask_login import current_user, login_user, logout_user
 from backend.services.videos.video_service import VideoService
 from werkzeug.utils import secure_filename
-from backend.engine import UPLOAD_ROOT
+from backend.engine import UPLOAD_ROOT, DEFAULT_PAGE_LIMIT
 import uuid
 # from app.services.comment.comment_service import CommentService
 from pypinyin import pinyin, lazy_pinyin
@@ -22,8 +23,17 @@ video_service = VideoService()
 @app.route('/videos', methods=['GET'])
 def all_videos():
     video_service = VideoService()
-    videos = video_service.get_all_videos_created_desc()
-    return jsonify([video.serialize for video in videos]), 200
+    videos = video_service.get_videos(
+        category=request.args.get('category'),
+        order=request.args.get('order'),
+        sort_by=request.args.get('sortBy'),
+        page=int(request.args.get('page')),
+    )
+
+    return jsonify({
+        'videos': [video.serialize for video in videos],
+        'count': math.ceil(video_service.get_total_page_len(category=request.args.get('category')) / DEFAULT_PAGE_LIMIT)
+    }), 200
 
 
 @app.route('/videos/<string:uuid>', methods=['GET'])

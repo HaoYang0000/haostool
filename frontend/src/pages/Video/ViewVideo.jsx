@@ -27,8 +27,6 @@ import userUnknownImg from "../../assets/icon/user_unknown.png";
 import Snackbars from "../../components/Snackbars/Snackbars";
 import { FormattedMessage } from "react-intl";
 
-// import { login, useAuth, logout } from "./Auth";
-
 const useStyles = makeStyles((theme) => ({
   body: {
     width: `46vw`,

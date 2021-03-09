@@ -51,5 +51,14 @@
   "Please provide correct email address format.": "Please provide correct email address format.",
   "Email Address or User Name": "Email Address or User Name",
   "Message can not be empty.": "Message can not be empty.",
-  "Secret User": "Secret User"
+  "Secret User": "Secret User",
+  "Filter:": "Filter:",
+  "All": "All",
+  "Sort By:": "Sort By:",
+  "ASC": "ASC",
+  "DESC": "DESC",
+  "Latest": "Latest",
+  "Most recommended": "Most recommended",
+  "Most viewed": "Most viewed",
+  "Most liked": "Most liked"
 }
