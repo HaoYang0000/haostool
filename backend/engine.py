@@ -39,7 +39,7 @@ UPLOAD_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/static'
 USER_PROFILE_DIR = 'user_profile'
 BLOG_IMAGE_DIR = 'blog_image'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-DEFAULT_PAGE_LIMIT = 18
+DEFAULT_PAGE_LIMIT = 12
 
 
 @babel.localeselector
@@ -91,6 +91,7 @@ def create_app():
     from backend.views.blogs import blog
     from backend.views.comments import comment
     from backend.views.timelines import timelines
+    from backend.views.labels import labels
 
     app.register_blueprint(index.app)
     # app.register_blueprint(accounting.app)
@@ -105,6 +106,7 @@ def create_app():
     app.register_blueprint(blog.app)
     app.register_blueprint(comment.app)
     app.register_blueprint(timelines.app)
+    app.register_blueprint(labels.app)
 
     return app
 

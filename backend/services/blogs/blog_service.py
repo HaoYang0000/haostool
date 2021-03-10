@@ -1,11 +1,32 @@
 from backend.models.blogs.post import BlogPostModel
 from backend.services.base import BaseService
 from sqlalchemy import asc
-from backend.engine import session_scope
+from backend.engine import session_scope, DEFAULT_PAGE_LIMIT
 
 
 class BlogService(BaseService):
     model = BlogPostModel
+
+    def get_blogs(self, order: str, sort_by: str, page: int = 1, limit: int = DEFAULT_PAGE_LIMIT):
+        offset = (page - 1) * limit
+        order_by_attr = self.model.created_at
+        if sort_by == 'Latest':
+            order_by_attr = self.model.created_at
+        elif sort_by == 'Most viewed':
+            order_by_attr = self.model.viewed_number
+        elif sort_by == 'Most liked':
+            order_by_attr = self.model.liked_number
+
+        with session_scope() as session:
+            query = session.query(self.model)
+            if order == 'asc':
+                return query.order_by(order_by_attr.asc()).limit(limit).offset(offset).all()
+            else:
+                return query.order_by(order_by_attr.desc()).limit(limit).offset(offset).all()
+
+    def get_all_published_blogs(self):
+        with session_scope() as session:
+            return session.query(self.model).filter(self.model.is_published == True).all()
 
     def get_posts_by_uuid(self, uuid: str):
         with session_scope() as session:

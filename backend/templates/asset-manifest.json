@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.401d72c1.chunk.css",
-    "main.js": "/static/js/main.6a3239fe.chunk.js",
-    "main.js.map": "/static/js/main.6a3239fe.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.9bbe7254.js",
-    "runtime-main.js.map": "/static/js/runtime-main.9bbe7254.js.map",
+    "main.js": "/static/js/main.ed407a83.chunk.js",
+    "main.js.map": "/static/js/main.ed407a83.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ec042118.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ec042118.js.map",
     "static/css/2.7ba29140.chunk.css": "/static/css/2.7ba29140.chunk.css",
-    "static/js/2.8cd0e091.chunk.js": "/static/js/2.8cd0e091.chunk.js",
-    "static/js/2.8cd0e091.chunk.js.map": "/static/js/2.8cd0e091.chunk.js.map",
-    "static/js/3.f6440797.chunk.js": "/static/js/3.f6440797.chunk.js",
-    "static/js/3.f6440797.chunk.js.map": "/static/js/3.f6440797.chunk.js.map",
-    "static/js/4.7f9d1e6f.chunk.js": "/static/js/4.7f9d1e6f.chunk.js",
-    "static/js/4.7f9d1e6f.chunk.js.map": "/static/js/4.7f9d1e6f.chunk.js.map",
+    "static/js/2.e1ec2c3d.chunk.js": "/static/js/2.e1ec2c3d.chunk.js",
+    "static/js/2.e1ec2c3d.chunk.js.map": "/static/js/2.e1ec2c3d.chunk.js.map",
+    "static/js/3.6397eb67.chunk.js": "/static/js/3.6397eb67.chunk.js",
+    "static/js/3.6397eb67.chunk.js.map": "/static/js/3.6397eb67.chunk.js.map",
+    "static/js/4.506656a7.chunk.js": "/static/js/4.506656a7.chunk.js",
+    "static/js/4.506656a7.chunk.js.map": "/static/js/4.506656a7.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.7ba29140.chunk.css.map": "/static/css/2.7ba29140.chunk.css.map",
     "static/css/main.401d72c1.chunk.css.map": "/static/css/main.401d72c1.chunk.css.map",
-    "static/js/2.8cd0e091.chunk.js.LICENSE.txt": "/static/js/2.8cd0e091.chunk.js.LICENSE.txt",
+    "static/js/2.e1ec2c3d.chunk.js.LICENSE.txt": "/static/js/2.e1ec2c3d.chunk.js.LICENSE.txt",
     "static/media/beian.0c577066.png": "/static/media/beian.0c577066.png",
     "static/media/donate.df90484d.jpg": "/static/media/donate.df90484d.jpg",
     "static/media/dota.png": "/static/media/dota.a667ad45.png",
@@ -24,10 +24,10 @@
     "static/media/wechat.9a978d30.jpg": "/static/media/wechat.9a978d30.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.9bbe7254.js",
+    "static/js/runtime-main.ec042118.js",
     "static/css/2.7ba29140.chunk.css",
-    "static/js/2.8cd0e091.chunk.js",
+    "static/js/2.e1ec2c3d.chunk.js",
     "static/css/main.401d72c1.chunk.css",
-    "static/js/main.6a3239fe.chunk.js"
+    "static/js/main.ed407a83.chunk.js"
   ]
 }

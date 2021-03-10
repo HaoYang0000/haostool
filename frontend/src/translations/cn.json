@@ -55,10 +55,15 @@
   "Filter:": "筛选:",
   "All": "全部",
   "Sort By:": "排序:",
-  "ASC": "由少到多",
-  "DESC": "由多到少",
+  "ASC": "升序",
+  "DESC": "降序",
   "Latest": "最新发布",
   "Most recommended": "最受推荐",
   "Most viewed": "最多浏览",
-  "Most liked": "最多点赞"
+  "Most liked": "最多点赞",
+  "category type": "种类: {category}",
+  "blog intro": "简介: {intro}",
+  "Labels Management": "标签管理",
+  "Label: ": "标签: ",
+  "None": "无"
 }

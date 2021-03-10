@@ -170,113 +170,113 @@ export default function ViewVideo(props) {
 
   return (
     <BodyContainer container={classes.body} noPaper={true}>
-      {!loaded ? (
-        <Skeleton variant="rect" width={210} height={118} />
-      ) : (
-        <React.Fragment>
-          <Snackbars message={msg} statusCode={statusCode} />
+      <React.Fragment>
+        <Snackbars message={msg} statusCode={statusCode} />
+        {!loaded ? (
+          <Skeleton variant="rect" className={classes.video} />
+        ) : (
           <video controls className={classes.video}>
             <source
               src={"http://" + window.location.host + "/static/" + video?.path}
               type="video/mp4"
             />
           </video>
-          <div className={classes.actionContainer}>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="h2"
-              className={classes.iconLabel}
-            >
-              <FormattedMessage id="Title" defaultMessage="Title" />
-              {": "}
-              {video.title}
-            </Typography>
-            <img src={viewedNumImg} className={classes.iconImg} />
-            <label className={classes.iconLabel}>{video.viewed_number}</label>
-            <Button onClick={() => increaseLike(video.id)}>
-              <img src={thumbUpImg} className={classes.iconImg} />
-            </Button>
-            <label className={classes.iconLabel}>{currentLike}</label>
-          </div>
-          <div className={classes.commentContainer}>
-            <form noValidate onSubmit={handleSubmit}>
-              <List>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    {user?.id ? (
-                      <Avatar
-                        src={
-                          "http://" +
-                          window.location.host +
-                          "/static/" +
-                          user?.avatar
-                        }
-                      />
+        )}
+        <div className={classes.actionContainer}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h2"
+            className={classes.iconLabel}
+          >
+            <FormattedMessage id="Title" defaultMessage="Title" />
+            {": "}
+            {video?.title}
+          </Typography>
+          <img src={viewedNumImg} className={classes.iconImg} />
+          <label className={classes.iconLabel}>{video?.viewed_number}</label>
+          <Button onClick={() => increaseLike(video?.id)}>
+            <img src={thumbUpImg} className={classes.iconImg} />
+          </Button>
+          <label className={classes.iconLabel}>{currentLike}</label>
+        </div>
+        <div className={classes.commentContainer}>
+          <form noValidate onSubmit={handleSubmit}>
+            <List>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  {user?.id ? (
+                    <Avatar
+                      src={
+                        "http://" +
+                        window.location.host +
+                        "/static/" +
+                        user?.avatar
+                      }
+                    />
+                  ) : (
+                    <Avatar src={userUnknownImg} />
+                  )}
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    user?.user_name ? (
+                      user.user_name
                     ) : (
-                      <Avatar src={userUnknownImg} />
-                    )}
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      user?.user_name ? (
-                        user.user_name
-                      ) : (
-                        <TextField
-                          variant="outlined"
-                          margin="normal"
-                          fullWidth
-                          id="name"
-                          label={
-                            <FormattedMessage
-                              id="Name (Optional)"
-                              defaultMessage="Name (Optional)"
-                            />
-                          }
-                          name="name"
-                          autoComplete="name"
-                          inputRef={(input) => (name = input)}
-                        />
-                      )
-                    }
-                    secondary={
-                      <React.Fragment>
-                        <FormattedMessage id="Leave a friendly comment here :)">
-                          {(msg) => (
-                            <TextareaAutosize
-                              rowsMax={4}
-                              aria-label="maximum height"
-                              placeholder={msg[0]}
-                              className={classes.textArea}
-                              ref={(input) => (content = input)}
-                            />
-                          )}
-                        </FormattedMessage>
-                        <label style={{ color: "red" }}>
-                          {formErros["input"]}
-                        </label>
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          className={classes.button}
-                        >
-                          <FormattedMessage id="Post" defaultMessage="Post" />
-                        </Button>
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-                {comments.map((comment) => (
-                  <FeedbackComment comment={comment} key={comment.id} />
-                ))}
-              </List>
-            </form>
-          </div>
-        </React.Fragment>
-      )}
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        id="name"
+                        label={
+                          <FormattedMessage
+                            id="Name (Optional)"
+                            defaultMessage="Name (Optional)"
+                          />
+                        }
+                        name="name"
+                        autoComplete="name"
+                        inputRef={(input) => (name = input)}
+                      />
+                    )
+                  }
+                  secondary={
+                    <React.Fragment>
+                      <FormattedMessage id="Leave a friendly comment here :)">
+                        {(msg) => (
+                          <TextareaAutosize
+                            rowsMax={4}
+                            aria-label="maximum height"
+                            placeholder={msg[0]}
+                            className={classes.textArea}
+                            ref={(input) => (content = input)}
+                          />
+                        )}
+                      </FormattedMessage>
+                      <label style={{ color: "red" }}>
+                        {formErros["input"]}
+                      </label>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                      >
+                        <FormattedMessage id="Post" defaultMessage="Post" />
+                      </Button>
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+              {comments.map((comment) => (
+                <FeedbackComment comment={comment} key={comment.id} />
+              ))}
+            </List>
+          </form>
+        </div>
+      </React.Fragment>
     </BodyContainer>
   );
 }

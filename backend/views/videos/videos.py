@@ -22,7 +22,6 @@ video_service = VideoService()
 
 @app.route('/videos', methods=['GET'])
 def videos():
-    video_service = VideoService()
     videos = video_service.get_videos(
         category=request.args.get('category'),
         order=request.args.get('order'),
@@ -38,14 +37,12 @@ def videos():
 
 @app.route('/videos/get-all', methods=['GET'])
 def all_videos():
-    video_service = VideoService()
     videos = video_service.get_all_videos_created_desc()
     return jsonify([video.serialize for video in videos]), 200
 
 
 @app.route('/videos/<string:uuid>', methods=['GET'])
 def view_video(uuid):
-    video_service = VideoService()
     video = video_service.get_video_by_uuid(uuid=uuid)
     # comment_service = CommentService()
 
@@ -58,7 +55,6 @@ def view_video(uuid):
 
 @app.route('/videos/like/<string:uuid>', methods=['POST'])
 def like_video(uuid):
-    video_service = VideoService()
     video = video_service.get_video_by_uuid(uuid=uuid)
     current_num = video.liked_number
     if video:

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -16,6 +16,18 @@ import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Snackbars from "../../components/Snackbars/Snackbars";
+import { FormattedMessage } from "react-intl";
+import Avatar from "@material-ui/core/Avatar";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import PersonIcon from "@material-ui/icons/Person";
+import AddIcon from "@material-ui/icons/Add";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles({
   card: {
@@ -31,7 +43,9 @@ const useStyles = makeStyles({
     width: 40,
     height: 40,
   },
-  iconWrapper: {},
+  iconWrapper: {
+    marginTop: 5,
+  },
   iconText: {
     marginLeft: 5,
     marginRight: 5,
@@ -39,7 +53,57 @@ const useStyles = makeStyles({
   actions: {
     marginLeft: 10,
   },
+  labelChip: {
+    padding: 2,
+    marginRight: 2,
+  },
 });
+
+function SimpleDialog(props) {
+  const classes = useStyles();
+  const [labels, setLabels] = useState([]);
+  const { open, blog } = props;
+
+  useEffect(() => {
+    authFetch("/api/labels", {
+      method: "get",
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        setLabels(data);
+      });
+  }, []);
+
+  const handleClose = () => {
+    props.handleClose();
+  };
+
+  const handleListItemClick = (labelId) => {
+    props.handleUpdate(labelId, blog?.id);
+    props.handleClose();
+  };
+
+  return (
+    <Dialog
+      onClose={handleClose}
+      aria-labelledby="simple-dialog-title"
+      open={open}
+    >
+      <DialogTitle id="simple-dialog-title">Add New Labels</DialogTitle>
+      <List>
+        {labels.map((label) => (
+          <ListItem
+            button
+            onClick={() => handleListItemClick(label?.id)}
+            key={label?.name + label?.id}
+          >
+            <ListItemText primary={label?.name} />
+          </ListItem>
+        ))}
+      </List>
+    </Dialog>
+  );
+}
 
 export default function BlogPost(props) {
   const classes = useStyles();
@@ -47,6 +111,48 @@ export default function BlogPost(props) {
   const user = useContext(userContext);
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = (labelId, blogId) => {
+    var formData = new FormData();
+    formData.append("label_id", labelId);
+    formData.append("blog_id", blogId);
+
+    authFetch("/api/labels/delete/blog-label", {
+      method: "DELETE",
+      body: formData,
+    }).then((res) =>
+      res.json().then((data) => {
+        setMsg(data);
+        setStatusCode(res.status);
+      })
+    );
+  };
+
+  const handleUpdate = (labelId, blogId) => {
+    setOpen(false);
+    var formData = new FormData();
+    formData.append("label_id", labelId);
+    formData.append("blog_id", blogId);
+    authFetch("/api/labels/create/blog-label", {
+      method: "POST",
+      body: formData,
+    }).then((res) =>
+      res.json().then((data) => {
+        setMsg(data);
+        setStatusCode(res.status);
+      })
+    );
+  };
+
   const publishBlog = (blogId) => {
     authFetch("/api/blogs/publish", {
       method: "POST",
@@ -95,6 +201,33 @@ export default function BlogPost(props) {
             <Typography variant="subtitle2" paragraph>
               {blog.blog_intro}
             </Typography>
+            <FormattedMessage id="Label: " />
+            <IconButton onClick={handleClickOpen}>
+              <AddCircleIcon color="primary" />
+            </IconButton>
+            {blog?.labels?.length === 0 && (
+              <Chip
+                label={<FormattedMessage id="None" />}
+                disabled
+                size="small"
+              />
+            )}
+            {blog?.labels.map((label) => (
+              <Chip
+                color="secondary"
+                size="small"
+                label={label.name}
+                className={classes.labelChip}
+                key={label?.name + label?.id}
+                onDelete={() => handleDelete(label?.id, blog?.id)}
+              />
+            ))}
+            <SimpleDialog
+              open={open}
+              handleClose={handleClose}
+              handleUpdate={handleUpdate}
+              blog={blog}
+            />
             <div className={classes.iconWrapper}>
               <img src={blogViewImg} className={classes.iconImg} />
               <span className={classes.iconText}>{blog.viewed_number}</span>
@@ -165,6 +298,23 @@ export default function BlogPost(props) {
             <Typography variant="subtitle2" paragraph>
               {blog.blog_intro}
             </Typography>
+            <FormattedMessage id="Label: " />
+            {blog?.labels?.length === 0 && (
+              <Chip
+                label={<FormattedMessage id="None" />}
+                disabled
+                size="small"
+              />
+            )}
+            {blog?.labels.map((label) => (
+              <Chip
+                color="secondary"
+                size="small"
+                label={label?.name}
+                className={classes.labelChip}
+                key={label?.name + label?.id}
+              />
+            ))}
             <div className={classes.iconWrapper}>
               <img src={blogViewImg} className={classes.iconImg} />
               <span className={classes.iconText}>{blog.viewed_number}</span>

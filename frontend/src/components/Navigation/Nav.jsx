@@ -203,6 +203,14 @@ export default function Nav(props) {
                       <FormattedMessage id="AWS" defaultMessage="AWS" />
                     </Link>
                   </MenuItem>
+                  <MenuItem>
+                    <Link className={classes.text} to="/labels">
+                      <FormattedMessage
+                        id="Labels Management"
+                        defaultMessage="Labels Management"
+                      />
+                    </Link>
+                  </MenuItem>
                 </Menu>
               </Grid>
             ) : null}

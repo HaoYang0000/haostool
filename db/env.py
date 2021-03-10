@@ -6,6 +6,10 @@ from os import path, sys
 # ensure we catch all models, not just ones in use right now
 # noinspection PyUnresolvedReferences
 import backend.models
+# import backend.models.videos.video
+# import backend.models.blogs.post
+# import backend.models.labels.label
+# import backend.models.labels.label_bridge
 
 from backend.models.base import BaseModelExtended
 

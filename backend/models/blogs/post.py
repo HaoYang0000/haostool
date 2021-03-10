@@ -1,6 +1,9 @@
 from backend.models.base import BaseMeta, BaseModelExtended, BaseSchema
 from sqlalchemy import Column, ForeignKey, Boolean, String, Integer, DateTime, Text, Float, Text
 from marshmallow import fields
+from sqlalchemy.orm import relationship
+from backend.models.labels.label import LabelModel
+from backend.models.labels.label_bridge import LabelBridgeModel
 
 
 class BlogPostModel(BaseModelExtended):
@@ -46,6 +49,9 @@ class BlogPostModel(BaseModelExtended):
         nullable=False
     )
 
+    labels = relationship(
+        "LabelModel", secondary='label_bridges', lazy='subquery')
+
     @property
     def serialize(self):
         ""
@@ -61,6 +67,7 @@ class BlogPostModel(BaseModelExtended):
             'uuid': self.uuid,
             'cover_img': self.cover_img,
             'blog_intro': self.blog_intro,
+            'labels': [label.serialize for label in self.labels],
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

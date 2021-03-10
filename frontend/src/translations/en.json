@@ -60,5 +60,10 @@
   "Latest": "Latest",
   "Most recommended": "Most recommended",
   "Most viewed": "Most viewed",
-  "Most liked": "Most liked"
+  "Most liked": "Most liked",
+  "category type": "category: {category}",
+  "blog intro": "Intro: {intro}",
+  "Labels Management": "Labels Management",
+  "Label: ": "Label: ",
+  "None": "None"
 }

@@ -1,11 +1,12 @@
 import json
 import logging
 import flask_praetorian
+import math
 from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash, request
 from flask_api import status
 from flask_login import current_user, login_user, logout_user, login_required
 from backend.services.blogs.blog_service import BlogService
-from backend.engine import session_scope
+from backend.engine import session_scope, DEFAULT_PAGE_LIMIT
 from werkzeug.utils import secure_filename
 from backend.utils.utils import allowed_profile_img_format
 from backend.engine import UPLOAD_ROOT, BLOG_IMAGE_DIR
@@ -28,11 +29,24 @@ SINGLE_QUOTE = '__SINGLE_QUOTE__'
 
 @app.route('/', methods=['GET'])
 def blogs():
-    posts = BlogService().get_all()
-    return jsonify([post.serialize for post in posts]), 200
+    posts = blog_service.get_blogs(
+        order=request.args.get('order'),
+        sort_by=request.args.get('sortBy'),
+        page=int(request.args.get('page')),
+    )
+    return jsonify({
+        'blogs': [post.serialize for post in posts],
+        'count': math.ceil(len(blog_service.get_all_published_blogs()) / DEFAULT_PAGE_LIMIT)
+    }), 200
 
 
-@app.route('/fetch/<string:uuid>', methods=['GET'])
+@ app.route('/get-all', methods=['GET'])
+def all_blogs():
+    blogs = blog_service.get_all_published_blogs()
+    return jsonify([blog.serialize for blog in blogs]), 200
+
+
+@ app.route('/fetch/<string:uuid>', methods=['GET'])
 def view_blogs(uuid):
     post = blog_service.get_posts_by_uuid(uuid=uuid)
     # comment_form = CommentForm()
@@ -52,8 +66,8 @@ def view_blogs(uuid):
 #     return render_template('blog/edit_post.html', post=post, form=form, content=content)
 
 
-@app.route('/edit/<string:uuid>', methods=['POST'])
-@flask_praetorian.roles_accepted(*['root', 'admin'])
+@ app.route('/edit/<string:uuid>', methods=['POST'])
+@ flask_praetorian.roles_accepted(*['root', 'admin'])
 def update_post(uuid):
     cover_img_path = None
     if 'file' in request.files:
@@ -91,8 +105,8 @@ def update_post(uuid):
 #     return "err", 400
 
 
-@app.route('/publish', methods=['POST'])
-@flask_praetorian.roles_accepted(*['root', 'admin'])
+@ app.route('/publish', methods=['POST'])
+@ flask_praetorian.roles_accepted(*['root', 'admin'])
 def publish_post():
     req = request.get_json(force=True)
     result = blog_service.publish_blog(blog_id=req.get('blog_id'))
@@ -101,8 +115,8 @@ def publish_post():
     return jsonify("err"), 400
 
 
-@app.route('/unpublish', methods=['POST'])
-@flask_praetorian.roles_accepted(*['root', 'admin'])
+@ app.route('/unpublish', methods=['POST'])
+@ flask_praetorian.roles_accepted(*['root', 'admin'])
 def unpublish_post():
     req = request.get_json(force=True)
     result = blog_service.unpublish_blog(blog_id=req.get('blog_id'))
@@ -118,8 +132,8 @@ def unpublish_post():
 #     return render_template('blog/create_post.html', form=form)
 
 
-@app.route('/create-post', methods=['POST'])
-@flask_praetorian.roles_accepted(*['root', 'admin'])
+@ app.route('/create-post', methods=['POST'])
+@ flask_praetorian.roles_accepted(*['root', 'admin'])
 def create_post():
     if 'file' not in request.files:
         logger.error('No file part')
@@ -184,7 +198,7 @@ def create_post():
 #     return {"link": url_for('static', filename=f'{BLOG_IMAGE_DIR}/{filename}')}, 200
 
 
-@app.route('/file_upload', methods=['POST'])
+@ app.route('/file_upload', methods=['POST'])
 def file_upload_image():
     # check if the post request has the file part
     if 'file' not in request.files:
