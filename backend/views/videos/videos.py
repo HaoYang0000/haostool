@@ -21,7 +21,7 @@ video_service = VideoService()
 
 
 @app.route('/videos', methods=['GET'])
-def all_videos():
+def videos():
     video_service = VideoService()
     videos = video_service.get_videos(
         category=request.args.get('category'),
@@ -34,6 +34,13 @@ def all_videos():
         'videos': [video.serialize for video in videos],
         'count': math.ceil(video_service.get_total_page_len(category=request.args.get('category')) / DEFAULT_PAGE_LIMIT)
     }), 200
+
+
+@app.route('/videos/get-all', methods=['GET'])
+def all_videos():
+    video_service = VideoService()
+    videos = video_service.get_all_videos_created_desc()
+    return jsonify([video.serialize for video in videos]), 200
 
 
 @app.route('/videos/<string:uuid>', methods=['GET'])

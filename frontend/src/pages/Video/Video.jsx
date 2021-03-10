@@ -36,6 +36,7 @@ export default function Video() {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(5);
   const [loading, setIsLoading] = useState(false);
+  const [searchItems, setSearchItems] = useState([]);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -75,6 +76,13 @@ export default function Video() {
         setTotalPage(data.count);
         setIsLoading(false);
       });
+    fetch("/api/videos/get-all", {
+      method: "get",
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        setSearchItems(data);
+      });
   }, [category, sortBy, order, page]);
 
   return (
@@ -88,7 +96,7 @@ export default function Video() {
           handleOrderChange={handleOrderChange}
           handleSortByChange={handleSortByChange}
           type={"videos"}
-          items={videos}
+          items={searchItems}
         />
 
         {loading ? (
