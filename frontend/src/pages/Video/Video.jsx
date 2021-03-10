@@ -8,7 +8,7 @@ import SearchAndFilterBar from "../../components/SearchBar/SearchAndFilterBar";
 import { categoryList } from "../../constants/category";
 import { sortByList } from "../../constants/sortBy";
 import Pagination from "@material-ui/lab/Pagination";
-import Divider from "@material-ui/core/Divider";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const VideoItem = React.lazy(() => import("../../components/Video/VideoItem"));
 const useStyles = makeStyles((theme) => ({
@@ -25,9 +25,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
-  divider: {
-    marginBottom: 10,
-  },
 }));
 export default function Video() {
   const classes = useStyles();
@@ -38,6 +35,7 @@ export default function Video() {
   const [order, setOrder] = useState("desc");
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(5);
+  const [loading, setIsLoading] = useState(false);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -58,6 +56,7 @@ export default function Video() {
     setSortBy(newValue);
   };
   useEffect(() => {
+    setIsLoading(true);
     fetch(
       "/api/videos?" +
         new URLSearchParams({
@@ -74,6 +73,7 @@ export default function Video() {
       .then((data) => {
         setVideos(data.videos);
         setTotalPage(data.count);
+        setIsLoading(false);
       });
   }, [category, sortBy, order, page]);
 
@@ -87,21 +87,27 @@ export default function Video() {
           handleCategoryUpdate={handleCategoryUpdate}
           handleOrderChange={handleOrderChange}
           handleSortByChange={handleSortByChange}
+          type={"videos"}
+          items={videos}
         />
-        <Divider className={classes.divider} />
-        <Grid container spacing={4}>
-          {videos.map((video) => (
-            <Grid item key={video.uuid} xs={12} sm={6} md={4}>
-              <Suspense
-                fallback={
-                  <Skeleton variant="rect" className={classes.fallback} />
-                }
-              >
-                <VideoItem video={video} />
-              </Suspense>
-            </Grid>
-          ))}
-        </Grid>
+
+        {loading ? (
+          <LinearProgress />
+        ) : (
+          <Grid container spacing={4}>
+            {videos.map((video) => (
+              <Grid item key={video.uuid} xs={11} sm={6} md={4}>
+                <Suspense
+                  fallback={
+                    <Skeleton variant="rect" className={classes.fallback} />
+                  }
+                >
+                  <VideoItem video={video} />
+                </Suspense>
+              </Grid>
+            ))}
+          </Grid>
+        )}
         <Pagination
           count={totalPage}
           shape="rounded"

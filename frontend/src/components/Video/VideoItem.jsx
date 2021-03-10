@@ -81,19 +81,14 @@ export default function VideoItem(props) {
     switch (category) {
       case "pubg":
         return <img src={pubgIcon} className={classes.iconImg} />;
-        break;
       case "dota":
         return <img src={dotaIcon} className={classes.iconImg} />;
-        break;
       case "fallguys":
         return <img src={fallguysIcon} className={classes.iconImg} />;
-        break;
       case "piano":
         return <img src={pianoIcon} className={classes.iconImg} />;
-        break;
       default:
         return <img src={dotaIcon} className={classes.iconImg} />;
-        break;
     }
   };
   const deleteVideo = (videoId) => {

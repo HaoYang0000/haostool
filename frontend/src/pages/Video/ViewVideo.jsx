@@ -108,6 +108,7 @@ export default function ViewVideo(props) {
   };
 
   useEffect(() => {
+    setLoaded(false);
     fetch("/api/videos/" + uuid, {
       method: "get",
     })
@@ -176,7 +177,7 @@ export default function ViewVideo(props) {
           <Snackbars message={msg} statusCode={statusCode} />
           <video controls className={classes.video}>
             <source
-              src={"http://" + window.location.host + "/static/" + video.path}
+              src={"http://" + window.location.host + "/static/" + video?.path}
               type="video/mp4"
             />
           </video>
@@ -203,13 +204,13 @@ export default function ViewVideo(props) {
               <List>
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
-                    {user ? (
+                    {user?.id ? (
                       <Avatar
                         src={
                           "http://" +
                           window.location.host +
                           "/static/" +
-                          user.avatar
+                          user?.avatar
                         }
                       />
                     ) : (
@@ -251,7 +252,9 @@ export default function ViewVideo(props) {
                             />
                           )}
                         </FormattedMessage>
-                        <div style={{ color: "red" }}>{formErros["input"]}</div>
+                        <label style={{ color: "red" }}>
+                          {formErros["input"]}
+                        </label>
                         <Button
                           type="submit"
                           fullWidth
