@@ -245,7 +245,7 @@ export default function SearchAndFilterBar(props) {
           </Typography>
         </Grid>
       </Grid>
-      <Grid item xs={11} sm={12}>
+      <Grid item xs={12} sm={12}>
         <Autocomplete
           id="search-bar"
           className={classes.searchBar}

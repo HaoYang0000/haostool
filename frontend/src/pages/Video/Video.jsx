@@ -100,7 +100,7 @@ export default function Video() {
       ) : (
         <Grid container spacing={1}>
           {videos.map((video) => (
-            <Grid item key={video.uuid} xs={11} sm={6} md={4}>
+            <Grid item key={video.uuid} xs={12} sm={6} md={4}>
               <Suspense
                 fallback={
                   <Skeleton variant="rect" className={classes.fallback} />
