@@ -11,6 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { login, useAuth, logout } from "./Auth";
 import Snackbars from "../../components/Snackbars/Snackbars";
 import { FormattedMessage } from "react-intl";
+import Divider from "@material-ui/core/Divider";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: `center`,
   },
   hr: {
-    width: `100%`,
+    width: `95%`,
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -141,7 +143,7 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           <FormattedMessage id="Register" defaultMessage="Register" />
         </Typography>
-        <hr className={classes.hr} />
+        <Divider variant="middle" className={classes.hr} />
         <Typography component="h6" variant="h6">
           <FormattedMessage
             id="Required infomation."
@@ -216,7 +218,7 @@ export default function Register() {
             autoComplete="repeat-password"
             inputRef={passwordRepeat}
           />
-          <hr className={classes.hr} />
+          <Divider variant="middle" className={classes.hr} />
           <Typography component="h6" variant="h6" className={classes.center}>
             <FormattedMessage
               id="Optional infomation."

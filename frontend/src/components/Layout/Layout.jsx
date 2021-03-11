@@ -4,6 +4,7 @@ import Container from "@material-ui/core/Container";
 import Footer from "../Footer/Footer";
 import Paper from "@material-ui/core/Paper";
 import SpeedDials from "../SpeedDials/SpeedDials";
+import Box from "@material-ui/core/Box";
 import {
   createMuiTheme,
   makeStyles,
@@ -17,14 +18,14 @@ const theme = createMuiTheme({
   },
 });
 const useStyles = makeStyles((theme) => ({
-  paper: {
+  container: {
     marginTop: 75,
     marginBottom: 15,
     display: "flex",
     minHeight: "78vh",
-    "& > *": {
-      margin: theme.spacing(2),
-    },
+    flexDirection: `column`,
+    alignItems: `center`,
+    padding: 10,
   },
 }));
 export default function BodyContainer(props) {
@@ -33,11 +34,23 @@ export default function BodyContainer(props) {
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <Container maxWidth={size} className={props?.container}>
+        <Container maxWidth={size}>
           {noPaper ? (
-            <React.Fragment>{children}</React.Fragment>
+            <Box
+              className={
+                props?.container ? props?.container : classes.container
+              }
+            >
+              {children}
+            </Box>
           ) : (
-            <Paper className={classes.paper}>{children}</Paper>
+            <Paper
+              className={
+                props?.container ? props?.container : classes.container
+              }
+            >
+              {children}
+            </Paper>
           )}
         </Container>
         <SpeedDials />

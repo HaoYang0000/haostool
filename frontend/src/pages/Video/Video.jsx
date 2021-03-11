@@ -15,9 +15,7 @@ const useStyles = makeStyles((theme) => ({
     width: 280,
     height: 380,
   },
-  container: {
-    width: `100%`,
-  },
+  container: {},
   pagenation: {
     display: `flex`,
     marginTop: 20,
@@ -86,43 +84,41 @@ export default function Video() {
 
   return (
     <BodyContainer size="md">
-      <main className={classes.container}>
-        <SearchAndFilterBar
-          category={category}
-          sortBy={sortBy}
-          order={order}
-          handleCategoryUpdate={handleCategoryUpdate}
-          handleOrderChange={handleOrderChange}
-          handleSortByChange={handleSortByChange}
-          type={"videos"}
-          items={searchItems}
-        />
+      <SearchAndFilterBar
+        category={category}
+        sortBy={sortBy}
+        order={order}
+        handleCategoryUpdate={handleCategoryUpdate}
+        handleOrderChange={handleOrderChange}
+        handleSortByChange={handleSortByChange}
+        type={"videos"}
+        items={searchItems}
+      />
 
-        {loading ? (
-          <LinearProgress />
-        ) : (
-          <Grid container spacing={4}>
-            {videos.map((video) => (
-              <Grid item key={video.uuid} xs={11} sm={6} md={4}>
-                <Suspense
-                  fallback={
-                    <Skeleton variant="rect" className={classes.fallback} />
-                  }
-                >
-                  <VideoItem video={video} />
-                </Suspense>
-              </Grid>
-            ))}
-          </Grid>
-        )}
-        <Pagination
-          count={totalPage}
-          shape="rounded"
-          page={page}
-          onChange={handleChange}
-          className={classes.pagenation}
-        />
-      </main>
+      {loading ? (
+        <LinearProgress />
+      ) : (
+        <Grid container spacing={1}>
+          {videos.map((video) => (
+            <Grid item key={video.uuid} xs={11} sm={6} md={4}>
+              <Suspense
+                fallback={
+                  <Skeleton variant="rect" className={classes.fallback} />
+                }
+              >
+                <VideoItem video={video} />
+              </Suspense>
+            </Grid>
+          ))}
+        </Grid>
+      )}
+      <Pagination
+        count={totalPage}
+        shape="rounded"
+        page={page}
+        onChange={handleChange}
+        className={classes.pagenation}
+      />
     </BodyContainer>
   );
 }

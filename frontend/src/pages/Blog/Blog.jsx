@@ -101,7 +101,7 @@ export default function Blog() {
             direction="row"
             justify="flex-start"
             alignItems="flex-start"
-            spacing={2}
+            spacing={1}
           >
             {blogs.map((blog) => (
               <BlogPost blog={blog} key={blog.uuid} />

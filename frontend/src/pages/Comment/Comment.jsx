@@ -10,6 +10,8 @@ import { userContext } from "../../pages/Auth/Auth";
 import FeedbackComment from "../../components/Comment/FeedbackComment";
 import List from "@material-ui/core/List";
 import { FormattedMessage } from "react-intl";
+import Divider from "@material-ui/core/Divider";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
@@ -35,9 +37,10 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginTop: 15,
+    marginBottom: 15,
   },
   hr: {
-    width: `100%`,
+    width: `95%`,
   },
 }));
 export default function Comment() {
@@ -166,7 +169,7 @@ export default function Comment() {
             <FormattedMessage id="Submit" defaultMessage="Submit" />
           </Button>
         </form>
-        <hr className={classes.hr} />
+        <Divider variant="middle" className={classes.hr} />
         <List className={classes.container}>
           {comments.map((comment) => (
             <FeedbackComment comment={comment} key={comment.id} />

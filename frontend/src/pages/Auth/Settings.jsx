@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { login, logout, useAuth, authFetch, userContext } from "./Auth";
 import { FormattedMessage } from "react-intl";
+import Divider from "@material-ui/core/Divider";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: `center`,
   },
   hr: {
-    width: `100%`,
+    width: `95%`,
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -115,7 +117,7 @@ export default function Settings() {
                 defaultMessage="Update Profile Image"
               />
             </Typography>
-            <hr className={classes.hr} />
+            <Divider variant="middle" className={classes.hr} />
             <form
               className={classes.form}
               noValidate
@@ -150,7 +152,7 @@ export default function Settings() {
                 defaultMessage="Required infomation."
               />
             </Typography>
-            <hr className={classes.hr} />
+            <Divider variant="middle" className={classes.hr} />
             <form noValidate onSubmit={handleSubmit}>
               <TextField
                 variant="outlined"
@@ -197,7 +199,7 @@ export default function Settings() {
                 autoComplete="current-password"
                 inputRef={password}
               />
-              <hr className={classes.hr} />
+              <Divider variant="middle" className={classes.hr} />
               <Typography
                 component="h6"
                 variant="h6"

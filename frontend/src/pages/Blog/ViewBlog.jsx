@@ -1,6 +1,6 @@
 // eslint-disable-next-line
-import "froala-editor/css/froala_style.min.css";
-import "froala-editor/css/froala_editor.pkgd.min.css";
+// import "froala-editor/css/froala_style.min.css";
+// import "froala-editor/css/froala_editor.pkgd.min.css";
 // eslint-disable-next-line
 import FroalaEditorComponent from "react-froala-wysiwyg";
 // Include special components if required.
@@ -33,15 +33,10 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import userUnknownImg from "../../assets/icon/user_unknown.png";
 import moment from "moment";
+import Box from "@material-ui/core/Box";
 import { FormattedMessage } from "react-intl";
+
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: `100%`,
-    height: `100%`,
-  },
   textArea: {
     marginTop: 15,
     borderRadius: 5,
@@ -62,10 +57,16 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: `space-evenly`,
   },
   hr: {
-    width: `100%`,
-    border: `1px solid #f1f1f1`,
+    width: `95%`,
+  },
+  frView: {
+    width: `95%`,
+    "& div": {
+      whiteSpace: `normal !important`,
+    },
   },
 }));
+
 export default function ViewBlog(props) {
   const classes = useStyles();
   const [blog, setBlog] = useState({});
@@ -140,92 +141,92 @@ export default function ViewBlog(props) {
   return (
     <BodyContainer size="md">
       <Snackbars message={msg} statusCode={statusCode} />
-      <div className={classes.paper}>
-        <Typography component="h2" variant="h5">
-          {blog.title}
-        </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
-          {moment.utc(blog.created_at).format("lll")}
-        </Typography>
-        <hr className={classes.hr} />
-        <Typography variant="subtitle1">{blog.blog_intro}</Typography>
-        <hr className={classes.hr} />
+      <Typography component="h2" variant="h5">
+        {blog.title}
+      </Typography>
+      <Typography variant="subtitle2" color="textSecondary">
+        {moment.utc(blog.created_at).format("lll")}
+      </Typography>
+      <Divider variant="middle" className={classes.hr} />
+      <Typography variant="subtitle1">{blog.blog_intro}</Typography>
+      <Divider variant="middle" className={classes.hr} />
+      <Box className={classes.frView}>
         <FroalaEditorView model={blog?.content} />
-        <hr className={classes.hr} />
-        <div className={classes.commentContainer}>
-          <form noValidate onSubmit={handleSubmit}>
-            <List>
-              <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                  {user ? (
-                    <Avatar
-                      src={
-                        "http://" +
-                        window.location.host +
-                        "/static/" +
-                        user.avatar
-                      }
-                    />
+      </Box>
+      <Divider variant="middle" className={classes.hr} />
+      <div className={classes.commentContainer}>
+        <form noValidate onSubmit={handleSubmit}>
+          <List>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                {user ? (
+                  <Avatar
+                    src={
+                      "http://" +
+                      window.location.host +
+                      "/static/" +
+                      user.avatar
+                    }
+                  />
+                ) : (
+                  <Avatar src={userUnknownImg} />
+                )}
+              </ListItemAvatar>
+              <ListItemText
+                primary={
+                  user?.user_name ? (
+                    user.user_name
                   ) : (
-                    <Avatar src={userUnknownImg} />
-                  )}
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
-                    user?.user_name ? (
-                      user.user_name
-                    ) : (
-                      <TextField
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        id="name"
-                        label={
-                          <FormattedMessage
-                            id="Name (Optional)"
-                            defaultMessage="Name (Optional)"
-                          />
-                        }
-                        name="name"
-                        autoComplete="name"
-                        inputRef={(input) => (name = input)}
-                      />
-                    )
-                  }
-                  secondary={
-                    <React.Fragment>
-                      <FormattedMessage id="Leave a friendly comment here :)">
-                        {(msg) => (
-                          <TextareaAutosize
-                            rowsMax={4}
-                            aria-label="maximum height"
-                            placeholder={msg[0]}
-                            className={classes.textArea}
-                            ref={(input) => (content = input)}
-                          />
-                        )}
-                      </FormattedMessage>
-                      <div style={{ color: "red" }}>{formErros["input"]}</div>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                      >
-                        <FormattedMessage id="Post" defaultMessage="Post" />
-                      </Button>
-                    </React.Fragment>
-                  }
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-              {comments.map((comment) => (
-                <FeedbackComment comment={comment} key={comment.id} />
-              ))}
-            </List>
-          </form>
-        </div>
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="name"
+                      label={
+                        <FormattedMessage
+                          id="Name (Optional)"
+                          defaultMessage="Name (Optional)"
+                        />
+                      }
+                      name="name"
+                      autoComplete="name"
+                      inputRef={(input) => (name = input)}
+                    />
+                  )
+                }
+                secondary={
+                  <React.Fragment>
+                    <FormattedMessage id="Leave a friendly comment here :)">
+                      {(msg) => (
+                        <TextareaAutosize
+                          rowsMax={4}
+                          aria-label="maximum height"
+                          placeholder={msg[0]}
+                          className={classes.textArea}
+                          ref={(input) => (content = input)}
+                        />
+                      )}
+                    </FormattedMessage>
+                    <div style={{ color: "red" }}>{formErros["input"]}</div>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                    >
+                      <FormattedMessage id="Post" defaultMessage="Post" />
+                    </Button>
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+            {comments.map((comment) => (
+              <FeedbackComment comment={comment} key={comment.id} />
+            ))}
+          </List>
+        </form>
       </div>
     </BodyContainer>
   );

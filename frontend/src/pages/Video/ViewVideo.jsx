@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
 import thumbUpImg from "../../assets/icon/thumb_up.png";
 import viewedNumImg from "../../assets/icon/viewed_num.png";
-import Footer from "../../components/Footer/Footer";
+import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import FeedbackComment from "../../components/Comment/FeedbackComment";
 import List from "@material-ui/core/List";
@@ -28,27 +28,24 @@ import Snackbars from "../../components/Snackbars/Snackbars";
 import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles((theme) => ({
-  body: {
-    width: `46vw`,
-    marginTop: 75,
-    marginBottom: 15,
-    minHeight: "78vh",
-  },
-  container: {},
   video: {
     minWidth: `200px`,
-    width: `40vw`,
+    width: `60vw`,
+    [theme.breakpoints.down("md")]: {
+      width: `90vw`,
+    },
   },
   actionContainer: {
-    width: `40vw`,
-    display: `inline-flex`,
+    width: `60vw`,
     minHeight: 100,
+    display: `flex`,
     justifyContent: `flex-start`,
     alignItems: `center`,
-    backgroundColor: `#ffffff`,
-    boxShadow: `0px 0px 5px 0px rgb(162, 162, 162)`,
-    borderRadius: 5,
     overflow: `auto`,
+    marginTop: 5,
+    [theme.breakpoints.down("md")]: {
+      width: `90vw`,
+    },
   },
   iconImg: {
     marginLeft: 15,
@@ -59,14 +56,14 @@ const useStyles = makeStyles((theme) => ({
     margin: 5,
   },
   commentContainer: {
-    width: `40vw`,
+    width: `60vw`,
     minHeight: 100,
-    backgroundColor: `#ffffff`,
     marginTop: 5,
     marginBottom: 10,
-    borderRadius: 5,
-    boxShadow: `0px 0px 5px 0px rgb(162, 162, 162)`,
     justifyContent: `space-evenly`,
+    [theme.breakpoints.down("md")]: {
+      width: `90vw`,
+    },
   },
   textArea: {
     marginTop: 15,
@@ -169,7 +166,7 @@ export default function ViewVideo(props) {
   };
 
   return (
-    <BodyContainer container={classes.body} noPaper={true}>
+    <BodyContainer size="md" noPaper={true}>
       <React.Fragment>
         <Snackbars message={msg} statusCode={statusCode} />
         {!loaded ? (
@@ -182,12 +179,13 @@ export default function ViewVideo(props) {
             />
           </video>
         )}
-        <div className={classes.actionContainer}>
+        <Paper className={classes.actionContainer}>
           <Typography
             gutterBottom
             variant="h5"
             component="h2"
             className={classes.iconLabel}
+            display="inline"
           >
             <FormattedMessage id="Title" defaultMessage="Title" />
             {": "}
@@ -199,8 +197,8 @@ export default function ViewVideo(props) {
             <img src={thumbUpImg} className={classes.iconImg} />
           </Button>
           <label className={classes.iconLabel}>{currentLike}</label>
-        </div>
-        <div className={classes.commentContainer}>
+        </Paper>
+        <Paper className={classes.commentContainer}>
           <form noValidate onSubmit={handleSubmit}>
             <List>
               <ListItem alignItems="flex-start">
@@ -275,7 +273,7 @@ export default function ViewVideo(props) {
               ))}
             </List>
           </form>
-        </div>
+        </Paper>
       </React.Fragment>
     </BodyContainer>
   );

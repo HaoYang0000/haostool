@@ -11,6 +11,7 @@ import { FormattedMessage } from "react-intl";
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
 import Chip from "@material-ui/core/Chip";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -118,7 +119,7 @@ export default function Label() {
             <FormattedMessage id="Submit" defaultMessage="Submit" />
           </Button>
         </form>
-        <hr className={classes.hr} />
+        <Divider variant="middle" className={classes.hr} />
         <List className={classes.container}>
           {labels.map((label) => (
             <React.Fragment key={label?.name + label?.id}>

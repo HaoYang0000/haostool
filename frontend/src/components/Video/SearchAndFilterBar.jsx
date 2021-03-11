@@ -85,12 +85,7 @@ export default function SearchAndFilterBar(props) {
 
   return (
     <React.Fragment>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-      >
+      <Grid container direction="row" justify="space-between">
         <Grid item>
           <div className={classes.buttonGroup}>
             <Typography
@@ -249,57 +244,57 @@ export default function SearchAndFilterBar(props) {
             <FormattedMessage id="DESC" />
           </Typography>
         </Grid>
-      </Grid>
-      <Grid item xs={11} sm={12}>
-        <Autocomplete
-          id="search-bar"
-          className={classes.searchBar}
-          freeSolo
-          options={items}
-          getOptionLabel={(option) => option?.title}
-          renderOption={(option) => (
-            <div
-              style={{ width: `100%`, cursor: `pointer` }}
-              onClick={() => {
-                history.push("/" + type + "/" + option?.uuid);
-              }}
-            >
-              <div style={{ flexGrow: 1 }}>
-                <FormattedMessage id="Title" defaultMessage="Title" />
-                {": " + option?.title}
-                <br />
-                <Chip
-                  color="primary"
-                  size="small"
-                  label={
-                    <FormattedMessage
-                      id="category type"
-                      values={{ category: option.category }}
-                    />
-                  }
-                />
-                {option?.labels.map((label) => (
+        <Grid item xs={12}>
+          <Autocomplete
+            id="search-bar"
+            className={classes.searchBar}
+            freeSolo
+            options={items}
+            getOptionLabel={(option) => option?.title}
+            renderOption={(option) => (
+              <div
+                style={{ width: `100%`, cursor: `pointer` }}
+                onClick={() => {
+                  history.push("/" + type + "/" + option?.uuid);
+                }}
+              >
+                <div style={{ flexGrow: 1 }}>
+                  <FormattedMessage id="Title" defaultMessage="Title" />
+                  {": " + option?.title}
+                  <br />
                   <Chip
-                    color="secondary"
+                    color="primary"
                     size="small"
-                    label={label.name}
-                    className={classes.labelChip}
+                    label={
+                      <FormattedMessage
+                        id="category type"
+                        values={{ category: option.category }}
+                      />
+                    }
                   />
-                ))}
+                  {option?.labels.map((label) => (
+                    <Chip
+                      color="secondary"
+                      size="small"
+                      label={label.name}
+                      className={classes.labelChip}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              className={classes.input}
-              label="Search"
-              margin="normal"
-              variant="outlined"
-              inputRef={search}
-            />
-          )}
-        />
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                className={classes.input}
+                label="Search"
+                margin="normal"
+                variant="outlined"
+                inputRef={search}
+              />
+            )}
+          />
+        </Grid>
       </Grid>
     </React.Fragment>
   );
