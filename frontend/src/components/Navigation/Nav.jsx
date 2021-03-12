@@ -127,7 +127,9 @@ export default function Nav(props) {
       >
         <Hidden smDown>
           <Grid item>
-            <img src={logo} className={classes.logo} />
+            <Link to="/blogs">
+              <img src={logo} className={classes.logo} />
+            </Link>
           </Grid>
         </Hidden>
         <Grid item md={6}>
