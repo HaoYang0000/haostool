@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 75,
     marginBottom: 15,
     display: "flex",
-    minHeight: "78vh",
+    minHeight: "90vh",
     flexDirection: `column`,
     alignItems: `center`,
-    padding: 10,
+    padding: theme.spacing(1),
   },
 }));
 export default function BodyContainer(props) {
