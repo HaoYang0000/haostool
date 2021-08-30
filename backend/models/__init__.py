@@ -1,24 +1,8 @@
-# from .services import  ServiceModel
-# from .user_ip_mapping import UserIpMappingServiceModel
-# from .user_service import UserServiceModel
-# from .users import  UserModel
-# from .accounting.account_categories import AccountCategoryModel
-# from .accounting.account_items import AccountItemModel
-# from .accounting.account_tags import AccountTagModel
-# from .socket_service.game_room import GameRoomModel
-# from .blog.post import BlogPostModel
-# from app.models.services import ServiceModel
-# from app.models.blog.post import (
-#     BlogPostModel
-# )
-# from app.models.videos.video import VideoModel
-# from app.models.comment import CommentModel
-# from app.models.timeline.timeline import TimelineModel
+# from backend.models.videos.video import VideoModel
+# from backend.models.comment import CommentModel
+# from backend.models.timeline.timeline import TimelineModel
 # from backend.models.labels.label_bridge import LabelBridgeModel
 # from backend.models.videos.video import VideoModel
 # from backend.models.blogs.post import BlogPostModel
 # from backend.models.labels.label import LabelModel
-# import backend.models.videos.video
-# import backend.models.blogs.post
-# import backend.models.labels.label
-# import backend.models.labels.label_bridge
+# from backend.models.videos.video_source import VideoSourceModel
