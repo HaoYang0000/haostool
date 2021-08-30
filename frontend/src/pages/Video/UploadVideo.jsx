@@ -105,6 +105,7 @@ export default function UploadVideo() {
             <MenuItem value={categoryList[1]}>{categoryList[1]}</MenuItem>
             <MenuItem value={categoryList[2]}>{categoryList[2]}</MenuItem>
             <MenuItem value={categoryList[3]}>{categoryList[3]}</MenuItem>
+            <MenuItem value={categoryList[4]}>{categoryList[4]}</MenuItem>
           </Select>
           <Button variant="contained">
             <input name="file" type="file" onChange={handleFileChange} />
