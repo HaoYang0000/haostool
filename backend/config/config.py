@@ -17,26 +17,28 @@ SECRET_KEY = 'secret'
 LOCAL_MYSQL_CONFIG = {
     "address": "localhost",
     "port": 3306,
-    "user":"hao",
+    "user": "hao",
     "password": "root",
     "database": "personal_tool"
 }
 
 LANGUAGES = ['zh_CN', 'en', 'es']
 
+
 def get_config_file():
     if platform.system() == "Windows":
         with open(f"{dir_path}/local.json", 'r') as config_file:
             return json.load(config_file)
     elif platform.system() == "Linux":
-        with open(f"/var/www/haostool/config/linux_server.json", 'r') as config_file:
+        with open(f"/var/www/haostool/backend/config/linux_server.json", 'r') as config_file:
             return json.load(config_file)
     elif platform.system() == "Darwin":
-        with open(f"/Users/yanghao/Desktop/haostool/config/linux_server.json", 'r') as config_file:
+        with open(f"/Users/yanghao/Desktop/haostool/backend/config/linux_server.json", 'r') as config_file:
             return json.load(config_file)
     else:
         raise ConfigNotFoundException(f"Bad platform: {platform.os.system()}")
-    
+
+
 def get_database_uri():
     db_dict = get_config_file().get("database_info")
     address = db_dict.get("address")
@@ -45,7 +47,7 @@ def get_database_uri():
     password = db_dict.get("password")
     database = db_dict.get("database")
     return f"mysql+pymysql://{user}:{password}@{address}:{port}/{database}?charset=utf8mb4"
-    
+
 
 class ConfigTypes(Enum):
     config = 1
