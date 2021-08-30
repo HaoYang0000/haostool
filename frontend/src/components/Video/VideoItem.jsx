@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -20,6 +20,7 @@ import straImg from "../../assets/icon/star.png";
 import dotaIcon from "../../assets/icon/categories/dota.png";
 import fallguysIcon from "../../assets/icon/categories/fallguys.png";
 import pianoIcon from "../../assets/icon/categories/piano.png";
+import saxIcon from "../../assets/icon/categories/sax.png";
 import pubgIcon from "../../assets/icon/categories/pubg.png";
 import Rating from "@material-ui/lab/Rating";
 import Snackbars from "../../components/Snackbars/Snackbars";
@@ -31,11 +32,15 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import PersonIcon from "@material-ui/icons/Person";
-import AddIcon from "@material-ui/icons/Add";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { IconButton } from "@material-ui/core";
 import Chip from "@material-ui/core/Chip";
+import TextField from "@material-ui/core/TextField";
+import InputLabel from "@material-ui/core/InputLabel";
+import { videoSourceList } from "../../constants/videoSource";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -66,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SimpleDialog(props) {
+function LableDialog(props) {
   const classes = useStyles();
   const [labels, setLabels] = useState([]);
   const { open, video } = props;
@@ -112,23 +117,98 @@ function SimpleDialog(props) {
   );
 }
 
+function VideoSourceDialog(props) {
+  const classes = useStyles();
+  const { open, video } = props;
+  const videoUrl = useRef(null);
+  const [videoSource, setVideoSource] = useState(videoSourceList[0]);
+
+  const handleChange = (event) => {
+    setVideoSource(event.target.value);
+  };
+
+  useEffect(() => {}, []);
+
+  const handleClose = () => {
+    props.handleClose();
+  };
+
+  const handleVideoSourceAdd = () => {
+    props.handleUpdate(videoSource, videoUrl.current.value, video?.id);
+    props.handleClose();
+  };
+
+  return (
+    <Dialog
+      onClose={handleClose}
+      fullWidth={true}
+      maxWidth={"md"}
+      aria-labelledby="simple-dialog-title"
+      open={open}
+    >
+      <DialogTitle id="simple-dialog-title">Add new source</DialogTitle>
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        id="videoUrl"
+        label="source url"
+        name="videoUrl"
+        autoComplete="videoUrl"
+        autoFocus
+        inputRef={videoUrl}
+      />
+      <InputLabel id="category-select-outlined-label">Video Source</InputLabel>
+      <Select
+        labelId="category-select-outlined-label"
+        id="category-select-outlined"
+        value={videoSource}
+        onChange={handleChange}
+        label="videoSource"
+      >
+        <MenuItem value={videoSourceList[0]}>{videoSourceList[0]}</MenuItem>
+      </Select>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        color="primary"
+        className={classes.submit}
+        onClick={() => handleVideoSourceAdd()}
+      >
+        Upload
+      </Button>
+    </Dialog>
+  );
+}
+
 export default function VideoItem(props) {
   const classes = useStyles();
   const { video } = props;
   const user = useContext(userContext);
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [openLabel, setOpenLabel] = useState(false);
+  const [openVideoSource, setOpenVideoSource] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpenLabel = () => {
+    setOpenLabel(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseLabel = () => {
+    setOpenLabel(false);
   };
 
-  const handleDelete = (labelId, videoId) => {
+  const handleClickOpenVideoSource = () => {
+    setOpenVideoSource(true);
+  };
+
+  const handleCloseVideoSource = () => {
+    setOpenVideoSource(false);
+  };
+
+  const handleDeleteLabel = (labelId, videoId) => {
     var formData = new FormData();
     formData.append("label_id", labelId);
     formData.append("video_id", videoId);
@@ -144,13 +224,44 @@ export default function VideoItem(props) {
     );
   };
 
-  const handleUpdate = (labelId, videoId) => {
-    setOpen(false);
+  const handleUpdateLabel = (labelId, videoId) => {
+    setOpenLabel(false);
     var formData = new FormData();
     formData.append("label_id", labelId);
     formData.append("video_id", videoId);
     authFetch("/api/labels/create/video-label", {
       method: "POST",
+      body: formData,
+    }).then((res) =>
+      res.json().then((data) => {
+        setMsg(data);
+        setStatusCode(res.status);
+      })
+    );
+  };
+
+  const handleUpdateVideoSource = (videoSource, videoUrl, videoId) => {
+    setOpenVideoSource(false);
+    var formData = new FormData();
+    formData.append("name", videoSource);
+    formData.append("url", videoUrl);
+    formData.append("video_id", videoId);
+    authFetch("/api/videos/source", {
+      method: "POST",
+      body: formData,
+    }).then((res) =>
+      res.json().then((data) => {
+        setMsg(data);
+        setStatusCode(res.status);
+      })
+    );
+  };
+
+  const handleDeleteVideoSource = (videoSourceId) => {
+    var formData = new FormData();
+    formData.append("source_id", videoSourceId);
+    authFetch("/api/videos/source", {
+      method: "DELETE",
       body: formData,
     }).then((res) =>
       res.json().then((data) => {
@@ -193,6 +304,8 @@ export default function VideoItem(props) {
         return <img src={fallguysIcon} className={classes.iconImg} />;
       case "piano":
         return <img src={pianoIcon} className={classes.iconImg} />;
+      case "sax":
+        return <img src={saxIcon} className={classes.iconImg} />;
       default:
         return <img src={dotaIcon} className={classes.iconImg} />;
     }
@@ -234,33 +347,61 @@ export default function VideoItem(props) {
         </Typography>
         {user.role === "root" || user.role === "admin" ? (
           <React.Fragment>
-            <FormattedMessage id="Label: " />
-            <IconButton onClick={handleClickOpen}>
-              <AddCircleIcon color="primary" />
-            </IconButton>
-            {video?.labels?.length === 0 && (
-              <Chip
-                label={<FormattedMessage id="None" />}
-                disabled
-                size="small"
+            <Box>
+              <FormattedMessage id="Label: " />
+              <IconButton onClick={handleClickOpenLabel}>
+                <AddCircleIcon color="primary" />
+              </IconButton>
+              {video?.labels?.length === 0 && (
+                <Chip
+                  label={<FormattedMessage id="None" />}
+                  disabled
+                  size="small"
+                />
+              )}
+              {video?.labels.map((label) => (
+                <Chip
+                  color="secondary"
+                  size="small"
+                  label={label.name}
+                  className={classes.labelChip}
+                  key={label?.name + label?.id}
+                  onDelete={() => handleDeleteLabel(label?.id, video?.id)}
+                />
+              ))}
+            </Box>
+            <Box>
+              <FormattedMessage
+                id="Video Source"
+                defaultMessage="Video Source"
               />
-            )}
-            {video?.labels.map((label) => (
-              <Chip
-                color="secondary"
-                size="small"
-                label={label.name}
-                className={classes.labelChip}
-                key={label?.name + label?.id}
-                onDelete={() => handleDelete(label?.id, video?.id)}
+              {": "}
+              <IconButton onClick={handleClickOpenVideoSource}>
+                <AddCircleIcon color="primary" />
+              </IconButton>
+              <LableDialog
+                open={openLabel}
+                handleClose={handleCloseLabel}
+                handleUpdate={handleUpdateLabel}
+                video={video}
               />
-            ))}
-            <SimpleDialog
-              open={open}
-              handleClose={handleClose}
-              handleUpdate={handleUpdate}
-              video={video}
-            />
+              {video?.sources.map((videoSource) => (
+                <Chip
+                  color="secondary"
+                  size="small"
+                  label={videoSource.name}
+                  className={classes.labelChip}
+                  key={videoSource?.name + videoSource?.id}
+                  onDelete={() => handleDeleteVideoSource(videoSource?.id)}
+                />
+              ))}
+              <VideoSourceDialog
+                open={openVideoSource}
+                handleClose={handleCloseVideoSource}
+                handleUpdate={handleUpdateVideoSource}
+                video={video}
+              />
+            </Box>
           </React.Fragment>
         ) : (
           <React.Fragment>

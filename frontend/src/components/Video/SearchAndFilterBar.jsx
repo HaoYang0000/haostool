@@ -5,6 +5,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import dotaIcon from "../../assets/icon/categories/dota.png";
 import fallguysIcon from "../../assets/icon/categories/fallguys.png";
 import pianoIcon from "../../assets/icon/categories/piano.png";
+import saxIcon from "../../assets/icon/categories/sax.png";
 import pubgIcon from "../../assets/icon/categories/pubg.png";
 import Typography from "@material-ui/core/Typography";
 import { categoryList } from "../../constants/category";
@@ -161,6 +162,18 @@ export default function SearchAndFilterBar(props) {
                 }
                 onClick={() => handleCategoryUpdate(categoryList[3])}
                 startIcon={<img src={pianoIcon} className={classes.iconImg} />}
+              ></Button>
+              <Button
+                size="small"
+                aria-label="sax"
+                variant="contained"
+                className={
+                  category === categoryList[4]
+                    ? classes.buttonSelected
+                    : classes.buttonDefault
+                }
+                onClick={() => handleCategoryUpdate(categoryList[4])}
+                startIcon={<img src={saxIcon} className={classes.iconImg} />}
               ></Button>
             </ButtonGroup>
           </div>

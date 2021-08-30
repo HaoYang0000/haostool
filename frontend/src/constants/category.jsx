@@ -1,1 +1,1 @@
-export const categoryList = ["dota", "pubg", "fallguys", "piano"];
+export const categoryList = ["dota", "pubg", "fallguys", "piano", "sax"];
