@@ -60,9 +60,12 @@ def login():
     username = req.get('email', None)
     password = req.get('password', None)
     user = guard.authenticate(username, password)
+    if type(guard.encode_jwt_token(user)) == str:
+        access_token = guard.encode_jwt_token(user)
+    else:
+        access_token = guard.encode_jwt_token(user).decode()
     output = {
-        'access_token': guard.encode_jwt_token(
-            user).decode(),
+        'access_token': access_token,
         'role': user.rolenames[0] if len(user.rolenames) == 1 else None,
         'user_name': user.username,
         'avatar': user.avatar,
