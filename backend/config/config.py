@@ -6,7 +6,7 @@ import logging
 import os
 import platform
 from enum import Enum
-from app.exceptions.config import ConfigNotFoundException
+from backend.exceptions.config import ConfigNotFoundException
 dir_path = os.path.dirname(os.path.realpath(__file__))
 __logger = logging.getLogger(__file__)
 
@@ -31,9 +31,11 @@ def get_config_file():
     elif platform.system() == "Linux":
         with open(f"/var/www/haostool/config/linux_server.json", 'r') as config_file:
             return json.load(config_file)
-    else:
-        with open(f"/var/www/haostool/config/linux_server.json", 'r') as config_file:
+    elif platform.system() == "Darwin":
+        with open(f"/Users/yanghao/Desktop/haostool/config/linux_server.json", 'r') as config_file:
             return json.load(config_file)
+    else:
+        raise Exception(f"Bad platform: {platform.os.system()}")
     
 def get_database_uri():
     db_dict = get_config_file().get("database_info")

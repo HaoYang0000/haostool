@@ -62,7 +62,7 @@ def login():
     user = guard.authenticate(username, password)
     output = {
         'access_token': guard.encode_jwt_token(
-            user),
+            user).decode(),
         'role': user.rolenames[0] if len(user.rolenames) == 1 else None,
         'user_name': user.username,
         'avatar': user.avatar,

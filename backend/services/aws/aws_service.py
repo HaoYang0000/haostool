@@ -1,5 +1,5 @@
 import boto3
-from config.config import get_config_file
+from backend.config.config import get_config_file
 from botocore.exceptions import ClientError
 
 VPN_INSTANCE_ID = get_config_file().get("aws_ec2").get("vpn_instance_id")
