@@ -1,4 +1,5 @@
 from backend.models.videos.video import VideoModel
+from backend.models.videos.video_source import VideoSourceModel
 from backend.services.base import BaseService
 from sqlalchemy import asc
 from backend.engine import db, session_scope, DEFAULT_PAGE_LIMIT
@@ -29,6 +30,8 @@ class VideoService(BaseService):
                 query = query.filter(self.model.category == 'fallguys')
             elif category == 'piano':
                 query = query.filter(self.model.category == 'piano')
+            elif category == 'sax':
+                query = query.filter(self.model.category == 'sax')
             if order == 'asc':
                 return query.order_by(order_by_attr.asc()).limit(limit).offset(offset).all()
             else:
@@ -82,6 +85,25 @@ class VideoService(BaseService):
             video = session.query(self.model).filter(
                 self.model.uuid == uuid).first()
             return video
+
+    def add_video_source(self, name: str, url: str, video_id: str):
+        with session_scope() as session:
+            new_video_source = VideoSourceModel(
+                name=name,
+                url=url,
+                video_id=video_id
+            )
+            session.add(new_video_source)
+            session.commit()
+            return "Create video source success"
+
+    def delete_video_source(self, source_id: str):
+        with session_scope() as session:
+            record = session.query(VideoSourceModel).filter(
+                VideoSourceModel.id == source_id).one()
+            session.delete(record)
+            session.commit()
+            return "Delete video source success"
 
     # def get_categories_for_user(self, user_id):
     # 	return AccountCategoryModel.query.filter(AccountCategoryModel.user_id == user_id).all()

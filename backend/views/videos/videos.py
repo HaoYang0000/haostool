@@ -64,6 +64,24 @@ def like_video(uuid):
         return jsonify("No video found"), 400
 
 
+@app.route('/videos/source', methods=['POST'])
+def add_video_source():
+    result = video_service.add_video_source(
+        name=request.form['name'],
+        url=request.form['url'],
+        video_id=request.form['video_id']
+    )
+    return jsonify(result), 200
+
+
+@app.route('/videos/source', methods=['DELETE'])
+def delete_video_source():
+    result = video_service.delete_video_source(
+        source_id=request.form['source_id']
+    )
+    return jsonify(result), 200
+
+
 @app.route('/videos/delete', methods=['DELETE'])
 @flask_praetorian.roles_accepted(*['root', 'admin'])
 def delete_video():
@@ -111,6 +129,11 @@ def upload_video():
     if file.filename == '':
         logger.error('No selected file')
         return jsonify("err"), 400
+
+    if not os.path.exists(f"{UPLOAD_ROOT}/{VIDEOS_FOLDER}"):
+        logger.warning(
+            f"folder: {UPLOAD_ROOT}/{VIDEOS_FOLDER} does not exist. Creating folder")
+        os.makedirs(f"{UPLOAD_ROOT}/{VIDEOS_FOLDER}")
 
     uuid_val = uuid.uuid4().hex
     # save file

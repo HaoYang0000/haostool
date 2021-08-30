@@ -4,6 +4,7 @@ from marshmallow import fields
 from sqlalchemy.orm import relationship
 from backend.models.labels.label import LabelModel
 from backend.models.labels.label_bridge import LabelBridgeModel
+from backend.models.videos.video_source import VideoSourceModel
 
 
 class VideoModel(BaseModelExtended):
@@ -44,12 +45,14 @@ class VideoModel(BaseModelExtended):
         default=1
     )
     category = Column(
-        Enum('dota', 'pubg', 'fallguys', 'blog', 'piano'),
+        Enum('dota', 'pubg', 'fallguys', 'blog', 'piano', 'sax'),
         nullable=False
     )
 
     labels = relationship(
         "LabelModel", secondary='label_bridges', lazy='subquery')
+
+    sources = relationship("VideoSourceModel", lazy='subquery')
 
     @property
     def serialize(self):
@@ -66,6 +69,7 @@ class VideoModel(BaseModelExtended):
             'viewed_number': self.viewed_number,
             'star': self.star,
             'labels': [label.serialize for label in self.labels],
+            'sources': [source.serialize for source in self.sources],
             'category': self.category,
             'created_at': self.created_at,
             'updated_at': self.updated_at

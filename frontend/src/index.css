@@ -9,3 +9,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+iframe {
+  width: 100%!important;
+  height: 100%!important;
+  min-height: 500px;
+}

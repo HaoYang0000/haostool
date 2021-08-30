@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
+import ReactHtmlParser from "react-html-parser";
 import Redirect from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import BodyContainer from "../../components/Layout/Layout";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -12,6 +14,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
 import thumbUpImg from "../../assets/icon/thumb_up.png";
 import viewedNumImg from "../../assets/icon/viewed_num.png";
+import bilibiliImg from "../../assets/icon/bilibili_icon.jpg";
+import logo from "../../assets/ydaxian_logo.png";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import FeedbackComment from "../../components/Comment/FeedbackComment";
@@ -26,6 +30,7 @@ import Avatar from "@material-ui/core/Avatar";
 import userUnknownImg from "../../assets/icon/user_unknown.png";
 import Snackbars from "../../components/Snackbars/Snackbars";
 import { FormattedMessage } from "react-intl";
+import { videoSourceList } from "../../constants/videoSource";
 
 const useStyles = makeStyles((theme) => ({
   video: {
@@ -83,6 +88,7 @@ export default function ViewVideo(props) {
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
   const [video, setVideo] = useState(null);
+  const [currentVideoSource, setCurrentVideoSource] = useState(null);
   const [currentLike, setCurrentLike] = useState(0);
   const [comments, setComments] = useState([]);
   const [msg, setMsg] = useState("");
@@ -104,6 +110,35 @@ export default function ViewVideo(props) {
     return validated;
   };
 
+  const getVideoContent = () => {
+    if (video?.sources && currentVideoSource !== null) {
+      return ReactHtmlParser(video?.sources[currentVideoSource]?.url);
+    }
+    return (
+      <video controls className={classes.video}>
+        <source
+          src={"http://" + window.location.host + "/static/" + video?.path}
+          type="video/mp4"
+        />
+      </video>
+    );
+  };
+
+  const switchVideoSource = (sourceName) => {
+    if (sourceName === videoSourceList[0]) {
+      setCurrentVideoSource(0);
+    } else {
+      setCurrentVideoSource(null);
+    }
+  };
+
+  const getSourceIcon = (sourceName) => {
+    if (sourceName == videoSourceList[0]) {
+      return bilibiliImg;
+    }
+    return logo;
+  };
+
   useEffect(() => {
     setLoaded(false);
     fetch("/api/videos/" + uuid, {
@@ -112,6 +147,9 @@ export default function ViewVideo(props) {
       .then((r) => r.json())
       .then((data) => {
         setVideo(data);
+        if (data?.sources?.length !== 0) {
+          setCurrentVideoSource(0);
+        }
         setCurrentLike(data.liked_number);
         setLoaded(true);
       });
@@ -130,7 +168,6 @@ export default function ViewVideo(props) {
       .then((r) => r.json())
       .then((data) => {
         setCurrentLike(data);
-        console.log(data);
       });
   };
   const handleSubmit = (event) => {
@@ -172,31 +209,80 @@ export default function ViewVideo(props) {
         {!loaded ? (
           <Skeleton variant="rect" className={classes.video} />
         ) : (
-          <video controls className={classes.video}>
-            <source
-              src={"http://" + window.location.host + "/static/" + video?.path}
-              type="video/mp4"
-            />
-          </video>
+          <div className={classes.video}>{getVideoContent()}</div>
         )}
         <Paper className={classes.actionContainer}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="h2"
-            className={classes.iconLabel}
-            display="inline"
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
-            <FormattedMessage id="Title" defaultMessage="Title" />
-            {": "}
-            {video?.title}
-          </Typography>
-          <img src={viewedNumImg} className={classes.iconImg} />
-          <label className={classes.iconLabel}>{video?.viewed_number}</label>
-          <Button onClick={() => increaseLike(video?.id)}>
-            <img src={thumbUpImg} className={classes.iconImg} />
-          </Button>
-          <label className={classes.iconLabel}>{currentLike}</label>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+              >
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  className={classes.iconLabel}
+                  display="inline"
+                >
+                  <FormattedMessage id="Title" defaultMessage="Title" />
+                  {": "}
+                  {video?.title}
+                </Typography>
+                <img src={viewedNumImg} className={classes.iconImg} />
+                <label className={classes.iconLabel}>
+                  {video?.viewed_number}
+                </label>
+                <Button onClick={() => increaseLike(video?.id)}>
+                  <img src={thumbUpImg} className={classes.iconImg} />
+                </Button>
+                <label className={classes.iconLabel}>{currentLike}</label>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+              >
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  className={classes.iconLabel}
+                  display="inline"
+                >
+                  <FormattedMessage
+                    id="Video Source"
+                    defaultMessage="Video Source"
+                  />
+                  {": "}
+                </Typography>
+                {video?.sources.map((source) => (
+                  <Button
+                    onClick={() => switchVideoSource(source.name)}
+                    key={source.name}
+                  >
+                    <img
+                      src={getSourceIcon(source.name)}
+                      className={classes.iconImg}
+                    />
+                  </Button>
+                ))}
+                <Button onClick={() => switchVideoSource(null)}>
+                  <img src={getSourceIcon(null)} className={classes.iconImg} />
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
         </Paper>
         <Paper className={classes.commentContainer}>
           <form noValidate onSubmit={handleSubmit}>
