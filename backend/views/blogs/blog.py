@@ -1,4 +1,5 @@
 import json
+import os
 import logging
 import flask_praetorian
 import math
@@ -74,6 +75,7 @@ def update_post(uuid):
         file = request.files['file']
         filename = secure_filename(str(lazy_pinyin(file.filename)))
         cover_img_path = f"{BLOG_IMAGE_DIR}/{filename}"
+        file.save(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}/{filename}")
 
     blog_service.update_by_uuid(
         uuid=uuid,
@@ -147,6 +149,7 @@ def create_post():
         return jsonify("No selected file"), 402
 
     filename = secure_filename(str(lazy_pinyin(file.filename)))
+    file.save(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}/{filename}")
     cover_img_path = f"{BLOG_IMAGE_DIR}/{filename}"
     new_blog = blog_service.create(
         title=request.form['title'],
@@ -158,44 +161,6 @@ def create_post():
         viewed_number=0
     )
     return jsonify('Create blog success'), 200
-
-
-# @app.route('/image_upload', methods=['POST'])
-# def blog_upload_image():
-#     # check if the post request has the file part
-#     if 'file' not in request.files:
-#         return "No file part", 400
-#     file = request.files['file']
-#     # if user does not select file, browser also
-#     # submit an empty part without filename
-#     if file.filename == '':
-#         return "No file name", 400
-#     if not allowed_profile_img_format(file.filename):
-#         flash('File format not allowed')
-#         return redirect(url_for('user.profile'))
-
-#     filename = secure_filename(file.filename)
-#     file.save(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}/{filename}")
-#     return {"link": url_for('static', filename=f'{BLOG_IMAGE_DIR}/{filename}')}, 200
-
-
-# @app.route('/video_upload', methods=['POST'])
-# def video_upload_image():
-#     # check if the post request has the file part
-#     if 'file' not in request.files:
-#         return "No file part", 400
-#     file = request.files['file']
-#     # if user does not select file, browser also
-#     # submit an empty part without filename
-#     if file.filename == '':
-#         return "No file name", 400
-#     if not allowed_profile_img_format(file.filename):
-#         flash('File format not allowed')
-#         return redirect(url_for('user.profile'))
-
-#     filename = secure_filename(file.filename)
-#     file.save(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}/{filename}")
-#     return {"link": url_for('static', filename=f'{BLOG_IMAGE_DIR}/{filename}')}, 200
 
 
 @ app.route('/file_upload', methods=['POST'])
@@ -210,6 +175,11 @@ def file_upload_image():
         return jsonify("No file name"), 400
     if not allowed_profile_img_format(file.filename):
         return jsonify('File format not allowed'), 400
+
+    if not os.path.exists(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}"):
+        logger.warning(
+            f"folder: {UPLOAD_ROOT}/{BLOG_IMAGE_DIR} does not exist. Creating folder")
+        os.makedirs(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}")
 
     filename = secure_filename(file.filename)
     file.save(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}/{filename}")

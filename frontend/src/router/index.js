@@ -21,6 +21,7 @@ import Wechat from "../pages/Contact/Wechat";
 import Game from "../pages/Game/Game";
 import Comment from "../pages/Comment/Comment";
 import Label from "../pages/Label/Labels";
+import Backups from "../pages/Backup/Backups";
 import TimelinePage from "../pages/Timeline/Timeline";
 import Video from "../pages/Video/Video";
 import ViewVideo from "../pages/Video/ViewVideo";
@@ -50,6 +51,7 @@ export default function RouterMap(props) {
         <Route path="/videos/upload" exact component={UploadVideo} />
         <Route path="/videos/:uuid" component={ViewVideo} />
         <Route path="/labels" exact component={Label} />
+        <Route path="/backups" exact component={Backups} />
         <Route component={NotFound} />
       </Switch>
     </Router>

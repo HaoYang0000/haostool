@@ -213,6 +213,14 @@ export default function Nav(props) {
                       />
                     </Link>
                   </MenuItem>
+                  <MenuItem>
+                    <Link className={classes.text} to="/backups">
+                      <FormattedMessage
+                        id="Backups Management"
+                        defaultMessage="Backups Management"
+                      />
+                    </Link>
+                  </MenuItem>
                 </Menu>
               </Grid>
             ) : null}

@@ -45,9 +45,9 @@ export default function CreateBlog() {
     toolbarInline: false, //true选中设置样式,默认false
     imageUploadMethod: "POST",
     heightMin: 450,
-    imageUploadURL: "/blogs/file_upload", //上传到本地服务器
-    videoUploadURL: "/blogs/file_upload",
-    fileUploadURL: "/blogs/file_upload",
+    imageUploadURL: "/api/blogs/file_upload", //上传到本地服务器
+    videoUploadURL: "/api/blogs/file_upload",
+    fileUploadURL: "/api/blogs/file_upload",
     toolbarButtons: {
       moreText: {
         buttons: [

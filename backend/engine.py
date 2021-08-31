@@ -38,6 +38,9 @@ UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__)) + '/static/uploads'
 UPLOAD_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/static'
 USER_PROFILE_DIR = 'user_profile'
 BLOG_IMAGE_DIR = 'blog_image'
+VIDEOS_FOLDER = 'videos'
+BACKUP_DIR = 'backups'
+DB_BACKUP_DIR = 'database'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 DEFAULT_PAGE_LIMIT = 12
 
@@ -92,6 +95,7 @@ def create_app():
     from backend.views.comments import comment
     from backend.views.timelines import timelines
     from backend.views.labels import labels
+    from backend.views.backup_restore import backup_restore
 
     app.register_blueprint(index.app)
     # app.register_blueprint(accounting.app)
@@ -107,6 +111,7 @@ def create_app():
     app.register_blueprint(comment.app)
     app.register_blueprint(timelines.app)
     app.register_blueprint(labels.app)
+    app.register_blueprint(backup_restore.app)
 
     return app
 

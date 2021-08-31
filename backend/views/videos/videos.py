@@ -9,14 +9,13 @@ from flask_api import status
 from flask_login import current_user, login_user, logout_user
 from backend.services.videos.video_service import VideoService
 from werkzeug.utils import secure_filename
-from backend.engine import UPLOAD_ROOT, DEFAULT_PAGE_LIMIT
+from backend.engine import UPLOAD_ROOT, DEFAULT_PAGE_LIMIT, VIDEOS_FOLDER
 import uuid
 # from app.services.comment.comment_service import CommentService
 from pypinyin import pinyin, lazy_pinyin
 
 app = Blueprint('videos', __name__, url_prefix='/api')
 logger = logging.getLogger(__name__)
-VIDEOS_FOLDER = 'videos'
 video_service = VideoService()
 
 
