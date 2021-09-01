@@ -3,13 +3,11 @@ from flask_api import status
 from sqlalchemy import inspect, exists
 from sqlalchemy.orm import joinedload, lazyload, Query
 from sqlalchemy import inspect, exists, func
-import logging
 from flask_sqlalchemy import SQLAlchemy
 from backend.engine import session_scope
+from backend.logs.logger import logger
 
 db = SQLAlchemy()
-
-logger = logging.getLogger('flask.app')
 
 
 class BaseService:

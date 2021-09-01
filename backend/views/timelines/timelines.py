@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 import subprocess
 import time
@@ -9,12 +8,11 @@ import flask_praetorian
 import uuid
 from backend.services.timelines.timeline_service import TimelineService
 from backend.engine import session_scope
-
+from backend.logs.logger import logger
 app = Blueprint(
     'timelines',
     __name__,
     url_prefix='/api/timelines')
-logger = logging.getLogger(__name__)
 
 timeline_service = TimelineService()
 

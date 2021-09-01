@@ -1,6 +1,5 @@
 import json
 import os
-import logging
 import flask_praetorian
 import math
 from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash, request
@@ -8,7 +7,7 @@ from flask_api import status
 from flask_login import current_user, login_user, logout_user, login_required
 from backend.services.backup_restore.backup_restore_service import BackupRestoreService
 from backend.engine import session_scope, DEFAULT_PAGE_LIMIT
-
+from backend.logs.logger import logger
 import uuid
 
 app = Blueprint(
@@ -16,7 +15,7 @@ app = Blueprint(
     __name__,
     url_prefix='/api/backup-restore'
 )
-logger = logging.getLogger(__name__)
+
 
 backup_restore_service = BackupRestoreService()
 

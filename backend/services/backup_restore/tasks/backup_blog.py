@@ -1,10 +1,9 @@
 from datetime import datetime
-import logging
 import os
 import shutil
 from backend.services.backup_restore.tasks.base_task import Task, TaskStatus
 from backend.engine import BACKUP_DIR, BLOG_IMAGE_DIR, UPLOAD_ROOT
-logger = logging.getLogger(__name__)
+from backend.logs.logger import logger
 
 
 class BackupBlogTask(Task):

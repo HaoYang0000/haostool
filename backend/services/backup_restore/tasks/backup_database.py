@@ -1,10 +1,9 @@
 import os
-import logging
 from datetime import datetime
 from backend.services.backup_restore.tasks.base_task import Task, TaskStatus
 from backend.engine import BACKUP_DIR, UPLOAD_ROOT, DB_BACKUP_DIR
 from backend.config.config import get_config_file
-logger = logging.getLogger(__name__)
+from backend.logs.logger import logger
 
 
 class BackupDatabaseTask(Task):

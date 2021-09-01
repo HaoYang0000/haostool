@@ -15,3 +15,4 @@ backend/static/videos
 backend/static/backups
 local.json
 linux_server.json
+std_out.log

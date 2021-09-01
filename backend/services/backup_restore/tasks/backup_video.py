@@ -1,10 +1,9 @@
 from datetime import datetime
-import logging
 import os
 import shutil
 from backend.services.backup_restore.tasks.base_task import Task, TaskStatus
 from backend.engine import BACKUP_DIR, UPLOAD_ROOT, VIDEOS_FOLDER
-logger = logging.getLogger(__name__)
+from backend.logs.logger import logger
 
 
 class BackupVideoTask(Task):

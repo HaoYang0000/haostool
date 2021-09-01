@@ -1,8 +1,8 @@
 import json
 import os
-import logging
-import flask_praetorian
 import math
+import uuid
+import flask_praetorian
 from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash, request
 from flask_api import status
 from flask_login import current_user, login_user, logout_user, login_required
@@ -12,16 +12,14 @@ from werkzeug.utils import secure_filename
 from backend.utils.utils import allowed_profile_img_format
 from backend.engine import UPLOAD_ROOT, BLOG_IMAGE_DIR
 from pypinyin import pinyin, lazy_pinyin
-# from app.services.comment.comment_service import CommentService
+from backend.logs.logger import logger
 
-import uuid
 
 app = Blueprint(
     'blogs',
     __name__,
     url_prefix='/api/blogs'
 )
-logger = logging.getLogger(__name__)
 
 blog_service = BlogService()
 # comment_service = CommentService()

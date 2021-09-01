@@ -1,6 +1,4 @@
 import json
-import logging
-
 from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash, request, make_response
 from flask_api import status
 from flask_login import current_user, login_user, logout_user
@@ -8,10 +6,9 @@ from backend.services.labels.label_service import LabelService
 from flask import send_from_directory
 from collections import namedtuple
 import flask_praetorian
-
+from backend.logs.logger import logger
 
 app = Blueprint('labels', __name__, url_prefix='/api/labels')
-logger = logging.getLogger(__name__)
 label_service = LabelService()
 
 

@@ -1,5 +1,4 @@
 import json
-import logging
 
 from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash, request, make_response
 from flask_api import status
@@ -8,12 +7,12 @@ from backend.services.aws.aws_service import AwsService
 from flask import send_from_directory
 from collections import namedtuple
 import flask_praetorian
+from backend.logs.logger import logger
 
 VpnInstance = namedtuple(
     "VpnInstance", ['name', 'type', 'state', 'ip_address'])
 
 app = Blueprint('aws', __name__, url_prefix='/api')
-logger = logging.getLogger(__name__)
 aws_service = AwsService()
 aws_service._init_connect()
 

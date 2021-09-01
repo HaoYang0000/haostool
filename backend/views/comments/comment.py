@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 import subprocess
 import time
@@ -11,13 +10,12 @@ import uuid
 from backend.services.comments.comment_service import CommentService
 from backend.services.users.user_service import UserService
 from backend.engine import session_scope
-
+from backend.logs.logger import logger
 
 app = Blueprint(
     'comments',
     __name__,
     url_prefix='/api/comments')
-logger = logging.getLogger(__name__)
 comment_service = CommentService()
 
 # @app.route('/video', methods=['POST'])

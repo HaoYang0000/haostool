@@ -1,5 +1,4 @@
 import json
-import logging
 import random
 import os
 import flask
@@ -12,14 +11,14 @@ from backend.services.users.user_service import UserService
 from flask_login import login_required
 from backend.utils.utils import allowed_profile_img_format
 from werkzeug.utils import secure_filename
-
+from backend.logs.logger import logger
 
 app = Blueprint(
     'auth',
     __name__,
     url_prefix='/api/auth'
 )
-logger = logging.getLogger(__name__)
+
 user_service = UserService()
 
 

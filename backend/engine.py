@@ -15,12 +15,17 @@ from werkzeug.utils import secure_filename
 from backend.config.config import get_database_uri, LANGUAGES
 from flask_babel import Babel, gettext as _
 from backend.models.users.users import UserModel
-import logging
+from backend.logs.logger import logger
 
-
-handler = logging.StreamHandler()
-handler.setLevel(logging.INFO)
-
+UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__)) + '/static/uploads'
+UPLOAD_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/static'
+USER_PROFILE_DIR = 'user_profile'
+BLOG_IMAGE_DIR = 'blog_image'
+VIDEOS_FOLDER = 'videos'
+BACKUP_DIR = 'backups'
+DB_BACKUP_DIR = 'database'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+DEFAULT_PAGE_LIMIT = 12
 db = SQLAlchemy()
 guard = flask_praetorian.Praetorian()
 socketIO = SocketIO()
@@ -33,16 +38,6 @@ engine = create_engine(
     pool_recycle=3600,
     isolation_level='READ UNCOMMITTED'
 )
-
-UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__)) + '/static/uploads'
-UPLOAD_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/static'
-USER_PROFILE_DIR = 'user_profile'
-BLOG_IMAGE_DIR = 'blog_image'
-VIDEOS_FOLDER = 'videos'
-BACKUP_DIR = 'backups'
-DB_BACKUP_DIR = 'database'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-DEFAULT_PAGE_LIMIT = 12
 
 
 @babel.localeselector
@@ -79,7 +74,6 @@ def create_app():
     babel.init_app(app)
     cors.init_app(app)
     guard.init_app(app=app, user_class=UserModel)
-    app.logger.addHandler(handler)
 
     from backend.views import index
     # from backend.views.accounting import accounting

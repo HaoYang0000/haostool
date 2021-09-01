@@ -2,13 +2,12 @@
 This file contains all of the configuration values for the application.
 """
 import json
-import logging
 import os
 import platform
 from enum import Enum
 from backend.exceptions.config import ConfigNotFoundException
+from backend.logs.logger import logger
 dir_path = os.path.dirname(os.path.realpath(__file__))
-__logger = logging.getLogger(__file__)
 
 # The secret key is used by Flask to encrypt session cookies.
 SECRET_KEY = 'secret'

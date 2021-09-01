@@ -1,6 +1,6 @@
+from backend.logs.logger import logger
 import os
 import json
-import logging
 
 from flask import Blueprint, jsonify, render_template, session, url_for, redirect, flash, request, send_from_directory
 from flask_api import status
@@ -10,7 +10,6 @@ from backend.engine import UPLOAD_ROOT
 
 UPLOAD_FOLDER = '/backend/uploads/'
 app = Blueprint('index', __name__)
-logger = logging.getLogger(__name__)
 
 # controller = Controller(current_user=current_user)
 
