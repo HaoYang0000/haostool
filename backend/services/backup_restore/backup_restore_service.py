@@ -32,7 +32,11 @@ class BackupRestoreService(BaseService):
 
     def get_backup_files(self):
         target_dir = f'{UPLOAD_ROOT}/{BACKUP_DIR}/'
-        return os.listdir(target_dir)
+        files = []
+        for file in os.listdir(target_dir):
+            if not os.path.isdir(f'{UPLOAD_ROOT}/{BACKUP_DIR}/{file}'):
+                files.append(file)
+        return files
 
     def create_backup(self):
         job_status = {}
@@ -68,6 +72,8 @@ class BackupRestoreService(BaseService):
                 session.query(self.model).filter(
                     self.model.name == name).delete()
                 session.commit()
+                if os.path.isdir(f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}'):
+                    shutil.rmtree(f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}')
             else:
                 record = session.query(self.model).filter(
                     self.model.id == backup_id).one()

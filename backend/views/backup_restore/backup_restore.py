@@ -70,6 +70,7 @@ def delete_backup_files():
 
 
 @app.route('/restore/record-and-files', methods=['POST'])
+@flask_praetorian.roles_accepted(*['root', 'admin'])
 def restore_backup_files():
     file_name = request.form['name']
     result = backup_restore_service.restore_record_and_files(
