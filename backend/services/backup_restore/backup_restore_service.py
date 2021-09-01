@@ -16,6 +16,7 @@ from backend.services.backup_restore.tasks import (
     RestoreUserProfileTask,
     RestoreDatabaseTask
 )
+from backend.logs.logger import logger
 
 
 class BackupRestoreService(BaseService):
@@ -46,24 +47,27 @@ class BackupRestoreService(BaseService):
             BackupUserProfileTask,
             BackupDatabaseTask
         ]
+        for job in jobs:
+            result = job().run()
+            job_status[job.__name__] = result
+        logger.info("All backup jobs done.")
+        name = f'{datetime.now().strftime("%Y-%m-%d")}'
+        shutil.make_archive(
+            base_name=f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}',
+            format='zip',
+            root_dir=f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}'
+        )
+        shutil.rmtree(f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}')
         with session_scope() as session:
-            for job in jobs:
-                result = job().run()
-                job_status[job.__name__] = result
-            name = f'{datetime.now().strftime("%Y-%m-%d")}'
-            shutil.make_archive(
-                base_name=f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}',
-                format='zip',
-                root_dir=f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}'
-            )
+            logger.info("Creating db record.")
             new_backup = BackupModel(
                 name=name,
                 job_status=json.dumps(job_status, indent=4)
             )
             session.add(new_backup)
             session.commit()
-            shutil.rmtree(f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}')
-            return "Create backup success"
+            logger.info("Creating db record done.")
+        return "Create backup success"
 
     def delete_backup_record(self, backup_id: str = "", name: str = "", with_file: bool = False):
         with session_scope() as session:
