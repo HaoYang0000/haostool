@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     marginLeft: -8,
+    marginBottom: 5,
+  },
+  tagBar: {
     marginBottom: 10,
   },
   input: {
@@ -315,13 +318,16 @@ export default function SearchAndFilterBar(props) {
             )}
           />
         </Grid>
-        { label !== "" && label.split(",") !== [""] ?
+        {label !== "" && label.split(",") !== [""] ?
           (
-            <Grid item>
+            <Grid item xs={12}>
               <Grid container direction="row"
                 justify="flex-start"
                 alignItems="center"
-              >
+                className={classes.tagBar}
+              > <Typography display="block" className={classes.text}>
+                  <FormattedMessage id="Current tag: "/>
+                </Typography>
                 {label.split(",").map((label) => (
                   <Chip
                     color="secondary"
