@@ -28,6 +28,7 @@ export default function Video() {
   const [videos, setVideos] = useState([]);
   const user = useContext(userContext);
   const [category, setCategory] = useState("all");
+  const [label, setLabel] = useState("");
   const [sortBy, setSortBy] = useState(sortByList[0]);
   const [order, setOrder] = useState("desc");
   const [page, setPage] = useState(1);
@@ -43,6 +44,31 @@ export default function Video() {
     setCategory(curCagetory);
   };
 
+  const handleLabelChange = (curLabel) => {
+    let tmpLabel = label;
+    if (!tmpLabel.includes(curLabel)) {
+      if (tmpLabel === "") {
+        tmpLabel = curLabel
+      }
+      else {
+        tmpLabel = tmpLabel + "," + curLabel
+      }
+      
+      setLabel(tmpLabel);
+    }
+  };
+
+  const handleLabelDelete = (dropLabel) => {
+    let tmpLabelList = label.split(",");
+    let outputList = [];
+    for (let index = 0; index < tmpLabelList.length; index++) {
+      if (tmpLabelList[index] !== dropLabel) {
+        outputList.push(tmpLabelList[index]);
+      }
+    }
+    setLabel(outputList.join(","));
+  };
+
   const handleOrderChange = (event) => {
     if (event.target.checked) {
       setOrder("desc");
@@ -50,19 +76,22 @@ export default function Video() {
       setOrder("asc");
     }
   };
+
   const handleSortByChange = (newValue) => {
     setSortBy(newValue);
   };
+
   useEffect(() => {
     setIsLoading(true);
     fetch(
       "/api/videos?" +
-        new URLSearchParams({
-          category: category,
-          sortBy: sortBy,
-          order: order,
-          page: page,
-        }),
+      new URLSearchParams({
+        category: category,
+        label: label,
+        sortBy: sortBy,
+        order: order,
+        page: page,
+      }),
       {
         method: "get",
       }
@@ -80,7 +109,7 @@ export default function Video() {
       .then((data) => {
         setSearchItems(data);
       });
-  }, [category, sortBy, order, page]);
+  }, [category, label, sortBy, order, page]);
 
   return (
     <BodyContainer size="md">
@@ -88,9 +117,11 @@ export default function Video() {
         category={category}
         sortBy={sortBy}
         order={order}
+        label={label}
         handleCategoryUpdate={handleCategoryUpdate}
         handleOrderChange={handleOrderChange}
         handleSortByChange={handleSortByChange}
+        handleLabelDelete={handleLabelDelete}
         type={"videos"}
         items={searchItems}
       />
@@ -106,7 +137,7 @@ export default function Video() {
                   <Skeleton variant="rect" className={classes.fallback} />
                 }
               >
-                <VideoItem video={video} />
+                <VideoItem video={video} handleLabelChange={handleLabelChange} />
               </Suspense>
             </Grid>
           ))}

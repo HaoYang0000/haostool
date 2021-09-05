@@ -22,6 +22,7 @@ video_service = VideoService()
 def videos():
     videos = video_service.get_videos(
         category=request.args.get('category'),
+        label=request.args.get('label'),
         order=request.args.get('order'),
         sort_by=request.args.get('sortBy'),
         page=int(request.args.get('page')),

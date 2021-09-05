@@ -192,6 +192,10 @@ export default function VideoItem(props) {
   const [openLabel, setOpenLabel] = useState(false);
   const [openVideoSource, setOpenVideoSource] = useState(false);
 
+  const handleLabelChange = (curLabel) => {
+    props.handleLabelChange(curLabel);
+  };
+
   const handleClickOpenLabel = () => {
     setOpenLabel(true);
   };
@@ -366,6 +370,7 @@ export default function VideoItem(props) {
                   label={label.name}
                   className={classes.labelChip}
                   key={label?.name + label?.id}
+                  onClick={() => handleLabelChange(label?.name)}
                   onDelete={() => handleDeleteLabel(label?.id, video?.id)}
                 />
               ))}
