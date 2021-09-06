@@ -39,6 +39,9 @@ class BackupRestoreService(BaseService):
                 files.append(file)
         return files
 
+    def get_backup_file_path(self, file_name: str) -> str:
+        return f'{UPLOAD_ROOT}/{BACKUP_DIR}', f'{file_name}.zip'
+
     def create_backup(self):
         job_status = {}
         jobs = [
@@ -51,6 +54,7 @@ class BackupRestoreService(BaseService):
             result = job().run()
             job_status[job.__name__] = result
         logger.info("All backup jobs done.")
+        logger.info("Start packing...")
         name = f'{datetime.now().strftime("%Y-%m-%d")}'
         shutil.make_archive(
             base_name=f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}',
@@ -58,6 +62,7 @@ class BackupRestoreService(BaseService):
             root_dir=f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}'
         )
         shutil.rmtree(f'{UPLOAD_ROOT}/{BACKUP_DIR}/{name}')
+        logger.info("Packing done.")
         with session_scope() as session:
             logger.info("Creating db record.")
             new_backup = BackupModel(

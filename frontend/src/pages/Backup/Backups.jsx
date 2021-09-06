@@ -13,6 +13,7 @@ import List from "@material-ui/core/List";
 import Chip from "@material-ui/core/Chip";
 import Divider from "@material-ui/core/Divider";
 import DoneIcon from "@material-ui/icons/Done";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
   },
   hr: {
     width: `100%`,
+    marginTop: 15,
+    marginBottom: 15,
   },
 }));
 export default function Backup() {
@@ -49,6 +52,7 @@ export default function Backup() {
   const [backups, setBackups] = useState([]);
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
+  const [file, setFile] = useState(null);
   let name = useRef("");
 
   useEffect(() => {
@@ -60,6 +64,10 @@ export default function Backup() {
         setBackups(data?.backups);
       });
   }, []);
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
 
   const deleteBackupRecord = (id) => {
     var formData = new FormData();
@@ -76,6 +84,49 @@ export default function Backup() {
     );
   };
 
+  const handleBackupFileUpload = (event) => {
+    event.preventDefault();
+    var formData = new FormData();
+    formData.append("file", file);
+    authFetch("/api/backup-restore/backups/upload", {
+      method: "post",
+      body: formData,
+    }).then((res) =>
+      res.json().then((data) => {
+        setMsg(data);
+        setStatusCode(res.status);
+        window.location.reload();
+      })
+    );
+  };
+
+  const downloadBackupFiles = (name) => {
+    var formData = new FormData();
+    formData.append("name", name.split(".")[0]);
+
+    authFetch("/api/backup-restore/backups/download", {
+      method: "POST",
+      body: formData,
+    })
+      .then((resp) => resp.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        // the filename you want
+        a.download = name.split(".")[0] + ".zip";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        setMsg("Download starts");
+        setStatusCode(200);
+      })
+      .catch(() => {
+        setMsg("Failed to download...");
+      });
+  };
+
   const deleteBackupFiles = (name) => {
     var formData = new FormData();
     formData.append("name", name.split(".")[0]);
@@ -86,6 +137,7 @@ export default function Backup() {
       res.json().then((data) => {
         setMsg(data);
         setStatusCode(res.status);
+        window.location.reload();
       })
     );
   };
@@ -96,12 +148,7 @@ export default function Backup() {
     authFetch("/api/backup-restore/restore/record-and-files", {
       method: "POST",
       body: formData,
-    }).then((res) =>
-      res.json().then((data) => {
-        setMsg(data);
-        setStatusCode(res.status);
-      })
-    );
+    });
   };
 
   const createBackup = (event) => {
@@ -112,6 +159,7 @@ export default function Backup() {
       res.json().then((data) => {
         setMsg(data);
         setStatusCode(res.status);
+        window.location.reload();
       })
     );
   };
@@ -135,25 +183,50 @@ export default function Backup() {
           </Button>
         </form>
         <Divider variant="middle" className={classes.hr} />
+        <Typography component="h1" variant="h5">
+          Upload a Backup
+        </Typography>
+        <form noValidate onSubmit={handleBackupFileUpload}>
+          <Button variant="contained">
+            <input name="file" type="file" onChange={handleFileChange} />
+          </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            <FormattedMessage id="Upload" defaultMessage="Upload" />
+          </Button>
+        </form>
+        <Divider variant="middle" className={classes.hr} />
         <List className={classes.container}>
           {backups.map((backup) => (
             <React.Fragment key={backup?.file_name}>
               <Typography component="h1" variant="h5">
                 Backup File: {backup?.file_name}
                 <Chip
-                  color="secondary"
+                  color="primary"
                   size="medium"
-                  label={"Delete Record and Files of " + backup.file_name}
-                  onDelete={() => deleteBackupFiles(backup?.file_name)}
-                  key={backup?.file_name + "backup"}
+                  label={"Download " + backup.file_name}
+                  onClick={() => downloadBackupFiles(backup?.file_name)}
+                  key={backup?.file_name + "download"}
                 />
                 <Chip
                   color="primary"
                   size="medium"
                   label={"Restore backup: " + backup.file_name}
                   deleteIcon={<DoneIcon />}
-                  onDelete={() => restoreBackupFiles(backup?.file_name)}
+                  onClick={() => restoreBackupFiles(backup?.file_name)}
                   key={backup?.file_name + "restore"}
+                />
+                <Chip
+                  color="secondary"
+                  size="medium"
+                  label={"Delete Record and Files of " + backup.file_name}
+                  onDelete={() => deleteBackupFiles(backup?.file_name)}
+                  key={backup?.file_name + "backup"}
                 />
               </Typography>
               {backup?.records.map((record) => (

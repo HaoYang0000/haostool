@@ -163,6 +163,7 @@ export default function EditBlog(props) {
       res.json().then((data) => {
         setMsg(data);
         setStatusCode(res.status);
+        window.location.reload();
       })
     );
   };
