@@ -59,6 +59,16 @@ const useStyles = makeStyles((theme) => ({
   hr: {
     width: `95%`,
   },
+  introBox: {
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 10,
+  },
+  generalMargin: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
   frView: {
     width: `95%`,
     "& div": {
@@ -141,14 +151,21 @@ export default function ViewBlog(props) {
   return (
     <BodyContainer size="md">
       <Snackbars message={msg} statusCode={statusCode} />
-      <Typography component="h2" variant="h5">
+      <Typography component="h2" variant="h5" className={classes.generalMargin}>
         {blog.title}
       </Typography>
-      <Typography variant="subtitle2" color="textSecondary">
+      <Typography
+        variant="subtitle2"
+        color="textSecondary"
+        className={classes.generalMargin}
+      >
         {moment.utc(blog.created_at).format("lll")}
       </Typography>
+
       <Divider variant="middle" className={classes.hr} />
-      <Typography variant="subtitle1">{blog.blog_intro}</Typography>
+      <Typography variant="subtitle1" className={classes.introBox}>
+        {blog.blog_intro}
+      </Typography>
       <Divider variant="middle" className={classes.hr} />
       <Box className={classes.frView}>
         <FroalaEditorView model={blog?.content} />
@@ -207,7 +224,7 @@ export default function ViewBlog(props) {
                         />
                       )}
                     </FormattedMessage>
-                    <div style={{ color: "red" }}>{formErros["input"]}</div>
+                    <span style={{ color: "red" }}>{formErros["input"]}</span>
                     <Button
                       type="submit"
                       fullWidth

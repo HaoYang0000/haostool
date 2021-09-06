@@ -234,44 +234,51 @@ export default function BlogPost(props) {
               blog={blog}
             />
             <div className={classes.iconWrapper}>
-              <img src={blogViewImg} className={classes.iconImg} />
-              <span className={classes.iconText}>{blog.viewed_number}</span>
-              <img src={blogLoveImg} className={classes.iconImg} />
-              <span className={classes.iconText}>{blog.liked_number}</span>
-              {blog?.is_published ? (
-                <Chip color="primary" size="small" label="Published" />
-              ) : (
-                <Chip
-                  color="secondary"
-                  size="small"
-                  label="Not Published Yet"
-                />
-              )}
-              <Button
-                onClick={() => publishBlog(blog.id)}
-                color="primary"
-                variant="contained"
-                className={classes.actions}
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
               >
-                Publish
-              </Button>
-              <Button
-                onClick={() => unpublishBlog(blog.id)}
-                color="primary"
-                variant="contained"
-                className={classes.actions}
-              >
-                Unpublish
-              </Button>
-              <Link href={"/blogs/edit/" + blog.uuid}>
+                <img src={blogViewImg} className={classes.iconImg} />
+                <span className={classes.iconText}>{blog.viewed_number}</span>
+                <img src={blogLoveImg} className={classes.iconImg} />
+                <span className={classes.iconText}>{blog.liked_number}</span>
+                {blog?.is_published ? (
+                  <Chip color="primary" size="small" label="Published" />
+                ) : (
+                  <Chip
+                    color="secondary"
+                    size="small"
+                    label="Not Published Yet"
+                  />
+                )}
                 <Button
+                  onClick={() => publishBlog(blog.id)}
                   color="primary"
                   variant="contained"
                   className={classes.actions}
                 >
-                  Edit
+                  Publish
                 </Button>
-              </Link>
+                <Button
+                  onClick={() => unpublishBlog(blog.id)}
+                  color="primary"
+                  variant="contained"
+                  className={classes.actions}
+                >
+                  Unpublish
+                </Button>
+                <Link href={"/blogs/edit/" + blog.uuid}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    className={classes.actions}
+                  >
+                    Edit
+                  </Button>
+                </Link>
+              </Grid>
             </div>
           </CardContent>
         </div>
