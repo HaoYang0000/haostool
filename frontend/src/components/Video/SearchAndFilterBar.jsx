@@ -91,8 +91,6 @@ export default function SearchAndFilterBar(props) {
     props.handleSortByChange(newValue);
   };
 
-
-
   return (
     <React.Fragment>
       <Grid container direction="row" justify="space-between">
@@ -318,30 +316,34 @@ export default function SearchAndFilterBar(props) {
             )}
           />
         </Grid>
-        {label !== "" && label.split(",") !== [""] ?
-          (
-            <Grid item xs={12}>
-              <Grid container direction="row"
-                justify="flex-start"
-                alignItems="center"
-                className={classes.tagBar}
-              > <Typography display="block" className={classes.text}>
-                  <FormattedMessage id="Current tag: "/>
-                </Typography>
-                {label.split(",").map((label) => (
-                  <Chip
-                    color="secondary"
-                    size="small"
-                    label={label}
-                    className={classes.labelChip}
-                    key={label}
-                    onDelete={() => handleLabelDelete(label)}
-                  />
-                ))
-                }
-              </Grid>
+        {label !== "" && label.split(",") !== [""] ? (
+          <Grid item xs={12}>
+            <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="center"
+              className={classes.tagBar}
+            >
+              {" "}
+              <Typography display="block" className={classes.text}>
+                <FormattedMessage id="Current tag: " />
+              </Typography>
+              {label.split(",").map((label) => (
+                <Chip
+                  color="secondary"
+                  size="small"
+                  label={label}
+                  className={classes.labelChip}
+                  key={label}
+                  onDelete={() => handleLabelDelete(label)}
+                />
+              ))}
             </Grid>
-          ) : ("")}
+          </Grid>
+        ) : (
+          ""
+        )}
       </Grid>
     </React.Fragment>
   );

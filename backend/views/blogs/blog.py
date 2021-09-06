@@ -30,6 +30,7 @@ SINGLE_QUOTE = '__SINGLE_QUOTE__'
 def blogs():
     posts = blog_service.get_blogs(
         order=request.args.get('order'),
+        label=request.args.get('label'),
         sort_by=request.args.get('sortBy'),
         page=int(request.args.get('page')),
     )

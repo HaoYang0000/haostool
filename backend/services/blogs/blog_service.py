@@ -1,4 +1,6 @@
 from backend.models.blogs.post import BlogPostModel
+from backend.models.labels.label import LabelModel
+from backend.models.labels.label_bridge import LabelBridgeModel
 from backend.services.base import BaseService
 from sqlalchemy import asc
 from backend.engine import session_scope, DEFAULT_PAGE_LIMIT
@@ -7,7 +9,7 @@ from backend.engine import session_scope, DEFAULT_PAGE_LIMIT
 class BlogService(BaseService):
     model = BlogPostModel
 
-    def get_blogs(self, order: str, sort_by: str, page: int = 1, limit: int = DEFAULT_PAGE_LIMIT):
+    def get_blogs(self, order: str, label: str, sort_by: str, page: int = 1, limit: int = DEFAULT_PAGE_LIMIT):
         offset = (page - 1) * limit
         order_by_attr = self.model.created_at
         if sort_by == 'Latest':
@@ -19,6 +21,8 @@ class BlogService(BaseService):
 
         with session_scope() as session:
             query = session.query(self.model)
+            if label:
+                query = query.join(LabelBridgeModel, LabelBridgeModel.blog_id == self.model.id).join(LabelModel, LabelModel.id == LabelBridgeModel.label_id).filter(LabelModel.name.in_(label.split(",")))
             if order == 'asc':
                 return query.order_by(order_by_attr.asc()).limit(limit).offset(offset).all()
             else:

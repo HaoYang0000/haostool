@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: -8,
     marginBottom: 10,
   },
+  tagBar: {
+    marginBottom: 10,
+  },
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
@@ -69,11 +72,15 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchAndFilterBar(props) {
   const classes = useStyles();
   const history = useHistory();
-  const { category, sortBy, order, items, type } = props;
+  const { category, label, sortBy, order, items, type } = props;
   const search = useRef(null);
 
   const handleCategoryUpdate = (curCagetory) => {
     props.handleCategoryUpdate(curCagetory);
+  };
+
+  const handleLabelDelete = (curLabel) => {
+    props.handleLabelDelete(curLabel);
   };
 
   const handleOrderChange = (event) => {
@@ -279,6 +286,7 @@ export default function SearchAndFilterBar(props) {
                     size="small"
                     label={label.name}
                     className={classes.labelChip}
+                    key={label.name + "auto-complete"}
                   />
                 ))}
               </div>
@@ -295,6 +303,32 @@ export default function SearchAndFilterBar(props) {
             />
           )}
         />
+        {label !== "" && label.split(",") !== [""] ? (
+          <Grid item xs={12}>
+            <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="center"
+              className={classes.tagBar}
+            >
+              {" "}
+              <Typography display="block" className={classes.text}>
+                <FormattedMessage id="Current tag: " />
+              </Typography>
+              {label.split(",").map((label) => (
+                <Chip
+                  color="secondary"
+                  size="small"
+                  label={label}
+                  className={classes.labelChip}
+                  key={label}
+                  onDelete={() => handleLabelDelete(label)}
+                />
+              ))}
+            </Grid>
+          </Grid>
+        ) : null}
       </Grid>
     </React.Fragment>
   );

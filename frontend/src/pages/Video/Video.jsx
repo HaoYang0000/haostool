@@ -48,12 +48,11 @@ export default function Video() {
     let tmpLabel = label;
     if (!tmpLabel.includes(curLabel)) {
       if (tmpLabel === "") {
-        tmpLabel = curLabel
+        tmpLabel = curLabel;
+      } else {
+        tmpLabel = tmpLabel + "," + curLabel;
       }
-      else {
-        tmpLabel = tmpLabel + "," + curLabel
-      }
-      
+
       setLabel(tmpLabel);
     }
   };
@@ -85,13 +84,13 @@ export default function Video() {
     setIsLoading(true);
     fetch(
       "/api/videos?" +
-      new URLSearchParams({
-        category: category,
-        label: label,
-        sortBy: sortBy,
-        order: order,
-        page: page,
-      }),
+        new URLSearchParams({
+          category: category,
+          label: label,
+          sortBy: sortBy,
+          order: order,
+          page: page,
+        }),
       {
         method: "get",
       }
@@ -137,7 +136,10 @@ export default function Video() {
                   <Skeleton variant="rect" className={classes.fallback} />
                 }
               >
-                <VideoItem video={video} handleLabelChange={handleLabelChange} />
+                <VideoItem
+                  video={video}
+                  handleLabelChange={handleLabelChange}
+                />
               </Suspense>
             </Grid>
           ))}

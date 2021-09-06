@@ -121,6 +121,10 @@ export default function BlogPost(props) {
     setOpen(false);
   };
 
+  const handleLabelChange = (curLabel) => {
+    props.handleLabelChange(curLabel);
+  };
+
   const handleDelete = (labelId, blogId) => {
     var formData = new FormData();
     formData.append("label_id", labelId);
@@ -218,6 +222,7 @@ export default function BlogPost(props) {
                 size="small"
                 label={label.name}
                 className={classes.labelChip}
+                onClick={() => handleLabelChange(label?.name)}
                 key={label?.name + label?.id}
                 onDelete={() => handleDelete(label?.id, blog?.id)}
               />
@@ -312,6 +317,7 @@ export default function BlogPost(props) {
                 size="small"
                 label={label?.name}
                 className={classes.labelChip}
+                onClick={() => handleLabelChange(label?.name)}
                 key={label?.name + label?.id}
               />
             ))}

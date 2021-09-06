@@ -423,26 +423,38 @@ export default function VideoItem(props) {
                 color="secondary"
                 size="small"
                 label={label?.name}
+                onClick={() => handleLabelChange(label?.name)}
                 className={classes.labelChip}
                 key={label?.name + label?.id}
               />
             ))}
           </React.Fragment>
         )}
-        <Typography variant="body1" display="block">
-          <FormattedMessage id="Ratings:" defaultMessage="Ratings:" />
-          <Rating value={video.star} readOnly />
-          {user.role === "root" || user.role === "admin" ? (
-            <React.Fragment>
-              <Button onClick={() => increaseStar(video.id)}>
-                <ArrowUpward />
-              </Button>
-              <Button onClick={() => decreaseStar(video.id)}>
-                <ArrowDownward />
-              </Button>
-            </React.Fragment>
-          ) : null}
-        </Typography>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+        >
+          <Grid item>
+            <FormattedMessage id="Ratings:" defaultMessage="Ratings:" />
+          </Grid>
+          <Grid item>
+            <Rating value={video.star} readOnly />
+          </Grid>
+          <Grid item>
+            {user.role === "root" || user.role === "admin" ? (
+              <React.Fragment>
+                <Button onClick={() => increaseStar(video.id)}>
+                  <ArrowUpward />
+                </Button>
+                <Button onClick={() => decreaseStar(video.id)}>
+                  <ArrowDownward />
+                </Button>
+              </React.Fragment>
+            ) : null}
+          </Grid>
+        </Grid>
       </CardContent>
       <CardActions>
         <img src={viewedNumImg} className={classes.iconImg} />

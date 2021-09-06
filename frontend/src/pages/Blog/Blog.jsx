@@ -25,6 +25,7 @@ export default function Blog() {
   const classes = useStyles();
   const [blogs, setBlogs] = useState([]);
   const [category, setCategory] = useState("all");
+  const [label, setLabel] = useState("");
   const [sortBy, setSortBy] = useState(sortByList[0]);
   const [order, setOrder] = useState("desc");
   const [page, setPage] = useState(1);
@@ -38,6 +39,30 @@ export default function Blog() {
 
   const handleCategoryUpdate = (curCagetory) => {
     setCategory(curCagetory);
+  };
+
+  const handleLabelChange = (curLabel) => {
+    let tmpLabel = label;
+    if (!tmpLabel.includes(curLabel)) {
+      if (tmpLabel === "") {
+        tmpLabel = curLabel;
+      } else {
+        tmpLabel = tmpLabel + "," + curLabel;
+      }
+
+      setLabel(tmpLabel);
+    }
+  };
+
+  const handleLabelDelete = (dropLabel) => {
+    let tmpLabelList = label.split(",");
+    let outputList = [];
+    for (let index = 0; index < tmpLabelList.length; index++) {
+      if (tmpLabelList[index] !== dropLabel) {
+        outputList.push(tmpLabelList[index]);
+      }
+    }
+    setLabel(outputList.join(","));
   };
 
   const handleOrderChange = (event) => {
@@ -56,7 +81,7 @@ export default function Blog() {
     fetch(
       "/api/blogs?" +
         new URLSearchParams({
-          // category: category,
+          label: label,
           sortBy: sortBy,
           order: order,
           page: page,
@@ -79,17 +104,19 @@ export default function Blog() {
       .then((data) => {
         setSearchItems(data);
       });
-  }, [category, sortBy, order, page]);
+  }, [category, label, sortBy, order, page]);
   return (
     <BodyContainer size="md">
       <div className={classes.container}>
         <SearchAndFilterBar
           category={category}
+          label={label}
           sortBy={sortBy}
           order={order}
           handleCategoryUpdate={handleCategoryUpdate}
           handleOrderChange={handleOrderChange}
           handleSortByChange={handleSortByChange}
+          handleLabelDelete={handleLabelDelete}
           type={"blogs"}
           items={searchItems}
         />
@@ -104,7 +131,11 @@ export default function Blog() {
             spacing={1}
           >
             {blogs.map((blog) => (
-              <BlogPost blog={blog} key={blog.uuid} />
+              <BlogPost
+                blog={blog}
+                key={blog.uuid}
+                handleLabelChange={handleLabelChange}
+              />
             ))}
           </Grid>
         )}
