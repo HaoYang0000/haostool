@@ -69,6 +69,13 @@ const useStyles = makeStyles({
       transition: `0.5s`,
     },
   },
+  menu: {
+    border: `1px solid #d3d4d5`,
+  },
+  menuDropDown: {
+    textDecoration: `none`,
+    color: `black`,
+  },
 });
 
 export default function Nav(props) {
@@ -133,7 +140,7 @@ export default function Nav(props) {
           </Grid>
         </Hidden>
         <Grid item md={6}>
-          <Grid container direction="row" justify="center" alignItems="stretch">
+          <Grid container direction="row" justify="center" alignItems="center">
             <Grid item>
               <Link className={classes.link} to="/blogs">
                 <FormattedMessage id="Blogs" defaultMessage="Blogs" />
@@ -175,17 +182,24 @@ export default function Nav(props) {
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}
+                  elevation={0}
+                  getContentAnchorEl={null}
                   open={Boolean(anchorEl)}
                   onClose={handleTooltipClose}
                   disableScrollLock={true}
                   TransitionComponent={Fade}
-                  transformOrigin={{
+                  anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "center",
                   }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                  classes={{ paper: classes.menu }}
                 >
                   <MenuItem>
-                    <Link className={classes.text} to="/videos/upload">
+                    <Link className={classes.menuDropDown} to="/videos/upload">
                       <FormattedMessage
                         id="Upload Videos"
                         defaultMessage="Upload Videos"
@@ -193,7 +207,10 @@ export default function Nav(props) {
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link className={classes.text} to="/blogs/create-post">
+                    <Link
+                      className={classes.menuDropDown}
+                      to="/blogs/create-post"
+                    >
                       <FormattedMessage
                         id="Write New Blog"
                         defaultMessage="Write New Blog"
@@ -201,12 +218,12 @@ export default function Nav(props) {
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link className={classes.text} to="/aws">
+                    <Link className={classes.menuDropDown} to="/aws">
                       <FormattedMessage id="AWS" defaultMessage="AWS" />
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link className={classes.text} to="/labels">
+                    <Link className={classes.menuDropDown} to="/labels">
                       <FormattedMessage
                         id="Labels Management"
                         defaultMessage="Labels Management"
@@ -214,7 +231,7 @@ export default function Nav(props) {
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link className={classes.text} to="/backups">
+                    <Link className={classes.menuDropDown} to="/backups">
                       <FormattedMessage
                         id="Backups Management"
                         defaultMessage="Backups Management"
@@ -243,14 +260,21 @@ export default function Nav(props) {
             <Menu
               id="lang-menu"
               anchorEl={anchorLang}
+              elevation={0}
+              getContentAnchorEl={null}
               open={Boolean(anchorLang)}
               onClose={handleLangeClose}
               disableScrollLock={true}
               TransitionComponent={Fade}
-              transformOrigin={{
+              anchorOrigin={{
                 vertical: "bottom",
                 horizontal: "center",
               }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              classes={{ paper: classes.menu }}
             >
               <MenuItem onClick={() => handleLangeChange("zh_CN")}>
                 <FormattedMessage id="Chinese" defaultMessage="Chinese" />

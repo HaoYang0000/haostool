@@ -176,13 +176,13 @@ export default function ViewBlog(props) {
           <List>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                {user ? (
+                {user?.avatar ? (
                   <Avatar
                     src={
                       "http://" +
                       window.location.host +
                       "/static/" +
-                      user.avatar
+                      user?.avatar
                     }
                   />
                 ) : (

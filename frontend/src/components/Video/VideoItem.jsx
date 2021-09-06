@@ -333,7 +333,7 @@ export default function VideoItem(props) {
         <CardMedia
           className={classes.cardMedia}
           image={
-            "http://" + window.location.host + "/static/" + video.thumb_nail
+            "http://" + window.location.host + "/static/" + video?.thumb_nail
           }
           title="Image title"
         />
