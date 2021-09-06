@@ -7,7 +7,6 @@ lib/*
 env/*
 app/static/videos
 app/static/blog_image
-backup
 frontend/node_modules
 backend/static/blog_image
 backend/static/user_profile
