@@ -135,6 +135,7 @@ export default function Blog() {
                 blog={blog}
                 key={blog.uuid}
                 handleLabelChange={handleLabelChange}
+                allowHidden={false}
               />
             ))}
           </Grid>

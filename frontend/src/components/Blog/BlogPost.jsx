@@ -108,7 +108,7 @@ function SimpleDialog(props) {
 
 export default function BlogPost(props) {
   const classes = useStyles();
-  const { blog } = props;
+  const { blog, allowHidden } = props;
   const user = useContext(userContext);
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
@@ -352,7 +352,68 @@ export default function BlogPost(props) {
         </div>
       </Card>
     </Grid>
-  ) : blog.is_published ? (
+  ) : blog.is_published && !blog?.is_hidden ? (
+    <Grid item xs={12} md={12}>
+      <Snackbars message={msg} statusCode={statusCode} />
+      <Card className={classes.card} key={blog.uuid}>
+        <Hidden xsDown>
+          <CardMedia
+            component="a"
+            href={"/blogs/view/" + blog.uuid}
+            className={classes.cardMedia}
+            image={
+              "http://" + window.location.host + "/static/" + blog.cover_img
+            }
+            title={blog.title}
+          />
+        </Hidden>
+        <div className={classes.cardDetails}>
+          <CardContent>
+            <Typography component="h2" variant="h5">
+              <Link href={"/blogs/view/" + blog.uuid}>{blog.title}</Link>
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              {moment.utc(blog.created_at).format("lll")}
+            </Typography>
+            <Typography variant="subtitle2" paragraph>
+              {blog.blog_intro}
+            </Typography>
+            <FormattedMessage id="Label: " />
+            {blog?.labels?.length === 0 && (
+              <Chip
+                label={<FormattedMessage id="None" />}
+                disabled
+                size="small"
+              />
+            )}
+            {blog?.labels.map((label) => (
+              <Chip
+                color="secondary"
+                size="small"
+                label={label?.name}
+                className={classes.labelChip}
+                onClick={() => handleLabelChange(label?.name)}
+                key={label?.name + label?.id}
+              />
+            ))}
+            <div className={classes.iconWrapper}>
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+              >
+                <img src={blogViewImg} className={classes.iconImg} />
+                <span className={classes.iconText}>{blog.viewed_number}</span>
+                <img src={blogLoveImg} className={classes.iconImg} />
+                <span className={classes.iconText}>{blog.liked_number}</span>
+              </Grid>
+            </div>
+          </CardContent>
+        </div>
+      </Card>
+    </Grid>
+  ) : blog.is_published && allowHidden && blog?.is_hidden ? (
     <Grid item xs={12} md={12}>
       <Snackbars message={msg} statusCode={statusCode} />
       <Card className={classes.card} key={blog.uuid}>

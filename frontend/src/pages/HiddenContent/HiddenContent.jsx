@@ -107,7 +107,12 @@ export default function HiddenContent() {
           spacing={1}
         >
           {blogs.map((blog) => (
-            <BlogPost blog={blog} key={blog.uuid} handleLabelChange={null} />
+            <BlogPost
+              blog={blog}
+              key={blog.uuid}
+              handleLabelChange={null}
+              allowHidden={true}
+            />
           ))}
         </Grid>
       </div>

@@ -32,7 +32,7 @@ class BlogService(BaseService):
 
     def get_all_published_blogs(self):
         with session_scope() as session:
-            return session.query(self.model).filter(self.model.is_published == True).all()
+            return session.query(self.model).filter(self.model.is_published == True).filter(self.model.is_hidden != True).all()
 
     def get_posts_by_uuid(self, uuid: str):
         with session_scope() as session:
@@ -147,10 +147,10 @@ class BlogService(BaseService):
     def get_hidden_blogs_by_hidden_bridge_uuid(self, uuid: str):
         with session_scope() as session:
             hidden_content = session.query(HiddenContentModel).filter(
-                HiddenContentModel.uuid == uuid).one()
-            outputs = [blog.serialize for blog in hidden_content.blogs]
-            logger.info(outputs)
-            return outputs
+                HiddenContentModel.uuid == uuid).one_or_none()
+            if hidden_content:
+                return [blog.serialize for blog in hidden_content.blogs]
+            return []
 
     def link_hidden_category_with_blog(self, blog_id: int, hidden_content_id: int):
         with session_scope() as session:
