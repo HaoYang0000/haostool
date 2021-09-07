@@ -23,6 +23,9 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { login, logout, authFetch, userContext } from "../Auth/Auth";
 import Snackbars from "../../components/Snackbars/Snackbars";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
@@ -117,9 +120,11 @@ export default function CreateBlog() {
   const [file, setFile] = useState(null);
   const title = useRef(null);
   const intro = useRef(null);
+  const is_hidden = useRef(null);
   const [content, setContent] = useState("");
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
+
   const handleContentChange = (model) => {
     setContent(model);
   };
@@ -131,6 +136,7 @@ export default function CreateBlog() {
     var formData = new FormData();
     formData.append("title", title.current.value);
     formData.append("intro", intro.current.value);
+    formData.append("is_hidden", is_hidden.current.value);
     formData.append("content", content);
     formData.append("file", file);
 
@@ -173,6 +179,19 @@ export default function CreateBlog() {
             name="intro"
             autoComplete="intro"
             inputRef={intro}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                value={true}
+                color="primary"
+                id="is_hidden"
+                name="is_hidden"
+                inputRef={is_hidden}
+              />
+            }
+            label={"Is hiddedn content: "}
+            labelPlacement="start"
           />
           <FroalaEditorComponent
             tag="textarea"

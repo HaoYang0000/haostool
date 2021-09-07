@@ -52,6 +52,7 @@ const useStyles = makeStyles({
   },
   actions: {
     marginLeft: 10,
+    marginTop: 5,
   },
   labelChip: {
     padding: 2,
@@ -179,6 +180,31 @@ export default function BlogPost(props) {
       })
     );
   };
+
+  const makeBlogHidden = (blog_id) => {
+    authFetch("/api/blogs/hidden", {
+      method: "POST",
+      body: JSON.stringify({ blog_id: blog_id }),
+    }).then((res) =>
+      res.json().then((data) => {
+        setMsg(data);
+        setStatusCode(res.status);
+      })
+    );
+  };
+
+  const makeBlogUnHidden = (blog_id) => {
+    authFetch("/api/blogs/unhidden", {
+      method: "POST",
+      body: JSON.stringify({ blog_id: blog_id }),
+    }).then((res) =>
+      res.json().then((data) => {
+        setMsg(data);
+        setStatusCode(res.status);
+      })
+    );
+  };
+
   return user.role === "root" || user.role === "admin" ? (
     <Grid item xs={12} md={12}>
       <Snackbars message={msg} statusCode={statusCode} />
@@ -236,48 +262,90 @@ export default function BlogPost(props) {
             <div className={classes.iconWrapper}>
               <Grid
                 container
-                direction="row"
+                direction="column"
                 justify="flex-start"
                 alignItems="center"
               >
-                <img src={blogViewImg} className={classes.iconImg} />
-                <span className={classes.iconText}>{blog.viewed_number}</span>
-                <img src={blogLoveImg} className={classes.iconImg} />
-                <span className={classes.iconText}>{blog.liked_number}</span>
-                {blog?.is_published ? (
-                  <Chip color="primary" size="small" label="Published" />
-                ) : (
-                  <Chip
-                    color="secondary"
-                    size="small"
-                    label="Not Published Yet"
-                  />
-                )}
-                <Button
-                  onClick={() => publishBlog(blog.id)}
-                  color="primary"
-                  variant="contained"
-                  className={classes.actions}
+                <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="center"
                 >
-                  Publish
-                </Button>
-                <Button
-                  onClick={() => unpublishBlog(blog.id)}
-                  color="primary"
-                  variant="contained"
-                  className={classes.actions}
+                  <img src={blogViewImg} className={classes.iconImg} />
+                  <span className={classes.iconText}>{blog.viewed_number}</span>
+                  <img src={blogLoveImg} className={classes.iconImg} />
+                  <span className={classes.iconText}>{blog.liked_number}</span>
+                  <Link href={"/blogs/edit/" + blog.uuid}>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      className={classes.actions}
+                    >
+                      Edit
+                    </Button>
+                  </Link>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="center"
                 >
-                  Unpublish
-                </Button>
-                <Link href={"/blogs/edit/" + blog.uuid}>
+                  {blog?.is_published ? (
+                    <Chip color="primary" size="small" label="Published" />
+                  ) : (
+                    <Chip
+                      color="secondary"
+                      size="small"
+                      label="Not Published Yet"
+                    />
+                  )}
                   <Button
+                    onClick={() => publishBlog(blog.id)}
                     color="primary"
                     variant="contained"
                     className={classes.actions}
                   >
-                    Edit
+                    Publish
                   </Button>
-                </Link>
+                  <Button
+                    onClick={() => unpublishBlog(blog.id)}
+                    color="primary"
+                    variant="contained"
+                    className={classes.actions}
+                  >
+                    Unpublish
+                  </Button>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="center"
+                >
+                  {blog?.is_hidden ? (
+                    <Chip color="primary" size="small" label="Hidden content" />
+                  ) : (
+                    <Chip color="secondary" size="small" label="Not hidden" />
+                  )}
+                  <Button
+                    onClick={() => makeBlogHidden(blog.id)}
+                    color="primary"
+                    variant="contained"
+                    className={classes.actions}
+                  >
+                    Make Hidden
+                  </Button>
+                  <Button
+                    onClick={() => makeBlogUnHidden(blog.id)}
+                    color="primary"
+                    variant="contained"
+                    className={classes.actions}
+                  >
+                    unhidden
+                  </Button>
+                </Grid>
               </Grid>
             </div>
           </CardContent>
@@ -329,10 +397,17 @@ export default function BlogPost(props) {
               />
             ))}
             <div className={classes.iconWrapper}>
-              <img src={blogViewImg} className={classes.iconImg} />
-              <span className={classes.iconText}>{blog.viewed_number}</span>
-              <img src={blogLoveImg} className={classes.iconImg} />
-              <span className={classes.iconText}>{blog.liked_number}</span>
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+              >
+                <img src={blogViewImg} className={classes.iconImg} />
+                <span className={classes.iconText}>{blog.viewed_number}</span>
+                <img src={blogLoveImg} className={classes.iconImg} />
+                <span className={classes.iconText}>{blog.liked_number}</span>
+              </Grid>
             </div>
           </CardContent>
         </div>

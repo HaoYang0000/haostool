@@ -21,6 +21,9 @@ import Wechat from "../pages/Contact/Wechat";
 import Game from "../pages/Game/Game";
 import Comment from "../pages/Comment/Comment";
 import Label from "../pages/Label/Labels";
+import ViewHiddenContent from "../pages/HiddenContent/ViewHiddenContent";
+import HiddenContent from "../pages/HiddenContent/HiddenContent";
+import HiddenContentManagement from "../pages/HiddenContent/HiddenContentManagement";
 import Backups from "../pages/Backup/Backups";
 import TimelinePage from "../pages/Timeline/Timeline";
 import Video from "../pages/Video/Video";
@@ -52,6 +55,9 @@ export default function RouterMap(props) {
         <Route path="/videos/:uuid" component={ViewVideo} />
         <Route path="/labels" exact component={Label} />
         <Route path="/backups" exact component={Backups} />
+        <Route path="/hidden-content" exact component={HiddenContent} />
+        <Route path="/hidden-content/management" exact component={HiddenContentManagement} />
+        <Route path="/hidden-content/:uuid" exact component={ViewHiddenContent} />
         <Route component={NotFound} />
       </Switch>
     </Router>

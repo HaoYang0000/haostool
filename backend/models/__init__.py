@@ -3,7 +3,7 @@
 # from backend.models.timeline.timeline import TimelineModel
 # from backend.models.labels.label_bridge import LabelBridgeModel
 # from backend.models.videos.video import VideoModel
-# from backend.models.blogs.post import BlogPostModel
+# from backend.models.blogs.post import BlogPostModel, HiddenContentModel, HiddenContentBridgeModel
 # from backend.models.labels.label import LabelModel
 # from backend.models.videos.video_source import VideoSourceModel
 # from backend.models.backups.backup import BackupModel

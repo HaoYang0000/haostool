@@ -90,6 +90,7 @@ def create_app():
     from backend.views.timelines import timelines
     from backend.views.labels import labels
     from backend.views.backup_restore import backup_restore
+    from backend.views.hidden_content import hidden_content
 
     app.register_blueprint(index.app)
     # app.register_blueprint(accounting.app)
@@ -106,6 +107,7 @@ def create_app():
     app.register_blueprint(timelines.app)
     app.register_blueprint(labels.app)
     app.register_blueprint(backup_restore.app)
+    app.register_blueprint(hidden_content.app)
 
     return app
 

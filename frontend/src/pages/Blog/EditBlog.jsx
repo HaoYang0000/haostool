@@ -23,6 +23,9 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { login, logout, authFetch, userContext } from "../Auth/Auth";
 import Snackbars from "../../components/Snackbars/Snackbars";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
@@ -123,6 +126,7 @@ export default function EditBlog(props) {
   const [file, setFile] = useState(null);
   let title = useRef("");
   let intro = useRef("");
+  const [isHidden, setIsHidden] = React.useState(true);
   const [coverImg, setCoverImg] = useState("");
   const [content, setContent] = useState("");
   const [msg, setMsg] = useState("");
@@ -135,10 +139,15 @@ export default function EditBlog(props) {
       .then((data) => {
         title.value = data.title;
         intro.value = data.blog_intro;
+        setIsHidden(data.is_hidden == true);
         setCoverImg(data.cover_img);
         setContent(data.content);
       });
   }, []);
+
+  const handleChange = (event) => {
+    setIsHidden(event.target.checked);
+  };
   const handleContentChange = (model) => {
     setContent(model);
   };
@@ -151,6 +160,7 @@ export default function EditBlog(props) {
     var formData = new FormData();
     formData.append("title", title.value);
     formData.append("intro", intro.value);
+    formData.append("is_hidden", isHidden);
     formData.append("content", content);
     if (file !== null) {
       formData.append("file", file);
@@ -201,6 +211,20 @@ export default function EditBlog(props) {
             name="intro"
             autoComplete="intro"
             inputRef={(input) => (intro = input)}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                value="is_hidden"
+                color="primary"
+                id="is_hidden"
+                name="is_hidden"
+                checked={isHidden}
+                onChange={handleChange}
+              />
+            }
+            label={"Is hiddedn content: "}
+            labelPlacement="start"
           />
           <FroalaEditorComponent
             tag="textarea"

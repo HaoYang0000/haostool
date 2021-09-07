@@ -81,6 +81,7 @@ def update_post(uuid):
         title=request.form['title'],
         content=request.form['content'],
         blog_intro=request.form['intro'],
+        is_hidden=request.form['is_hidden'],
         cover_img=cover_img_path
     )
     return jsonify('Update success'), 200
@@ -106,8 +107,8 @@ def update_post(uuid):
 #     return "err", 400
 
 
-@ app.route('/publish', methods=['POST'])
-@ flask_praetorian.roles_accepted(*['root', 'admin'])
+@app.route('/publish', methods=['POST'])
+@flask_praetorian.roles_accepted(*['root', 'admin'])
 def publish_post():
     req = request.get_json(force=True)
     result = blog_service.publish_blog(blog_id=req.get('blog_id'))
@@ -116,8 +117,8 @@ def publish_post():
     return jsonify("err"), 400
 
 
-@ app.route('/unpublish', methods=['POST'])
-@ flask_praetorian.roles_accepted(*['root', 'admin'])
+@app.route('/unpublish', methods=['POST'])
+@flask_praetorian.roles_accepted(*['root', 'admin'])
 def unpublish_post():
     req = request.get_json(force=True)
     result = blog_service.unpublish_blog(blog_id=req.get('blog_id'))
@@ -125,6 +126,25 @@ def unpublish_post():
         return jsonify("success"), 200
     return jsonify("err"), 400
 
+
+@app.route('/hidden', methods=['POST'])
+@flask_praetorian.roles_accepted(*['root', 'admin'])
+def hidden_post():
+    req = request.get_json(force=True)
+    result = blog_service.hidden_blog(blog_id=req.get('blog_id'))
+    if result:
+        return jsonify("success"), 200
+    return jsonify("err"), 400
+
+
+@app.route('/unhidden', methods=['POST'])
+@flask_praetorian.roles_accepted(*['root', 'admin'])
+def unhidden_post():
+    req = request.get_json(force=True)
+    result = blog_service.unhidden_blog(blog_id=req.get('blog_id'))
+    if result:
+        return jsonify("success"), 200
+    return jsonify("err"), 400
 
 # @app.route('/create_post', methods=['GET'])
 # @admin_required
@@ -150,12 +170,14 @@ def create_post():
     filename = secure_filename(str(lazy_pinyin(file.filename)))
     file.save(f"{UPLOAD_ROOT}/{BLOG_IMAGE_DIR}/{filename}")
     cover_img_path = f"{BLOG_IMAGE_DIR}/{filename}"
+    logger.info(request.form['is_hidden'].lower())
     new_blog = blog_service.create(
         title=request.form['title'],
         content=request.form['content'],
         uuid=uuid.uuid4().hex,
         blog_intro=request.form['intro'],
         cover_img=cover_img_path,
+        is_hidden=request.form['is_hidden'].lower() == 'true',
         liked_number=0,
         viewed_number=0
     )

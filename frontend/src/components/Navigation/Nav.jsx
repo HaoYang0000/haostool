@@ -84,7 +84,9 @@ export default function Nav(props) {
   const [userInfo, setUserInfo] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorLang, setAnchorLang] = useState(null);
+  const [logoImgCount, setLogoImgCount] = useState(0);
   const user = useContext(userContext);
+  const MAX_TRY = 3;
 
   const handleLogout = () => {
     logout();
@@ -107,6 +109,15 @@ export default function Nav(props) {
   const handleLangeChange = (lang) => {
     props.handleLangChange(lang);
     handleLangeClose();
+  };
+
+  const handleLogoImgMouseOver = () => {
+    let count = logoImgCount + 1;
+    if (count > MAX_TRY) {
+      setLogoImgCount(0);
+    } else {
+      setLogoImgCount(count);
+    }
   };
 
   useEffect(() => {
@@ -135,7 +146,11 @@ export default function Nav(props) {
         <Hidden smDown>
           <Grid item>
             <Link to="/blogs">
-              <img src={logo} className={classes.logo} />
+              <img
+                src={logo}
+                className={classes.logo}
+                onMouseOver={handleLogoImgMouseOver}
+              />
             </Link>
           </Grid>
         </Hidden>
@@ -161,9 +176,16 @@ export default function Nav(props) {
                 <FormattedMessage id="Comments" defaultMessage="Comments" />
               </Link>
             </Grid>
-            {/* <Link className={classes.link} to="/games">
-              Games
-            </Link> */}
+            {logoImgCount >= MAX_TRY ? (
+              <Grid item>
+                <Link className={classes.link} to="/hidden-content">
+                  <FormattedMessage
+                    id="Hidden Content"
+                    defaultMessage="Hidden Content"
+                  />
+                </Link>
+              </Grid>
+            ) : null}
             {user.role === "root" || user.role === "admin" ? (
               <Grid item>
                 <Button
@@ -235,6 +257,17 @@ export default function Nav(props) {
                       <FormattedMessage
                         id="Backups Management"
                         defaultMessage="Backups Management"
+                      />
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      className={classes.menuDropDown}
+                      to="/hidden-content/management"
+                    >
+                      <FormattedMessage
+                        id="Hidden Content Management"
+                        defaultMessage="Hidden Content Management"
                       />
                     </Link>
                   </MenuItem>

@@ -1,5 +1,6 @@
 from backend.models.base import BaseModelExtended
 from sqlalchemy import Column, ForeignKey, Boolean, String, Integer, DateTime, Text
+from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from sqlalchemy import or_
 
