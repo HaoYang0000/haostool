@@ -263,7 +263,7 @@ export default function SearchAndFilterBar(props) {
             <div
               style={{ width: `100%`, cursor: `pointer` }}
               onClick={() => {
-                history.push("/" + type + "/" + option?.uuid);
+                history.push("/" + type + "/view/" + option?.uuid);
               }}
             >
               <div style={{ flexGrow: 1 }}>
