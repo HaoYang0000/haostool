@@ -73,6 +73,7 @@ const useStyles = makeStyles({
     border: `1px solid #d3d4d5`,
   },
   menuDropDown: {
+    width: `100%`,
     textDecoration: `none`,
     color: `black`,
   },
@@ -220,56 +221,46 @@ export default function Nav(props) {
                   }}
                   classes={{ paper: classes.menu }}
                 >
-                  <MenuItem>
-                    <Link className={classes.menuDropDown} to="/videos/upload">
-                      <FormattedMessage
-                        id="Upload Videos"
-                        defaultMessage="Upload Videos"
-                      />
-                    </Link>
+                  <MenuItem
+                    onClick={() => (window.location = "/videos/upload")}
+                  >
+                    <FormattedMessage
+                      id="Upload Videos"
+                      defaultMessage="Upload Videos"
+                    />
                   </MenuItem>
-                  <MenuItem>
-                    <Link
-                      className={classes.menuDropDown}
-                      to="/blogs/create-post"
-                    >
-                      <FormattedMessage
-                        id="Write New Blog"
-                        defaultMessage="Write New Blog"
-                      />
-                    </Link>
+                  <MenuItem
+                    onClick={() => (window.location = "/blogs/create-post")}
+                  >
+                    <FormattedMessage
+                      id="Write New Blog"
+                      defaultMessage="Write New Blog"
+                    />
                   </MenuItem>
-                  <MenuItem>
-                    <Link className={classes.menuDropDown} to="/aws">
-                      <FormattedMessage id="AWS" defaultMessage="AWS" />
-                    </Link>
+                  <MenuItem onClick={() => (window.location = "/aws")}>
+                    <FormattedMessage id="AWS" defaultMessage="AWS" />
                   </MenuItem>
-                  <MenuItem>
-                    <Link className={classes.menuDropDown} to="/labels">
-                      <FormattedMessage
-                        id="Labels Management"
-                        defaultMessage="Labels Management"
-                      />
-                    </Link>
+                  <MenuItem onClick={() => (window.location = "/labels")}>
+                    <FormattedMessage
+                      id="Labels Management"
+                      defaultMessage="Labels Management"
+                    />
                   </MenuItem>
-                  <MenuItem>
-                    <Link className={classes.menuDropDown} to="/backups">
-                      <FormattedMessage
-                        id="Backups Management"
-                        defaultMessage="Backups Management"
-                      />
-                    </Link>
+                  <MenuItem onClick={() => (window.location = "/backups")}>
+                    <FormattedMessage
+                      id="Backups Management"
+                      defaultMessage="Backups Management"
+                    />
                   </MenuItem>
-                  <MenuItem>
-                    <Link
-                      className={classes.menuDropDown}
-                      to="/hidden-content/management"
-                    >
-                      <FormattedMessage
-                        id="Hidden Content Management"
-                        defaultMessage="Hidden Content Management"
-                      />
-                    </Link>
+                  <MenuItem
+                    onClick={() =>
+                      (window.location = "/hidden-content/management")
+                    }
+                  >
+                    <FormattedMessage
+                      id="Hidden Content Management"
+                      defaultMessage="Hidden Content Management"
+                    />
                   </MenuItem>
                 </Menu>
               </Grid>

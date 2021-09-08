@@ -42,14 +42,24 @@ class BackupRestoreService(BaseService):
     def get_backup_file_path(self, file_name: str) -> str:
         return f'{UPLOAD_ROOT}/{BACKUP_DIR}', f'{file_name}.zip'
 
-    def create_backup(self):
+    def create_backup(
+        self,
+        is_backup_blog: bool = False,
+        is_backup_video: bool = False,
+        is_backup_user_profile: bool = False,
+        is_backup_db: bool = False
+    ):
         job_status = {}
-        jobs = [
-            BackupBlogTask,
-            BackupVideoTask,
-            BackupUserProfileTask,
-            BackupDatabaseTask
-        ]
+        jobs = []
+        if is_backup_blog:
+            jobs.append(BackupBlogTask)
+        if is_backup_video:
+            jobs.append(BackupVideoTask)
+        if is_backup_user_profile:
+            jobs.append(BackupUserProfileTask)
+        if is_backup_db:
+            jobs.append(BackupDatabaseTask)
+        logger.info(f"Current jobs: {jobs}")
         for job in jobs:
             result = job().run()
             job_status[job.__name__] = result

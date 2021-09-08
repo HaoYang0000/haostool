@@ -49,7 +49,20 @@ def get_backups():
 @app.route('/backups', methods=['POST'])
 @flask_praetorian.roles_accepted(*['root', 'admin'])
 def create_backup():
-    backups = backup_restore_service.create_backup()
+    is_backup_blog = True if request.form['is_backup_blog'] and request.form['is_backup_blog'].lower(
+    ) == 'true' else False
+    is_backup_video = True if request.form['is_backup_video'] and request.form['is_backup_video'].lower(
+    ) == 'true' else False
+    is_backup_user_profile = True if request.form['is_backup_user_profile'] and request.form['is_backup_user_profile'].lower(
+    ) == 'true' else False
+    is_backup_db = True if request.form['is_backup_db'] and request.form['is_backup_db'].lower(
+    ) == 'true' else False
+    backups = backup_restore_service.create_backup(
+        is_backup_blog=is_backup_blog,
+        is_backup_video=is_backup_video,
+        is_backup_user_profile=is_backup_user_profile,
+        is_backup_db=is_backup_db
+    )
     return jsonify(backups), 200
 
 

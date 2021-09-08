@@ -244,7 +244,7 @@ export default function BlogPost(props) {
             )}
             {blog?.labels.map((label) => (
               <Chip
-                color="secondary"
+                color="primary"
                 size="small"
                 label={label.name}
                 className={classes.labelChip}
@@ -325,9 +325,13 @@ export default function BlogPost(props) {
                   alignItems="center"
                 >
                   {blog?.is_hidden ? (
-                    <Chip color="primary" size="small" label="Hidden content" />
+                    <Chip
+                      color="secondary"
+                      size="small"
+                      label="Hidden content"
+                    />
                   ) : (
-                    <Chip color="secondary" size="small" label="Not hidden" />
+                    <Chip color="primary" size="small" label="Not hidden" />
                   )}
                   <Button
                     onClick={() => makeBlogHidden(blog.id)}
@@ -388,7 +392,7 @@ export default function BlogPost(props) {
             )}
             {blog?.labels.map((label) => (
               <Chip
-                color="secondary"
+                color="primary"
                 size="small"
                 label={label?.name}
                 className={classes.labelChip}
@@ -449,7 +453,7 @@ export default function BlogPost(props) {
             )}
             {blog?.labels.map((label) => (
               <Chip
-                color="secondary"
+                color="primary"
                 size="small"
                 label={label?.name}
                 className={classes.labelChip}

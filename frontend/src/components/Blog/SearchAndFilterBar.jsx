@@ -282,7 +282,7 @@ export default function SearchAndFilterBar(props) {
                 />
                 {option?.labels.map((label) => (
                   <Chip
-                    color="secondary"
+                    color="primary"
                     size="small"
                     label={label.name}
                     className={classes.labelChip}
@@ -318,7 +318,7 @@ export default function SearchAndFilterBar(props) {
               </Typography>
               {label.split(",").map((label) => (
                 <Chip
-                  color="secondary"
+                  color="primary"
                   size="small"
                   label={label}
                   className={classes.labelChip}

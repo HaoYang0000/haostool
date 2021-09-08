@@ -35,6 +35,7 @@ import userUnknownImg from "../../assets/icon/user_unknown.png";
 import moment from "moment";
 import Box from "@material-ui/core/Box";
 import { FormattedMessage } from "react-intl";
+import Chip from "@material-ui/core/Chip";
 
 const useStyles = makeStyles((theme) => ({
   textArea: {
@@ -160,6 +161,21 @@ export default function ViewBlog(props) {
         className={classes.generalMargin}
       >
         {moment.utc(blog.created_at).format("lll")}
+      </Typography>
+      <Typography
+        variant="subtitle2"
+        color="textSecondary"
+        className={classes.generalMargin}
+      >
+        {blog?.labels?.map((label) => (
+          <Chip
+            color="primary"
+            size="small"
+            label={label?.name}
+            className={classes.labelChip}
+            key={label?.name + label?.id}
+          />
+        ))}
       </Typography>
 
       <Divider variant="middle" className={classes.hr} />

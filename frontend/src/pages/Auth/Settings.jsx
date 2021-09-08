@@ -77,9 +77,8 @@ export default function Settings() {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+        window.location.reload();
       });
-    window.location.reload();
   };
 
   const handleSubmit = (event) => {
@@ -100,9 +99,8 @@ export default function Settings() {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+        window.location.reload();
       });
-    window.location.reload();
   };
   return logged ? (
     <React.Fragment>

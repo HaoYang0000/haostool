@@ -13,7 +13,8 @@ import List from "@material-ui/core/List";
 import Chip from "@material-ui/core/Chip";
 import Divider from "@material-ui/core/Divider";
 import DoneIcon from "@material-ui/icons/Done";
-import { Link } from "react-router-dom";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -53,7 +54,18 @@ export default function Backup() {
   const [msg, setMsg] = useState("");
   const [statusCode, setStatusCode] = useState(null);
   const [file, setFile] = useState(null);
-  let name = useRef("");
+  const [backupConfig, setBackupConfig] = useState({
+    is_backup_blog: false,
+    is_backup_video: false,
+    is_backup_user_profile: false,
+    is_backup_db: false,
+  });
+  const {
+    is_backup_blog,
+    is_backup_video,
+    is_backup_user_profile,
+    is_backup_db,
+  } = backupConfig;
 
   useEffect(() => {
     authFetch("/api/backup-restore/backups", {
@@ -65,6 +77,12 @@ export default function Backup() {
       });
   }, []);
 
+  const handleBackupConfigChange = (event) => {
+    setBackupConfig({
+      ...backupConfig,
+      [event.target.name]: event.target.checked,
+    });
+  };
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
@@ -153,8 +171,14 @@ export default function Backup() {
 
   const createBackup = (event) => {
     event.preventDefault();
+    var formData = new FormData();
+    formData.append("is_backup_blog", is_backup_blog);
+    formData.append("is_backup_video", is_backup_video);
+    formData.append("is_backup_user_profile", is_backup_user_profile);
+    formData.append("is_backup_db", is_backup_db);
     authFetch("/api/backup-restore/backups", {
       method: "POST",
+      body: formData,
     }).then((res) =>
       res.json().then((data) => {
         setMsg(data);
@@ -168,10 +192,62 @@ export default function Backup() {
     <BodyContainer size="md">
       <Snackbars message={msg} statusCode={statusCode} />
       <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Create a new Backup
-        </Typography>
         <form noValidate onSubmit={createBackup}>
+          <Typography component="h1" variant="h5">
+            Create a new Backup
+          </Typography>
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="primary"
+                id="is_backup_blog"
+                name="is_backup_blog"
+                checked={is_backup_blog}
+                onChange={handleBackupConfigChange}
+              />
+            }
+            label={"is_backup_blog: "}
+            labelPlacement="start"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="primary"
+                id="is_backup_video"
+                name="is_backup_video"
+                checked={is_backup_video}
+                onChange={handleBackupConfigChange}
+              />
+            }
+            label={"is_backup_video: "}
+            labelPlacement="start"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="primary"
+                id="is_backup_user_profile"
+                name="is_backup_user_profile"
+                checked={is_backup_user_profile}
+                onChange={handleBackupConfigChange}
+              />
+            }
+            label={"is_backup_user_profile: "}
+            labelPlacement="start"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="primary"
+                id="is_backup_db"
+                name="is_backup_db"
+                checked={is_backup_db}
+                onChange={handleBackupConfigChange}
+              />
+            }
+            label={"is_backup_db: "}
+            labelPlacement="start"
+          />
           <Button
             type="submit"
             fullWidth

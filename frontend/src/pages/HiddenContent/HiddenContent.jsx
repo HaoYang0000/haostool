@@ -60,7 +60,6 @@ export default function HiddenContent() {
       method: "GET",
     }).then((res) =>
       res.json().then((data) => {
-        console.log(data);
         setBlogs(data);
       })
     );

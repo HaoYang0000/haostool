@@ -41,6 +41,8 @@ import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
 import { videoSourceList } from "../../constants/videoSource";
 import Box from "@material-ui/core/Box";
+import PlusOneOutlinedIcon from "@material-ui/icons/PlusOneOutlined";
+import ExposureNeg1OutlinedIcon from "@material-ui/icons/ExposureNeg1Outlined";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -68,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
   labelChip: {
     padding: 2,
     marginRight: 2,
+  },
+  generalTextMargin: {
+    marginBottom: 5,
   },
 }));
 
@@ -103,15 +108,17 @@ function LableDialog(props) {
     >
       <DialogTitle id="simple-dialog-title">Add New Labels</DialogTitle>
       <List>
-        {labels.map((label) => (
-          <ListItem
-            button
-            onClick={() => handleListItemClick(label?.id)}
-            key={label?.name + label?.id}
-          >
-            <ListItemText primary={label?.name} />
-          </ListItem>
-        ))}
+        {labels.length > 0
+          ? labels?.map((label) => (
+              <ListItem
+                button
+                onClick={() => handleListItemClick(label?.id)}
+                key={label?.name + label?.id}
+              >
+                <ListItemText primary={label?.name} />
+              </ListItem>
+            ))
+          : null}
       </List>
     </Dialog>
   );
@@ -342,46 +349,16 @@ export default function VideoItem(props) {
         <Typography gutterBottom variant="h5" component="h2">
           <Link href={"/videos/" + video.uuid}>{video.title}</Link>
           {user.role === "root" || user.role === "admin" ? (
-            <React.Fragment>
-              <Button onClick={() => deleteVideo(video.id)}>
-                <DeleteForever />
-              </Button>
-            </React.Fragment>
+            <Button onClick={() => deleteVideo(video.id)}>
+              <DeleteForever />
+            </Button>
           ) : null}
         </Typography>
-        {user.role === "root" || user.role === "admin" ? (
-          <React.Fragment>
-            <Box>
-              <FormattedMessage id="Label: " />
+        <Box className={classes.generalTextMargin}>
+          <FormattedMessage id="Label: " />
+          {user.role === "root" || user.role === "admin" ? (
+            <React.Fragment>
               <IconButton onClick={handleClickOpenLabel}>
-                <AddCircleIcon color="primary" />
-              </IconButton>
-              {video?.labels?.length === 0 && (
-                <Chip
-                  label={<FormattedMessage id="None" />}
-                  disabled
-                  size="small"
-                />
-              )}
-              {video?.labels.map((label) => (
-                <Chip
-                  color="secondary"
-                  size="small"
-                  label={label.name}
-                  className={classes.labelChip}
-                  key={label?.name + label?.id}
-                  onClick={() => handleLabelChange(label?.name)}
-                  onDelete={() => handleDeleteLabel(label?.id, video?.id)}
-                />
-              ))}
-            </Box>
-            <Box>
-              <FormattedMessage
-                id="Video Source"
-                defaultMessage="Video Source"
-              />
-              {": "}
-              <IconButton onClick={handleClickOpenVideoSource}>
                 <AddCircleIcon color="primary" />
               </IconButton>
               <LableDialog
@@ -390,46 +367,63 @@ export default function VideoItem(props) {
                 handleUpdate={handleUpdateLabel}
                 video={video}
               />
-              {video?.sources.map((videoSource) => (
-                <Chip
-                  color="secondary"
-                  size="small"
-                  label={videoSource.name}
-                  className={classes.labelChip}
-                  key={videoSource?.name + videoSource?.id}
-                  onDelete={() => handleDeleteVideoSource(videoSource?.id)}
-                />
-              ))}
-              <VideoSourceDialog
-                open={openVideoSource}
-                handleClose={handleCloseVideoSource}
-                handleUpdate={handleUpdateVideoSource}
-                video={video}
-              />
-            </Box>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <FormattedMessage id="Label: " />
-            {video?.labels?.length === 0 && (
+            </React.Fragment>
+          ) : null}
+          {video?.labels?.length === 0 && (
+            <Chip
+              label={<FormattedMessage id="None" />}
+              disabled
+              size="small"
+            />
+          )}
+          {video?.labels?.map((label) => (
+            <Chip
+              color="primary"
+              size="small"
+              label={label.name}
+              className={classes.labelChip}
+              key={label?.name + label?.id}
+              onClick={() => handleLabelChange(label?.name)}
+              onDelete={
+                user.role === "root" || user.role === "admin"
+                  ? () => handleDeleteLabel(label?.id, video?.id)
+                  : null
+              }
+            />
+          ))}
+        </Box>
+        {user.role === "root" || user.role === "admin" ? (
+          <Box className={classes.generalTextMargin}>
+            <FormattedMessage id="Video Source" defaultMessage="Video Source" />
+            {": "}
+            <IconButton onClick={handleClickOpenVideoSource}>
+              <AddCircleIcon color="primary" />
+            </IconButton>
+            {video?.sources?.length === 0 && (
               <Chip
                 label={<FormattedMessage id="None" />}
                 disabled
                 size="small"
               />
             )}
-            {video?.labels.map((label) => (
+            {video?.sources.map((videoSource) => (
               <Chip
                 color="secondary"
                 size="small"
-                label={label?.name}
-                onClick={() => handleLabelChange(label?.name)}
+                label={videoSource.name}
                 className={classes.labelChip}
-                key={label?.name + label?.id}
+                key={videoSource?.name + videoSource?.id}
+                onDelete={() => handleDeleteVideoSource(videoSource?.id)}
               />
             ))}
-          </React.Fragment>
-        )}
+            <VideoSourceDialog
+              open={openVideoSource}
+              handleClose={handleCloseVideoSource}
+              handleUpdate={handleUpdateVideoSource}
+              video={video}
+            />
+          </Box>
+        ) : null}
         <Grid
           container
           direction="row"
@@ -442,18 +436,16 @@ export default function VideoItem(props) {
           <Grid item>
             <Rating value={video.star} readOnly />
           </Grid>
-          <Grid item>
-            {user.role === "root" || user.role === "admin" ? (
-              <React.Fragment>
-                <Button onClick={() => increaseStar(video.id)}>
-                  <ArrowUpward />
-                </Button>
-                <Button onClick={() => decreaseStar(video.id)}>
-                  <ArrowDownward />
-                </Button>
-              </React.Fragment>
-            ) : null}
-          </Grid>
+          {user.role === "root" || user.role === "admin" ? (
+            <Grid item>
+              <IconButton onClick={() => increaseStar(video.id)}>
+                <PlusOneOutlinedIcon />
+              </IconButton>
+              <IconButton onClick={() => decreaseStar(video.id)}>
+                <ExposureNeg1OutlinedIcon />
+              </IconButton>
+            </Grid>
+          ) : null}
         </Grid>
       </CardContent>
       <CardActions>

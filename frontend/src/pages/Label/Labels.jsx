@@ -124,7 +124,7 @@ export default function Label() {
           {labels.map((label) => (
             <React.Fragment key={label?.name + label?.id}>
               <Chip
-                color="secondary"
+                color="primary"
                 size="small"
                 label={label.name}
                 onDelete={() => handleDelete(label.id)}

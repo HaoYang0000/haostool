@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 15,
   },
   hr: {
+    marginTop: 15,
     width: `100%`,
   },
 }));
@@ -319,13 +320,22 @@ export default function HiddenContentManagement() {
           {categories.map((category) => (
             <React.Fragment key={category?.name + category?.id}>
               <Chip
-                color="secondary"
+                color="primary"
                 size="small"
                 label={category.name}
                 onDelete={() => handleDelete(category.id)}
                 key={category?.name + category?.id}
                 className={classes.listItem}
               />
+              <Typography component="h3" variant="h5">
+                configuration:
+              </Typography>
+              <IconButton onClick={() => handleUpdateOpen(category)}>
+                <SettingsIcon color="primary" />
+              </IconButton>
+              <IconButton onClick={() => handleClickOpen(category)}>
+                <AddCircleIcon color="primary" />
+              </IconButton>
               <Typography component="h3" variant="h5">
                 name: {category.name}
               </Typography>
@@ -335,12 +345,6 @@ export default function HiddenContentManagement() {
               <Typography component="h3" variant="h5">
                 blogs:
               </Typography>
-              <IconButton onClick={() => handleUpdateOpen(category)}>
-                <SettingsIcon color="primary" />
-              </IconButton>
-              <IconButton onClick={() => handleClickOpen(category)}>
-                <AddCircleIcon color="primary" />
-              </IconButton>
               {category?.blogs?.length === 0 && (
                 <Chip
                   label={<FormattedMessage id="None" />}
@@ -368,7 +372,7 @@ export default function HiddenContentManagement() {
                 handleClose={handleUpdateClose}
                 curCategory={curCategory}
               />
-              <br />
+              <Divider variant="middle" className={classes.hr} />
             </React.Fragment>
           ))}
         </List>
