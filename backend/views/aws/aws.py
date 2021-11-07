@@ -50,3 +50,27 @@ def aws_stop_instance():
 def aws_change_vpn_ip():
     response = aws_service.replace_elastic_address()
     return jsonify("success"), 200
+
+
+@app.route('/aws/remote/start-instance', methods=['POST'])
+def aws_remote_start_instance():
+    device = request.form['device']
+    passwd = request.form['passwd']
+
+    if not device or passwd != 'test':
+        return jsonify("Bad input"), 400
+
+    response = aws_service.start_instance()
+    return jsonify("success"), 200
+
+
+@app.route('/aws/remote/stop-instance', methods=['POST'])
+def aws_remote_stop_instance():
+    device = request.form['device']
+    passwd = request.form['passwd']
+
+    if not device or passwd != 'test':
+        return jsonify("Bad input"), 400
+
+    response = aws_service.stop_instance()
+    return jsonify("success"), 200
