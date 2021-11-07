@@ -12,6 +12,7 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import Settings from "../pages/Auth/Settings";
 import AWS from "../pages/AWS/AWS";
+import AWSRemote from "../pages/AWS/AWSRemote"
 import Blog from "../pages/Blog/Blog";
 import CreateBlog from "../pages/Blog/CreateBlog";
 import ViewBlog from "../pages/Blog/ViewBlog";
@@ -41,6 +42,7 @@ export default function RouterMap(props) {
         <Route path="/auth/register" exact component={Register} />
         <Route path="/auth/settings" exact component={Settings} />
         <Route path="/aws" exact component={AWS} />
+        <Route path="/aws/remote/:action/:device/:token" component={AWSRemote} />
         <Route path="/blogs" exact component={Blog} />
         <Route path="/blogs/create-post" exact component={CreateBlog} />
         <Route path="/blogs/view/:uuid" component={ViewBlog} />
