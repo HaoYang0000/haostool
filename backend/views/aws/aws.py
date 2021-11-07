@@ -52,24 +52,22 @@ def aws_change_vpn_ip():
     return jsonify("success"), 200
 
 
-@app.route('/aws/remote/start-instance', methods=['POST'])
-def aws_remote_start_instance():
-    device = request.form['device']
-    passwd = request.form['passwd']
+@app.route('/aws/remote/start-instance/<string:device>/<string:token>', methods=['GET'])
+def aws_remote_start_instance(device, token):
+    logger.info(f"Starting VPN from device: {device} with token: {token}")
 
-    if not device or passwd != 'test':
+    if not device or token != 'test':
         return jsonify("Bad input"), 400
 
     response = aws_service.start_instance()
     return jsonify("success"), 200
 
 
-@app.route('/aws/remote/stop-instance', methods=['POST'])
-def aws_remote_stop_instance():
-    device = request.form['device']
-    passwd = request.form['passwd']
+@app.route('/aws/remote/stop-instance/<string:device>/<string:token>', methods=['GET'])
+def aws_remote_stop_instance(device, token):
+    logger.info(f"Stopping VPN from device: {device} with token: {token}")
 
-    if not device or passwd != 'test':
+    if not device or token != 'test':
         return jsonify("Bad input"), 400
 
     response = aws_service.stop_instance()
