@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d58a3cc5.chunk.css",
+    "main.js": "/static/js/main.14d305e8.chunk.js",
+    "main.js.map": "/static/js/main.14d305e8.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.bb4de9a1.js",
+    "runtime-main.js.map": "/static/js/runtime-main.bb4de9a1.js.map",
+    "static/css/2.62e4362e.chunk.css": "/static/css/2.62e4362e.chunk.css",
+    "static/js/2.a289fb6b.chunk.js": "/static/js/2.a289fb6b.chunk.js",
+    "static/js/2.a289fb6b.chunk.js.map": "/static/js/2.a289fb6b.chunk.js.map",
+    "static/js/3.03e8df9f.chunk.js": "/static/js/3.03e8df9f.chunk.js",
+    "static/js/3.03e8df9f.chunk.js.map": "/static/js/3.03e8df9f.chunk.js.map",
+    "static/js/4.2e13f686.chunk.js": "/static/js/4.2e13f686.chunk.js",
+    "static/js/4.2e13f686.chunk.js.map": "/static/js/4.2e13f686.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.62e4362e.chunk.css.map": "/static/css/2.62e4362e.chunk.css.map",
+    "static/css/main.d58a3cc5.chunk.css.map": "/static/css/main.d58a3cc5.chunk.css.map",
+    "static/js/2.a289fb6b.chunk.js.LICENSE.txt": "/static/js/2.a289fb6b.chunk.js.LICENSE.txt",
+    "static/media/beian.0c577066.png": "/static/media/beian.0c577066.png",
+    "static/media/bilibili_icon.fc441578.jpg": "/static/media/bilibili_icon.fc441578.jpg",
+    "static/media/donate.df90484d.jpg": "/static/media/donate.df90484d.jpg",
+    "static/media/dota.png": "/static/media/dota.a667ad45.png",
+    "static/media/movie.c631dd3a.png": "/static/media/movie.c631dd3a.png",
+    "static/media/settings.2d67b92e.png": "/static/media/settings.2d67b92e.png",
+    "static/media/wechat.9a978d30.jpg": "/static/media/wechat.9a978d30.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bb4de9a1.js",
+    "static/css/2.62e4362e.chunk.css",
+    "static/js/2.a289fb6b.chunk.js",
+    "static/css/main.d58a3cc5.chunk.css",
+    "static/js/main.14d305e8.chunk.js"
+  ]
+}

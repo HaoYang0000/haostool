@@ -177,6 +177,11 @@ export default function Nav(props) {
                 <FormattedMessage id="Comments" defaultMessage="Comments" />
               </Link>
             </Grid>
+            <Grid item>
+              <Link className={classes.link} to="/weeding-table">
+                <FormattedMessage id="Weeding-table" defaultMessage="Weeding-table" />
+              </Link>
+            </Grid>
             {logoImgCount >= MAX_TRY ? (
               <Grid item>
                 <Link className={classes.link} to="/hidden-content">
