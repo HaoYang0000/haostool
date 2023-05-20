@@ -157,7 +157,7 @@ export default function Nav(props) {
         </Hidden>
         <Grid item md={6}>
           <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item>
+            {/* <Grid item>
               <Link className={classes.link} to="/blogs">
                 <FormattedMessage id="Blogs" defaultMessage="Blogs" />
               </Link>
@@ -176,7 +176,7 @@ export default function Nav(props) {
               <Link className={classes.link} to="/comments">
                 <FormattedMessage id="Comments" defaultMessage="Comments" />
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <Link className={classes.link} to="/weeding-table">
                 <FormattedMessage id="Weeding-table" defaultMessage="Weeding-table" />
