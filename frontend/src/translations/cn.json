@@ -71,5 +71,10 @@
   "Current tag: ": "当前标签: ",
   "Invitation Code": "邀请码",
   "Hidden Content": "隐藏内容",
-  "Hidden Content Management": "隐藏内容管理"
+  "Hidden Content Management": "隐藏内容管理",
+  "Weeding Table Check": "婚礼桌号查询",
+  "Weeding-table": "婚礼桌号",
+  "Check": "查询",
+  "Table not found.": "未查询到桌号。",
+  "e.g: search for 阳皓, use 阳皓, yh or yanghao.": "示例: 搜寻'阳皓'的桌号, 输入'阳皓', 'yh' 或者 'yanghao'"
 }

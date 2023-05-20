@@ -6,12 +6,12 @@ import Paper from "@material-ui/core/Paper";
 import SpeedDials from "../SpeedDials/SpeedDials";
 import Box from "@material-ui/core/Box";
 import {
-  createMuiTheme,
+  createTheme,
   makeStyles,
   ThemeProvider,
 } from "@material-ui/core/styles";
 import { blue, deepOrange } from "@material-ui/core/colors";
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: blue,
     secondary: deepOrange,

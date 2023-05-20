@@ -10,6 +10,7 @@ import uuid
 from backend.services.comments.comment_service import CommentService
 from backend.services.users.user_service import UserService
 from backend.engine import session_scope
+from pypinyin import pinyin, lazy_pinyin, Style
 from backend.logs.logger import logger
 
 app = Blueprint(
@@ -70,6 +71,23 @@ def get_blog_comment_for_uuid(uuid):
     comments = comment_service.get_reply_for_blog_uuid(blog_uuid=uuid)
     return jsonify([comment.serialize for comment in comments]), 200
 
+
+
+@app.route('/weeding/table-check', methods=['GET'])
+def weeding_table_check_get():
+    tables = [
+        "王铮 陈乾成 关键",
+        "邵威 宋扬"
+    ]
+    tables_json = []
+    for i in range(len(tables)):
+        tables_json.append({
+            "name": f"{i+1}号桌",
+            "people": tables[i],
+            "pinyin": "".join([letter[0] for letter in pinyin(tables[i], style=Style.FIRST_LETTER, strict=False)]),
+            "pinyin_full": "".join([letter for letter in lazy_pinyin(tables[i], strict=False)])
+        })
+    return jsonify(tables_json), 200
 
 # @app.route('/blog', methods=['POST'])
 # def blog_comment():

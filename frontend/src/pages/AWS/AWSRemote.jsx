@@ -29,7 +29,7 @@ export default function AWSRemote(props) {
         .then((r) => r.json())
         .then((data) => {
           setMsg(data);
-          setStatusCode(res.status);
+          setStatusCode(200);
         });
     } else if (action === "stop") {
       fetch("/api/aws/remote/stop-instance/" + device + "/" + token, {
@@ -38,7 +38,7 @@ export default function AWSRemote(props) {
         .then((r) => r.json())
         .then((data) => {
           setMsg(data);
-          setStatusCode(res.status);
+          setStatusCode(200);
         });
     } else {
       setMsg("Bad request");

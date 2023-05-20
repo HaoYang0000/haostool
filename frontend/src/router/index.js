@@ -21,6 +21,7 @@ import Donate from "../pages/Contact/Donate";
 import Wechat from "../pages/Contact/Wechat";
 import Game from "../pages/Game/Game";
 import Comment from "../pages/Comment/Comment";
+import WeedingTable from "../pages/Weeding/WeedingTable";
 import Label from "../pages/Label/Labels";
 import ViewHiddenContent from "../pages/HiddenContent/ViewHiddenContent";
 import HiddenContent from "../pages/HiddenContent/HiddenContent";
@@ -51,6 +52,7 @@ export default function RouterMap(props) {
         <Route path="/contacts/donate" exact component={Donate} />
         <Route path="/contacts/wechat" exact component={Wechat} />
         <Route path="/comments" exact component={Comment} />
+        <Route path="/weeding-table" exact component={WeedingTable} />
         <Route path="/timelines" exact component={TimelinePage} />
         <Route path="/videos" exact component={Video} />
         <Route path="/videos/upload" exact component={UploadVideo} />
