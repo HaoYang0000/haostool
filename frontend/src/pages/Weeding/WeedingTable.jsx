@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Comment() {
   const classes = useStyles();
   const [tables, setTables] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState([]);
   let name = useRef("");
 
   const formValidation = () => {
@@ -58,11 +58,37 @@ export default function Comment() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (formValidation()) {
+      let output = [];
       for (let index = 0; index < tables?.length; index++) {
-        if (tables[index].pinyin.includes(name.value ) || tables[index].pinyin_full.includes(name.value) || tables[index].people.includes(name.value)){
-          setError(tables[index].name);
+        let fullnameArr = tables[index].pinyin_full.split(" ");
+        let pinyinArr = tables[index].pinyin.split(" ");
+        let chiArr = tables[index].people.split(" ");
+        let tableNames = "";
+        let hit = [];
+        for (let j = 0; j < fullnameArr.length; j++) {
+          if (fullnameArr[j].includes(name.value) && !hit.includes(j)){
+            hit.push(j);
+          }
         }
+        for (let j = 0; j < pinyinArr.length; j++) {
+          if (pinyinArr[j].includes(name.value) && !hit.includes(j)){
+            hit.push(j);
+          }
+        }
+        for (let j = 0; j < chiArr.length; j++) {
+          if (chiArr[j].includes(name.value) && !hit.includes(j)){
+            hit.push(j);
+          }
+        }
+        if (hit.length > 0 ) {
+          tableNames = tables[index].name + ": " ;
+        }
+        for (let j = 0; j < hit.length; j++) {
+          tableNames = tableNames + chiArr[hit[j]] + " "
+        }
+        output.push(tableNames);
       }
+      setError(output);
     };
   }
   useEffect(() => {
@@ -107,9 +133,16 @@ export default function Comment() {
             inputRef={(input) => (name = input)}
           />
           <div style={{ color: "red" }}>
-            <Typography component="h5" variant="h5">
-            {error}
-            </Typography>
+          {
+            <ul>
+                {
+                error?.map((e) => 
+                  <Typography component="h5" variant="h5">
+                  {e}
+                  </Typography>
+                )}
+            </ul>
+          }
           </div>
           <Button
             type="submit"
@@ -127,7 +160,9 @@ export default function Comment() {
                 {
                 tables?.map((table) => 
                 <li key={table?.name}>
+                  <Typography component="h5" variant="h5">
                   {table?.name}: {table?.people}
+                  </Typography>
                 </li>
                 )}
             </ul>
