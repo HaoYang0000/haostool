@@ -103,7 +103,7 @@ def weeding_table_check_get():
     tables_json = []
     table_num = 1
     for i in range(len(tables)):
-        if table_num == 4 or table_num == 14:
+        if table_num == 4 or table_num == 14 or table_num == 24:
             table_num+=1
         tables_json.append({
             "name": f"{table_num}号桌",
