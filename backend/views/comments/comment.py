@@ -111,6 +111,7 @@ def weeding_table_check_get():
             "pinyin": "".join([letter[0] for letter in pinyin(tables[i], style=Style.FIRST_LETTER, strict=False)]),
             "pinyin_full": "".join([letter for letter in lazy_pinyin(tables[i], strict=False)])
         })
+        table_num+=1
     return jsonify(tables_json), 200
 
 # @app.route('/blog', methods=['POST'])
