@@ -101,9 +101,12 @@ def weeding_table_check_get():
         "王铮 俞蔚然 陈乾成 孟雨晴 宋扬 王斌 卫涞 杨松鹤", #23
     ]
     tables_json = []
+    table_num = 1
     for i in range(len(tables)):
+        if table_num == 4 or table_num == 14:
+            table_num+=1
         tables_json.append({
-            "name": f"{i+1}号桌",
+            "name": f"{table_num}号桌",
             "people": tables[i],
             "pinyin": "".join([letter[0] for letter in pinyin(tables[i], style=Style.FIRST_LETTER, strict=False)]),
             "pinyin_full": "".join([letter for letter in lazy_pinyin(tables[i], strict=False)])
